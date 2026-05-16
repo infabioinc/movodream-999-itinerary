@@ -57,7 +57,7 @@ export default function Navbar() {
             <img
               src="/logo.webp"
               alt="Royal Amritsar"
-              style={{ height: "24px", filter: "invert(1) brightness(2)" }}
+              style={{ height: "24px" }}
             />
             <div className="live-dot" style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#EC4899" }} />
           </a>

@@ -10,30 +10,6 @@ import { useMagneticEffect, useTiltEffect } from "@/components/MouseGlow";
 
 // ── Floating HUD Elements ───────────────────────────────────────────────────
 
-function FloatingHUD({ children, index, initialPos }: { children: React.ReactNode, index: number, initialPos: { top?: string, left?: string, right?: string, bottom?: string } }) {
-  const tiltRef = useTiltEffect(15);
-  return (
-    <motion.div
-      ref={tiltRef as React.RefObject<HTMLDivElement>}
-      initial={{ opacity: 0, scale: 0.8, y: 20 }}
-      animate={{ opacity: 1, scale: 1, y: 0 }}
-      transition={{ delay: 1 + index * 0.2, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-      style={{
-        position: "absolute",
-        ...initialPos,
-        zIndex: 20,
-        pointerEvents: "auto",
-        transformStyle: "preserve-3d",
-      }}
-      className="hidden lg:block"
-    >
-      <div className="glass-dark" style={{ padding: "20px", width: "240px", border: "1px solid rgba(255,255,255,0.12)", boxShadow: "0 20px 50px rgba(0,0,0,0.3)" }}>
-        {children}
-      </div>
-    </motion.div>
-  );
-}
-
 // ── Main Hero ────────────────────────────────────────────────────────────────
 
 export default function Hero() {
@@ -77,43 +53,6 @@ export default function Hero() {
 
       <div className="container" style={{ position: "relative", zIndex: 10 }}>
         
-        {/* Floating AI HUDs */}
-        <FloatingHUD index={0} initialPos={{ top: "15%", left: "5%" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "15px" }}>
-            <Activity size={16} color="#EC4899" className="live-dot" />
-            <span style={{ fontSize: "11px", fontWeight: 800, color: "white", letterSpacing: "0.1em" }}>LIVE CROWD DATA</span>
-          </div>
-          {[
-            { n: "Temple", v: 32, c: "#22C55E" },
-            { n: "Border", v: 78, c: "#EF4444" }
-          ].map(s => (
-            <div key={s.n} style={{ marginBottom: "10px" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", fontSize: "10px", color: "rgba(255,255,255,0.5)", marginBottom: "4px" }}>
-                <span>{s.n}</span>
-                <span style={{ color: s.c, fontWeight: 800 }}>{s.v}%</span>
-              </div>
-              <div style={{ height: "2px", background: "rgba(255,255,255,0.1)", borderRadius: "1px", overflow: "hidden" }}>
-                <motion.div initial={{ width: 0 }} animate={{ width: `${s.v}%` }} transition={{ duration: 1, delay: 1.5 }} style={{ height: "100%", background: s.c }} />
-              </div>
-            </div>
-          ))}
-        </FloatingHUD>
-
-        <FloatingHUD index={1} initialPos={{ bottom: "20%", right: "5%" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "12px" }}>
-            <Navigation size={16} color="#3B82F6" />
-            <span style={{ fontSize: "11px", fontWeight: 800, color: "white" }}>SMART ROUTING</span>
-          </div>
-          <div style={{ fontSize: "13px", color: "rgba(255,255,255,0.7)", lineHeight: 1.5 }}>
-            Optimal sequence calculated.<br />
-            <span style={{ color: "#3B82F6", fontWeight: 700 }}>45 mins saved today.</span>
-          </div>
-          <div style={{ marginTop: "12px", borderTop: "1px solid rgba(255,255,255,0.1)", paddingTop: "8px", display: "flex", gap: "8px" }}>
-             <Zap size={12} color="#F59E0B" />
-             <span style={{ fontSize: "9px", color: "#F59E0B", fontWeight: 800 }}>AI OPTIMIZED</span>
-          </div>
-        </FloatingHUD>
-
         {/* ── Main Content ── */}
         <motion.div 
           style={{ opacity, textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center" }}

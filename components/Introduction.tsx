@@ -77,7 +77,7 @@ function HolographicDashboard() {
       }}>
         <img
           src="/dashboard_ui.png"
-          alt="Royal Amritsar Dashboard"
+          alt="MovoDreams Dashboard"
           style={{ width: "100%", height: "auto", display: "block" }}
         />
         <div style={{
@@ -218,7 +218,7 @@ export default function Introduction() {
                   color: "#1F1F24", letterSpacing: "-0.03em", lineHeight: 1.1, marginBottom: "20px",
                 }}
               >
-                Royal Amritsar Is Your{" "}
+                MovoDreams Is Your{" "}
                 <span className="gradient-text">Personal Travel</span>
                 <br />
                 <span style={{ color: "#9CA3AF" }}>Operating System.</span>

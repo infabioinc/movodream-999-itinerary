@@ -32,7 +32,7 @@ function CountUp({ value, duration = 2 }: { value: number | string; duration?: n
 const testimonials = [
   {
     name: "Rahul Sharma", origin: "Delhi", rating: 5, color: "#EC4899",
-    text: "I've visited Amritsar twice before and felt like a tourist both times. With Royal Amritsar, I finally experienced the real city.",
+    text: "I've visited Amritsar twice before and felt like a tourist both times. With MovoDreams, I finally experienced the real city.",
   },
   {
     name: "Priya & Ankit", origin: "Mumbai", rating: 5, color: "#A855F7",

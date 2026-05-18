@@ -189,7 +189,7 @@ function HeroStatCard() {
         </h2>
 
         <p style={{ fontSize: "15px", color: "rgba(255,255,255,0.5)", lineHeight: 1.7, maxWidth: "400px" }}>
-          Here's why — and why Royal Amritsar exists to change that forever.
+          Here's why — and why MovoDreams exists to change that forever.
         </p>
       </div>
 
@@ -319,7 +319,7 @@ export default function Problem() {
             <div style={{ position: "relative", zIndex: 1 }}>
               <div style={{ fontSize: "14px", fontWeight: 700, color: "rgba(255,255,255,0.7)", marginBottom: "8px" }}>The Fix</div>
               <div style={{ fontSize: "22px", fontWeight: 900, color: "white", lineHeight: 1.2, letterSpacing: "-0.02em" }}>
-                Royal Amritsar changes all of this.
+                MovoDreams changes all of this.
               </div>
             </div>
             <a href="#introduction" style={{

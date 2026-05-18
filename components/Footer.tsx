@@ -27,7 +27,7 @@ export default function Footer() {
                <div style={{ maxWidth: "400px" }}>
                   <img
                      src="/logo.webp"
-                     alt="Royal Amritsar"
+                     alt="movodreams"
                      style={{ height: "32px", marginBottom: "24px" }}
                   />
                   <p style={{ fontSize: "15px", color: "rgba(255,255,255,0.4)", lineHeight: 1.8 }}>
@@ -62,8 +62,8 @@ export default function Footer() {
             </div>
 
             {/* POWERED BY */}
-            <div className="mt-5 flex justify-end">
-               <div className="inline-flex items-center gap-2 rounded-lg border border-white/20 bg-white/5 px-3 py-2 transition-all duration-300 hover:bg-white/10">
+            <div className="mt-6 flex justify-end">
+               <div className="inline-flex items-center gap-2 rounded-lg border border-white/20 bg-white/5 px-4 py-3 transition-all duration-300 hover:bg-white/10">
 
                   <a
                      href="https://fabulousmedia.in/"
@@ -73,13 +73,13 @@ export default function Footer() {
                      aria-label="FabulousMedia"
                   >
                      <img
-                        src="/fabulousmedia.webp"
+                        src="/fabulous-logo.png"
                         alt="FabulousMedia"
-                        className="h-3 w-auto"
+                        className="h-4 w-auto"
                      />
                   </a>
 
-                  <span className="h-3 w-px bg-white/30" />
+                  <span className="h-4 w-px bg-white/30" />
 
                   <a
                      href="https://gocommercially.com/"
@@ -89,9 +89,9 @@ export default function Footer() {
                      aria-label="GoCommercially"
                   >
                      <img
-                        src="/gocommercially.webp"
+                        src="/gocommercially-logo.png"
                         alt="GoCommercially"
-                        className="h-3 w-auto"
+                        className="h-4 w-auto"
                      />
                   </a>
 
@@ -127,7 +127,7 @@ export default function Footer() {
             </div>
 
             <div style={{ marginTop: "60px", textAlign: "center", opacity: 0.2 }}>
-               <p style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.05em" }}>© 2025 ROYAL AMRITSAR · MADE FOR THE MODERN EXPLORER</p>
+               <p style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.05em" }}>© 2025 MOVODREAMS · MADE FOR THE MODERN EXPLORER</p>
             </div>
          </div>
 

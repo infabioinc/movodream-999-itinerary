@@ -78,12 +78,12 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             style={{
-              fontSize: "clamp(3.5rem, 10vw, 8.5rem)", fontWeight: 950, color: "white",
-              lineHeight: 0.9, letterSpacing: "-0.05em", marginBottom: "32px"
+              fontSize: "clamp(2.5rem, 7vw, 5.5rem)", fontWeight: 950, color: "white",
+              lineHeight: 1.1, letterSpacing: "-0.05em", marginBottom: "32px"
             }}
           >
-            Explore <span className="gradient-text">Insider</span><br />
-            Amritsar.
+            Explore Amritsar Like An <span className="gradient-text">Insider</span><br />
+             Not Like A Tourist.
           </motion.h1>
 
           <motion.p

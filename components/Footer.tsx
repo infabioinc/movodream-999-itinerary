@@ -27,7 +27,7 @@ export default function Footer() {
                <div style={{ maxWidth: "400px" }}>
                   <img
                      src="/logo.webp"
-                     alt="movodreams"
+                     alt="movodream"
                      style={{ height: "32px", marginBottom: "24px" }}
                   />
                   <p style={{ fontSize: "15px", color: "rgba(255,255,255,0.4)", lineHeight: 1.8 }}>
@@ -127,7 +127,7 @@ export default function Footer() {
             </div>
 
             <div style={{ marginTop: "60px", textAlign: "center", opacity: 0.2 }}>
-               <p style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.05em" }}>© 2025 MOVODREAMS · MADE FOR THE MODERN EXPLORER</p>
+               <p style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.05em" }}>© 2025 MOVODREAM · MADE FOR THE MODERN EXPLORER</p>
             </div>
          </div>
 

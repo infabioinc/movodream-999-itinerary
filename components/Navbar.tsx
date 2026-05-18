@@ -56,7 +56,7 @@ export default function Navbar() {
           <a href="#" style={{ display: "flex", alignItems: "center", gap: "8px", textDecoration: "none" }}>
             <img
               src="/logo.webp"
-              alt="MovoDreams"
+              alt="Movodream"
               style={{ height: "24px", backgroundColor: "white", borderRadius: "999px", padding: "4px" }}
             />
             <div className="live-dot" style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#EC4899" }} />

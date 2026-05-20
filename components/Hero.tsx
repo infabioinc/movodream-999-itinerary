@@ -2,8 +2,8 @@
 
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
-import { 
-  ArrowRight, Sparkles, Navigation, Map, 
+import {
+  ArrowRight, Sparkles, Navigation, Map,
   Users, Zap, Shield, Route, Activity
 } from "lucide-react";
 import { useMagneticEffect, useTiltEffect } from "@/components/MouseGlow";
@@ -16,7 +16,7 @@ export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
   const magneticCTA = useMagneticEffect(0.3);
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
-  
+
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
@@ -52,9 +52,9 @@ export default function Hero() {
       />
 
       <div className="container" style={{ position: "relative", zIndex: 10 }}>
-        
+
         {/* ── Main Content ── */}
-        <motion.div 
+        <motion.div
           style={{ opacity, textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center" }}
         >
           {/* Badge */}
@@ -82,8 +82,8 @@ export default function Hero() {
               lineHeight: 1.1, letterSpacing: "-0.05em", marginBottom: "32px"
             }}
           >
-            Explore Amritsar Like An <span className="gradient-text">Insider</span><br />
-             Not Like A Tourist.
+            Explore Amritsar<br></br><span className="gradient-text">Like An Insider</span><br />
+            Not Like A Tourist.
           </motion.h1>
 
           <motion.p
@@ -121,14 +121,14 @@ export default function Hero() {
             transition={{ delay: 1.2, duration: 1 }}
             style={{ marginTop: "40px", display: "flex", alignItems: "center", gap: "12px" }}
           >
-             <div style={{ display: "flex" }}>
-                {[1,2,3].map(i => (
-                  <div key={i} style={{ width: "32px", height: "32px", borderRadius: "50%", background: "#1F1F24", border: "2px solid #060608", marginLeft: i === 1 ? 0 : "-12px", overflow: "hidden" }}>
-                    <img src={`https://i.pravatar.cc/100?u=${i}`} alt="Avatar" />
-                  </div>
-                ))}
-             </div>
-             <span style={{ fontSize: "13px", color: "rgba(255,255,255,0.4)", fontWeight: 600 }}>Trusted by 2,400+ explorers</span>
+            <div style={{ display: "flex" }}>
+              {[1, 2, 3].map(i => (
+                <div key={i} style={{ width: "32px", height: "32px", borderRadius: "50%", background: "#1F1F24", border: "2px solid #060608", marginLeft: i === 1 ? 0 : "-12px", overflow: "hidden" }}>
+                  <img src={`https://i.pravatar.cc/100?u=${i}`} alt="Avatar" />
+                </div>
+              ))}
+            </div>
+            <span style={{ fontSize: "13px", color: "rgba(255,255,255,0.4)", fontWeight: 600 }}>Trusted by 2,400+ explorers</span>
           </motion.div>
         </motion.div>
 

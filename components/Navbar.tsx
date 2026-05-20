@@ -2,7 +2,7 @@
 
 import { useState, useRef } from "react";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
-import { ArrowRight, Menu, X, Zap } from "lucide-react";
+import { ArrowRight, MoreVertical, X, Zap } from "lucide-react";
 import { useMagneticEffect } from "@/components/MouseGlow";
 
 const navLinks = [
@@ -114,7 +114,7 @@ export default function Navbar() {
               cursor: "pointer",
             }}
           >
-            {mobileOpen ? <X size={18} color="white" /> : <Menu size={18} color="white" />}
+            {mobileOpen ? <X size={18} color="white" /> : <MoreVertical size={18} color="white" />}
           </button>
         </div>
       </motion.nav>

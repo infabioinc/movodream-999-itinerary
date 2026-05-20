@@ -13,36 +13,42 @@ const frustrations = [
     title: "Wasted Hours at Crowded Spots",
     desc: "Thousands of tourists. Long queues. No peaceful moment. No memory worth keeping.",
     stat: "3hrs", statLabel: "avg wait time", color: "#EF4444", accent: "rgba(239,68,68,0.12)",
+    bgImage: "https://images.unsplash.com/photo-1760262492325-96e00b9f4f8d?q=80&w=958&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     icon: Frown,
     title: "Generic Tourist Trap Routes",
     desc: "Google Maps sends everyone to the same 5 places. You miss 40+ hidden gems.",
     stat: "40+", statLabel: "gems missed", color: "#F97316", accent: "rgba(249,115,22,0.12)",
+    bgImage: "https://images.unsplash.com/photo-1705997775810-540a824a916c?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     icon: TrendingDown,
     title: "Overpriced & Underwhelming Food",
     desc: "Tourist-facing restaurants charge 3× prices for half the experience.",
     stat: "3×", statLabel: "inflated prices", color: "#EAB308", accent: "rgba(234,179,8,0.1)",
+    bgImage: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&q=80",
   },
   {
     icon: Clock,
     title: "No Timing Intelligence",
     desc: "Visiting Wagah Border without knowing the ceremony schedule. Missing magic moments.",
     stat: "60%", statLabel: "poorly timed", color: "#3B82F6", accent: "rgba(59,130,246,0.1)",
+    bgImage: "https://images.unsplash.com/photo-1456574808786-d2ba7a6aa654?q=80&w=1044&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     icon: AlertTriangle,
     title: "No Live Travel Updates",
     desc: "Events. Closures. Rush hours. Festival crowds. Zero real-time awareness.",
     stat: "0", statLabel: "live alerts", color: "#A855F7", accent: "rgba(168,85,247,0.1)",
+    bgImage: "https://images.unsplash.com/photo-1668083929205-980ae0ca2d1e?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     icon: XCircle,
     title: "Exhaustion Without Memories",
     desc: "2 days on your feet seeing what every tourist sees — you come home feeling empty.",
     stat: "89%", statLabel: "feel they missed out", color: "#EC4899", accent: "rgba(236,72,153,0.1)",
+    bgImage: "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&q=80",
   },
 ];
 
@@ -71,10 +77,34 @@ function TiltFrustrationCard({ item, index }: { item: typeof frustrations[0]; in
         transformStyle: "preserve-3d",
       }}
     >
+      {/* Background Image */}
+      {item.bgImage && (
+        <div style={{
+          position: "absolute", inset: 0, borderRadius: "28px",
+          backgroundImage: `url(${item.bgImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          opacity: 0.85, // Much more visible
+          pointerEvents: "none",
+          zIndex: 0,
+        }} />
+      )}
+
+      {/* Text protection overlay to keep text readable */}
+      {item.bgImage && (
+        <div style={{
+          position: "absolute", inset: 0, borderRadius: "28px",
+          background: "linear-gradient(to bottom, rgba(255,255,255,0.3), rgba(255,255,255,0.9))",
+          pointerEvents: "none",
+          zIndex: 0,
+        }} />
+      )}
+
       {/* Ambient tint */}
       <div style={{
         position: "absolute", inset: 0, borderRadius: "28px",
-        background: item.accent, pointerEvents: "none",
+        background: item.accent, pointerEvents: "none", zIndex: 0,
+        opacity: 0.5,
       }} />
 
       {/* Floating accent orb */}
@@ -82,7 +112,7 @@ function TiltFrustrationCard({ item, index }: { item: typeof frustrations[0]; in
         position: "absolute", top: "-20px", right: "-20px",
         width: "100px", height: "100px", borderRadius: "50%",
         background: `radial-gradient(circle, ${item.color}20, transparent 70%)`,
-        filter: "blur(20px)", pointerEvents: "none",
+        filter: "blur(20px)", pointerEvents: "none", zIndex: 0,
       }} />
 
       <div style={{ position: "relative", zIndex: 1 }}>
@@ -162,7 +192,26 @@ function HeroStatCard() {
       }} />
 
       {/* Grid overlay */}
-      <div className="grid-overlay" style={{ opacity: 0.4 }} />
+      <div className="grid-overlay" style={{ opacity: 0.4, zIndex: 0 }} />
+
+      {/* Background Image Overlay */}
+      <div style={{
+        position: "absolute", inset: 0,
+        backgroundImage: "url(https://images.unsplash.com/photo-1514222134-b57cbb8ce073?auto=format&fit=crop&q=80)",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        opacity: 0.8,
+        pointerEvents: "none",
+        zIndex: 0,
+      }} />
+
+      {/* Text protection overlay for dark card */}
+      <div style={{
+        position: "absolute", inset: 0,
+        background: "linear-gradient(to right, rgba(15,15,26,0.85) 0%, rgba(15,15,26,0.4) 100%)",
+        pointerEvents: "none",
+        zIndex: 0,
+      }} />
 
       <div style={{ position: "relative", zIndex: 1 }}>
         <div style={{
@@ -314,8 +363,29 @@ export default function Problem() {
             <div style={{
               position: "absolute", top: "-20px", right: "-20px",
               width: "120px", height: "120px", borderRadius: "50%",
-              background: "rgba(255,255,255,0.15)", filter: "blur(30px)", pointerEvents: "none",
+              background: "rgba(255,255,255,0.15)", filter: "blur(30px)", pointerEvents: "none", zIndex: 0,
             }} />
+
+            {/* Background Image Overlay */}
+            <div style={{
+              position: "absolute", inset: 0,
+              backgroundImage: "url(https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&q=80)",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              opacity: 0.8,
+              mixBlendMode: "overlay",
+              pointerEvents: "none",
+              zIndex: 0,
+            }} />
+
+            {/* Text protection overlay for dark pink CTA */}
+            <div style={{
+              position: "absolute", inset: 0,
+              background: "linear-gradient(to bottom, rgba(236,72,153,0.6), rgba(225,29,138,0.95))",
+              pointerEvents: "none",
+              zIndex: 0,
+            }} />
+
             <div style={{ position: "relative", zIndex: 1 }}>
               <div style={{ fontSize: "14px", fontWeight: 700, color: "rgba(255,255,255,0.7)", marginBottom: "8px" }}>The Fix</div>
               <div style={{ fontSize: "22px", fontWeight: 900, color: "white", lineHeight: 1.2, letterSpacing: "-0.02em" }}>

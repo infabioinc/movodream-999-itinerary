@@ -12,36 +12,43 @@ const features = [
     icon: Route, title: "Personalized Smart Itinerary", accent: "#EC4899",
     desc: "Your itinerary isn't generic. It's built around your group size, interests, pace, and travel dates — with day-by-day plans for every hour of your trip.",
     tag: "AI-Powered", type: "mega",
+    bgImage: "https://images.unsplash.com/photo-1514222134-b57cbb8ce073?auto=format&fit=crop&q=80",
   },
   {
     icon: Users, title: "Live Crowd Intelligence", accent: "#3B82F6",
     desc: "Real-time crowd density tracking across all major sites. Know exactly when and where to go for peaceful, beautiful experiences.",
     tag: "Real-Time", type: "medium",
+    bgImage: "https://images.unsplash.com/photo-1583821017783-4333717df070?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     icon: Sparkles, title: "Hidden Gems", accent: "#A855F7",
     desc: "40+ off-the-beaten-path spots, cultural dives, and experiences that only locals know about.",
     tag: "Exclusive", type: "small",
+    bgImage: "https://plus.unsplash.com/premium_photo-1697729441943-f1bffee0b432?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     icon: Utensils, title: "Food Intelligence", accent: "#EF4444",
     desc: "A curated food guide featuring iconic dhabas and hidden street food gems perfectly sequenced for your taste.",
     tag: "Curated", type: "medium",
+    bgImage: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&q=80",
   },
   {
     icon: Zap, title: "Route Optimization", accent: "#F59E0B",
     desc: "AI-optimized routes that minimize travel time and sequence visits for maximum efficiency.",
     tag: "Smart", type: "mega",
+    bgImage: "https://images.unsplash.com/photo-1628272938353-834bc1542aa6?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     icon: Radio, title: "Live Travel Alerts", accent: "#22C55E",
     desc: "Events, closures, and peak hours — you get real-time notifications so your trip adapts dynamically.",
     tag: "Live", type: "small",
+    bgImage: "https://images.unsplash.com/photo-1583031775632-fe05782a79d5?q=80&w=718&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     icon: Clock, title: "Timing Intelligence", accent: "#8B5CF6",
     desc: "Perfect timing for landmarks — sunrise at Golden Temple, ceremony at Wagah Border.",
     tag: "Optimized", type: "small",
+    bgImage: "https://images.unsplash.com/photo-1495364141860-b0d03eccd065?q=80&w=1476&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
 ];
 
@@ -79,12 +86,36 @@ function BentoCard({ feature, index, children }: { feature: typeof features[0]; 
         alignItems: "flex-start",
       }}
     >
+      {/* Background Image Overlay */}
+      {feature.bgImage && (
+        <div style={{
+          position: "absolute", inset: 0,
+          backgroundImage: `url(${feature.bgImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          opacity: 0.85, // Much more visible
+          pointerEvents: "none",
+          zIndex: 0,
+        }} />
+      )}
+
+      {/* Text protection overlay */}
+      {feature.bgImage && (
+        <div style={{
+          position: "absolute", inset: 0,
+          background: "linear-gradient(to bottom, rgba(255,255,255,0.4), rgba(255,255,255,0.95))",
+          pointerEvents: "none",
+          zIndex: 0,
+        }} />
+      )}
+
       {/* Background glow accent */}
       <div style={{
         position: "absolute", top: "-20%", right: "-20%",
         width: "60%", height: "60%", borderRadius: "50%",
         background: `radial-gradient(circle, ${feature.accent}08, transparent 70%)`,
-        filter: "blur(40px)", pointerEvents: "none",
+        filter: "blur(40px)", pointerEvents: "none", zIndex: 0,
+        opacity: 0.8,
       }} />
 
       <div style={{ flex: isMega ? "1 1 50%" : "none", position: "relative", zIndex: 1 }}>
@@ -280,7 +311,7 @@ export default function Features() {
 
         {/* Asymmetrical Bento Grid */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "20px" }} className="bento-container">
-          
+
           {/* Row 1: Mega (Itinerary) + Medium (Crowd) */}
           <BentoCard feature={features[0]} index={0}>
             <ItineraryPreview />
@@ -316,15 +347,37 @@ export default function Features() {
               border: "1px solid rgba(255,255,255,0.06)",
               boxShadow: "0 20px 80px rgba(0,0,0,0.2)",
               marginTop: "20px",
+              position: "relative",
+              overflow: "hidden",
             }}
           >
-            <div style={{ fontSize: "18px", fontWeight: 700, color: "white", marginBottom: "16px" }}>
+            {/* Background Image Overlay */}
+            <div style={{
+              position: "absolute", inset: 0,
+              backgroundImage: "url(https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&q=80)",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              opacity: 0.8,
+              mixBlendMode: "overlay",
+              pointerEvents: "none",
+              zIndex: 0,
+            }} />
+
+            {/* Text protection overlay for dark final CTA */}
+            <div style={{
+              position: "absolute", inset: 0,
+              background: "linear-gradient(to bottom, rgba(20,20,32,0.6) 0%, rgba(15,15,26,0.9) 100%)",
+              pointerEvents: "none",
+              zIndex: 0,
+            }} />
+
+            <div style={{ position: "relative", zIndex: 1, fontSize: "18px", fontWeight: 700, color: "white", marginBottom: "16px" }}>
               And 12+ other pro features built for the modern traveler.
             </div>
             <motion.a
               href="#pricing"
               className="btn-primary"
-              style={{ padding: "14px 32px", fontSize: "15px" }}
+              style={{ padding: "14px 32px", fontSize: "15px", position: "relative", zIndex: 1 }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >

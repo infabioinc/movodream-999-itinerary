@@ -33,22 +33,27 @@ const testimonials = [
   {
     name: "Rahul Sharma", origin: "Delhi", rating: 5, color: "#EC4899",
     text: "I've visited Amritsar twice before and felt like a tourist both times. With Movodream, I finally experienced the real city.",
+    avatar: "https://i.pravatar.cc/150?img=11"
   },
   {
     name: "Priya & Ankit", origin: "Mumbai", rating: 5, color: "#A855F7",
     text: "Watching sunrise at Golden Temple with no crowds felt like a movie scene. The itinerary was so thoughtful.",
+    avatar: "https://i.pravatar.cc/150?img=32"
   },
   {
     name: "Meena Iyer", origin: "Bangalore", rating: 5, color: "#3B82F6",
     text: "Traveled with 3 kids. The family-optimized route was brilliant — educational, fun, and manageable.",
+    avatar: "https://i.pravatar.cc/150?img=5"
   },
   {
     name: "Vikram Nair", origin: "Pune", rating: 5, color: "#F59E0B",
     text: "The hidden gems section blew my mind. Places I'd never have found on my own — forgotten havelis.",
+    avatar: "https://i.pravatar.cc/150?img=12"
   },
   {
     name: "Deepika", origin: "Chennai", rating: 5, color: "#EC4899",
     text: "₹999 for something this premium? Felt like we had a local guide with us the entire time. Live updates are a lifesaver.",
+    avatar: "https://i.pravatar.cc/150?img=9"
   },
 ];
 
@@ -74,9 +79,11 @@ function TestimonialCard({ t, index, rotate }: { t: typeof testimonials[0]; inde
         &ldquo;{t.text}&rdquo;
       </p>
       <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-        <div style={{ width: "40px", height: "40px", borderRadius: "50%", background: `linear-gradient(135deg, ${t.color}, ${t.color}88)`, display: "flex", alignItems: "center", justifyContent: "center", color: "white", fontWeight: 800 }}>
-          {t.name[0]}
-        </div>
+        <img 
+          src={t.avatar} 
+          alt={t.name}
+          style={{ width: "40px", height: "40px", borderRadius: "50%", objectFit: "cover", border: `2px solid ${t.color}` }} 
+        />
         <div>
           <div style={{ fontSize: "14px", fontWeight: 700, color: "#1F1F24" }}>{t.name}</div>
           <div style={{ fontSize: "12px", color: "#6B7280" }}>{t.origin}</div>

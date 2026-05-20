@@ -52,7 +52,7 @@ export default function LoadingScreen() {
               <img
                 src="/logo.webp"
                 alt="Movodream"
-                style={{ height: "48px", filter: "invert(1) brightness(2)" }}
+                style={{ height: "48px" }}
               />
             </motion.div>
 

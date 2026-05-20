@@ -7,10 +7,10 @@ import { Heart, Users, User, UsersRound, Sparkles, MapPin } from "lucide-react";
 
 const personas = [
   {
-    icon: Heart, title: "Couples", subtitle: "Romantic Escapes",
+    icon: Heart, title: "Couples",
     desc: "Morning prayers at Golden Temple, candlelit heritage dinners, and shared moments at hidden gems.",
-    tags: ["Romantic Routes", "Sunset Spots", "Private Dining"],
-    accent: "#EC4899", image: "/persona_couple.jpg",
+    tags: ["Sunset Spots", "Private Dining"],
+    accent: "#EC4899", image: "/persona_couple2.jpg",
     pos: { top: "0", left: "0", width: "45%" }
   },
   {
@@ -31,7 +31,7 @@ const personas = [
     icon: UsersRound, title: "Friend Squads", subtitle: "Epic Shared Trips",
     desc: "Vibrant food trails, Wagah ceremonies, rooftop parties in heritage havelis, and spiritual dives.",
     tags: ["Group Perks", "Nightlife", "Shared Moments"],
-    accent: "#22C55E", image: "/persona_friends.png",
+    accent: "#22C55E", image: "/persona_friends.jpg",
     pos: { top: "640px", right: "5%", width: "44%" }
   },
 ];
@@ -72,7 +72,7 @@ function PersonaCard({ persona, index }: { persona: typeof personas[0]; index: n
       {/* Cinematic Gradient Overlay */}
       <div style={{
         position: "absolute", inset: 0,
-        background: "linear-gradient(to top, rgba(6,6,8,0.95) 0%, rgba(6,6,8,0.4) 50%, transparent 100%)",
+        background: "linear-gradient(to top, rgba(6,6,8,0.98) 0%, rgba(6,6,8,0.8) 40%, rgba(6,6,8,0.2) 100%)",
       }} />
 
       {/* Content Layer (elevated via preserve-3d) */}
@@ -92,7 +92,7 @@ function PersonaCard({ persona, index }: { persona: typeof personas[0]; index: n
         </div>
 
         <div style={{ marginBottom: "16px" }}>
-          <div style={{ fontSize: "11px", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.1em", color: "rgba(255,255,255,0.5)", marginBottom: "4px" }}>
+          <div style={{ fontSize: "11px", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.1em", color: "rgba(255,255,255,0.9)", marginBottom: "4px" }}>
             {persona.subtitle}
           </div>
           <h3 style={{ fontSize: "32px", fontWeight: 900, color: "white", letterSpacing: "-0.02em", lineHeight: 1 }}>
@@ -100,7 +100,7 @@ function PersonaCard({ persona, index }: { persona: typeof personas[0]; index: n
           </h3>
         </div>
 
-        <p style={{ fontSize: "15px", color: "rgba(255,255,255,0.7)", lineHeight: 1.6, marginBottom: "24px", maxWidth: "90%" }}>
+        <p style={{ fontSize: "15px", color: "rgba(255,255,255,0.95)", fontWeight: 500, lineHeight: 1.6, marginBottom: "24px", maxWidth: "90%" }}>
           {persona.desc}
         </p>
 

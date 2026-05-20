@@ -38,6 +38,8 @@ const comparisonData = {
     "Discover 40+ exclusive hidden gems",
     "Efficient routes & smart pacing",
     "Legendary food spots perfectly curated",
+    "Priority support(call) during the journey",
+    "Expert-backed verified recommendations and insights",
   ]
 };
 
@@ -94,7 +96,7 @@ export default function Value() {
             transition={{ delay: 0.2 }}
             style={{ fontSize: "18px", color: "rgba(255,255,255,0.5)", maxWidth: "560px", margin: "0 auto", lineHeight: 1.7 }}
           >
-            Bad travel decisions — tourist traps, poor timing, and wasted routes — have a hidden cost. MovoDream pays for itself by Day 1.
+            Bad travel decisions — tourist traps, poor timing, and wasted routes — have a hidden cost. Movodream pays for itself by Day 1.
           </motion.p>
         </div>
 
@@ -148,7 +150,7 @@ export default function Value() {
               <div style={{ width: "40px", height: "40px", borderRadius: "12px", background: "rgba(34,197,94,0.15)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <Check size={20} color="#22C55E" />
               </div>
-              <span style={{ fontSize: "16px", fontWeight: 800, color: "white" }}>With MovoDream</span>
+              <span style={{ fontSize: "16px", fontWeight: 800, color: "white" }}>With Movodream</span>
             </div>
             {comparisonData.with.map((item, i) => (
               <div key={i} style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "16px" }}>
@@ -184,7 +186,7 @@ export default function Value() {
           <div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at center, rgba(236,72,153,0.05), transparent)" }} />
           <div style={{ position: "relative", zIndex: 1 }}>
             <div style={{ fontSize: "14px", fontWeight: 800, color: "rgba(255,255,255,0.4)", letterSpacing: "0.2em", marginBottom: "32px" }}>
-              LIFETIME ACCESS TRIPPASS
+
             </div>
 
             <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "24px", marginBottom: "40px" }}>
@@ -198,7 +200,7 @@ export default function Value() {
             </div>
 
             <p style={{ fontSize: "18px", color: "rgba(255,255,255,0.5)", maxWidth: "480px", margin: "0 auto 48px", lineHeight: 1.7 }}>
-              One payment. Zero hidden fees. Lifetime travel intelligence for your entire trip to Amritsar.
+              One payment. Zero hidden fees. Best travel intelligence for your entire trip to Amritsar.
             </p>
 
             <div style={{ display: "flex", justifyContent: "center", gap: "20px", flexWrap: "wrap" }}>

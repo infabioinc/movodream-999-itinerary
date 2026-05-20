@@ -20,7 +20,7 @@ const frustrations = [
     title: "Generic Tourist Trap Routes",
     desc: "Google Maps sends everyone to the same 5 places. You miss 40+ hidden gems.",
     stat: "40+", statLabel: "gems missed", color: "#F97316", accent: "rgba(249,115,22,0.12)",
-    bgImage: "https://images.unsplash.com/photo-1705997775810-540a824a916c?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    bgImage: "https://images.tribuneindia.com/cms/gall_content/2019/5/2019_5$largeimg02_Thursday_2019_080646894.jpg",
   },
   {
     icon: TrendingDown,
@@ -48,7 +48,7 @@ const frustrations = [
     title: "Exhaustion Without Memories",
     desc: "2 days on your feet seeing what every tourist sees — you come home feeling empty.",
     stat: "89%", statLabel: "feel they missed out", color: "#EC4899", accent: "rgba(236,72,153,0.1)",
-    bgImage: "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&q=80",
+    bgImage: "https://www.trawell.in/admin/images/upload/294499336Partition_Museum.jpg",
   },
 ];
 
@@ -94,7 +94,7 @@ function TiltFrustrationCard({ item, index }: { item: typeof frustrations[0]; in
       {item.bgImage && (
         <div style={{
           position: "absolute", inset: 0, borderRadius: "28px",
-          background: "linear-gradient(to bottom, rgba(255,255,255,0.3), rgba(255,255,255,0.9))",
+          background: "linear-gradient(to bottom, rgba(255,255,255,0.7), rgba(255,255,255,0.98))",
           pointerEvents: "none",
           zIndex: 0,
         }} />
@@ -134,7 +134,7 @@ function TiltFrustrationCard({ item, index }: { item: typeof frustrations[0]; in
         <h3 style={{ fontSize: "17px", fontWeight: 800, color: "#1F1F24", marginBottom: "10px", lineHeight: 1.3, letterSpacing: "-0.01em" }}>
           {item.title}
         </h3>
-        <p style={{ fontSize: "13px", color: "#6B7280", lineHeight: 1.7 }}>
+        <p style={{ fontSize: "14px", color: "#374151", fontWeight: 500, lineHeight: 1.7 }}>
           {item.desc}
         </p>
 
@@ -369,7 +369,7 @@ export default function Problem() {
             {/* Background Image Overlay */}
             <div style={{
               position: "absolute", inset: 0,
-              backgroundImage: "url(https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&q=80)",
+              backgroundImage: "url(https://images.unsplash.com/photo-1659763344736-7ea8ed3d1f5e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8d2FnYWglMjBib3JkZXJ8ZW58MHwwfDB8fHww)",
               backgroundSize: "cover",
               backgroundPosition: "center",
               opacity: 0.8,

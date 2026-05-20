@@ -38,7 +38,7 @@ export default function Hero() {
     >
       {/* Cinematic Background Layer */}
       <motion.div style={{ position: "absolute", inset: 0, zIndex: 0, y, scale, filter: `blur(${blur})` }}>
-        <img src="/hero_map.png" alt="Golden Temple Night" style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.6 }} />
+        <img src="/hero.avif" alt="Golden Temple Night" style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.6 }} />
         <div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at center, transparent 0%, rgba(6,6,8,0.8) 100%)" }} />
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 60%, #060608 100%)" }} />
       </motion.div>
@@ -90,9 +90,9 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            style={{ fontSize: "clamp(1.1rem, 2vw, 1.4rem)", color: "rgba(255,255,255,0.5)", maxWidth: "800px", lineHeight: 1.6, marginBottom: "48px" }}
+            style={{ fontSize: "clamp(1.1rem, 2vw, 1.4rem)", color: "rgba(255, 255, 255, 1)", maxWidth: "800px", lineHeight: 1.6, marginBottom: "48px" }}
           >
-            The first premium AI system built to eliminate the tourist <span style={{ color: "#EC4899", fontWeight: 700 }}>experience</span>.<br />
+            The first premium AI system built to enhance the tourist <span style={{ color: "#EC4899", fontWeight: 700 }}>experience</span>.<br />
             Personalized itineraries. Real-time crowd data. Hidden gems.
           </motion.p>
 

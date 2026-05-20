@@ -50,6 +50,18 @@ const features = [
     tag: "Optimized", type: "small",
     bgImage: "https://images.unsplash.com/photo-1495364141860-b0d03eccd065?q=80&w=1476&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
+  {
+    icon: Shield, title: "Priority Support", accent: "#F43F5E",
+    desc: "Direct access to our expert team for real-time priority support (call) during your journey.",
+    tag: "Support", type: "mega",
+    bgImage: "https://images.unsplash.com/photo-1528747045269-390fe33c19f2?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+  {
+    icon: BarChart3, title: "Verified Recommendations", accent: "#0EA5E9",
+    desc: "Expert-backed verified recommendations and insights.",
+    tag: "Expert", type: "small",
+    bgImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1415&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
 ];
 
 // ── Components ────────────────────────────────────────────────────────────────
@@ -103,7 +115,7 @@ function BentoCard({ feature, index, children }: { feature: typeof features[0]; 
       {feature.bgImage && (
         <div style={{
           position: "absolute", inset: 0,
-          background: "linear-gradient(to bottom, rgba(255,255,255,0.4), rgba(255,255,255,0.95))",
+          background: "linear-gradient(to bottom, rgba(255,255,255,0.85), rgba(255,255,255,0.98))",
           pointerEvents: "none",
           zIndex: 0,
         }} />
@@ -139,7 +151,7 @@ function BentoCard({ feature, index, children }: { feature: typeof features[0]; 
         <h3 style={{ fontSize: isMega ? "28px" : "20px", fontWeight: 900, color: "#1F1F24", marginBottom: "12px", letterSpacing: "-0.02em", lineHeight: 1.2 }}>
           {feature.title}
         </h3>
-        <p style={{ fontSize: "15px", color: "#6B7280", lineHeight: 1.7, marginBottom: isMega ? "0" : "0" }}>
+        <p style={{ fontSize: "15px", color: "#374151", fontWeight: 500, lineHeight: 1.7, marginBottom: isMega ? "0" : "0" }}>
           {feature.desc}
         </p>
       </div>
@@ -190,8 +202,8 @@ function CrowdStatus() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
       {[
-        { l: "Golden Temple", v: 30, c: "#22C55E" },
-        { l: "Jallianwala Bagh", v: 85, c: "#EF4444" },
+        { l: "Golden Temple", v: 80, c: "#22C55E" },
+        { l: "Jallianwala Bagh", v: 60, c: "#EF4444" },
       ].map((s, i) => (
         <div key={i} style={{ background: "rgba(0,0,0,0.02)", borderRadius: "12px", padding: "12px", border: "1px solid rgba(0,0,0,0.04)" }}>
           <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "6px" }}>
@@ -332,6 +344,10 @@ export default function Features() {
           <BentoCard feature={features[2]} index={2} />
           <BentoCard feature={features[5]} index={5} />
           <BentoCard feature={features[6]} index={6} />
+
+          {/* Row 4: Support & Insights */}
+          <BentoCard feature={features[7]} index={7} />
+          <BentoCard feature={features[8]} index={8} />
 
           {/* Bonus Final Card */}
           <motion.div

@@ -12,6 +12,8 @@ const benefits = [
   "Route Optimization",
   "Food Guide",
   "Live Travel Alerts",
+  "Priority Support",
+  "Authentic and verified recommendations",
 ];
 
 export default function FinalCTA() {
@@ -40,13 +42,13 @@ export default function FinalCTA() {
       <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, #060608 0%, transparent 50%, #060608 100%)" }} />
 
       <div className="container" style={{ position: "relative", zIndex: 10, textAlign: "center" }}>
-        
+
         {/* Floating Icons decoration */}
         <motion.div animate={{ y: [0, -20, 0] }} transition={{ duration: 5, repeat: Infinity }} style={{ position: "absolute", top: "-40px", left: "10%", opacity: 0.2 }}>
-           <Sparkles size={60} color="#EC4899" />
+          <Sparkles size={60} color="#EC4899" />
         </motion.div>
         <motion.div animate={{ y: [0, 20, 0] }} transition={{ duration: 6, repeat: Infinity, delay: 1 }} style={{ position: "absolute", bottom: "-40px", right: "10%", opacity: 0.2 }}>
-           <Star size={80} color="#FBBF24" fill="#FBBF24" />
+          <Star size={80} color="#FBBF24" fill="#FBBF24" />
         </motion.div>
 
         <motion.div
@@ -73,8 +75,8 @@ export default function FinalCTA() {
             lineHeight: 1, marginBottom: "32px",
           }}
         >
-          Stop Dreaming.<br />
-          <span className="gradient-text">Start Exploring.</span>
+          Ditch the Crowds.<br />
+          <span className="gradient-text">Discover the Magic.</span>
         </motion.h2>
 
         <motion.p
@@ -108,34 +110,34 @@ export default function FinalCTA() {
 
         {/* Big CTA */}
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "32px" }}>
-           <div style={{ display: "flex", alignItems: "center", gap: "24px" }}>
-              <span style={{ fontSize: "80px", fontWeight: 950, color: "white", letterSpacing: "-0.05em", lineHeight: 1 }}>₹999</span>
-              <div style={{ textAlign: "left" }}>
-                <div style={{ fontSize: "24px", color: "rgba(255,255,255,0.2)", textDecoration: "line-through", fontWeight: 800 }}>₹4,999</div>
-                <div style={{ fontSize: "14px", color: "#22C55E", fontWeight: 900 }}>80% OFF — ACCESS REVEALED</div>
-              </div>
-           </div>
+          <div style={{ display: "flex", alignItems: "center", gap: "24px" }}>
+            <span style={{ fontSize: "80px", fontWeight: 950, color: "white", letterSpacing: "-0.05em", lineHeight: 1 }}>₹999</span>
+            <div style={{ textAlign: "left" }}>
+              <div style={{ fontSize: "24px", color: "rgba(255,255,255,0.2)", textDecoration: "line-through", fontWeight: 800 }}>₹4,999</div>
+              <div style={{ fontSize: "14px", color: "#22C55E", fontWeight: 900 }}>80% OFF — ACCESS REVEALED</div>
+            </div>
+          </div>
 
-           <motion.div ref={magneticCTA as React.RefObject<HTMLDivElement>}>
-             <motion.a
-               href="#"
-               className="btn-primary"
-               style={{ padding: "24px 64px", fontSize: "20px", fontWeight: 950, borderRadius: "24px", boxShadow: "0 20px 80px rgba(236,72,153,0.4)" }}
-               whileHover={{ scale: 1.05 }}
-               whileTap={{ scale: 0.95 }}
-             >
-               GET INSTANT ACCESS <ArrowRight size={24} strokeWidth={3} />
-             </motion.a>
-           </motion.div>
+          <motion.div ref={magneticCTA as React.RefObject<HTMLDivElement>}>
+            <motion.a
+              href="#"
+              className="btn-primary"
+              style={{ padding: "24px 64px", fontSize: "20px", fontWeight: 950, borderRadius: "24px", boxShadow: "0 20px 80px rgba(236,72,153,0.4)" }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              GET INSTANT ACCESS <ArrowRight size={24} strokeWidth={3} />
+            </motion.a>
+          </motion.div>
 
-           <div style={{ display: "flex", gap: "24px", opacity: 0.4 }}>
-             <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "12px", fontWeight: 700, color: "white" }}>
-                <Shield size={14} /> SECURE PAYMENT
-             </div>
-             <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "12px", fontWeight: 700, color: "white" }}>
-                <Clock size={14} /> 24/7 SUPPORT
-             </div>
-           </div>
+          <div style={{ display: "flex", gap: "24px", opacity: 0.4 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "12px", fontWeight: 700, color: "white" }}>
+              <Shield size={14} /> SECURE PAYMENT
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "12px", fontWeight: 700, color: "white" }}>
+              <Clock size={14} /> 24/7 SUPPORT
+            </div>
+          </div>
         </div>
       </div>
     </section>

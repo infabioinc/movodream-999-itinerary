@@ -76,7 +76,7 @@ function HolographicDashboard() {
         position: "relative",
       }}>
         <img
-          src="/dashboard_ui.png"
+          src="/dashboard_ui1.png"
           alt="Movodream Dashboard"
           style={{ width: "100%", height: "auto", display: "block" }}
         />
@@ -110,9 +110,9 @@ function HolographicDashboard() {
           <span style={{ fontSize: "11px", fontWeight: 700, color: "#374151" }}>Live Crowd Intel</span>
         </div>
         {[
-          { label: "Golden Temple", pct: 25, color: "#22C55E" },
-          { label: "Wagah Border", pct: 75, color: "#F59E0B" },
-          { label: "Gobindgarh Fort", pct: 90, color: "#EF4444" },
+          { label: "Golden Temple", pct: 90, color: "#22C55E" },
+          { label: "Wagah Border", pct: 70, color: "#F59E0B" },
+          { label: "Gobindgarh Fort", pct: 50, color: "#EF4444" },
         ].map(s => (
           <div key={s.label} style={{ marginBottom: "6px" }}>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "3px" }}>

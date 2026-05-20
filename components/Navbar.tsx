@@ -23,8 +23,7 @@ export default function Navbar() {
   const magneticCTA = useMagneticEffect(0.2);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    const prev = scrollY.getPrevious() ?? 0;
-    setHidden(latest > prev && latest > 120);
+    setHidden(false);
     setScrolled(latest > 20);
   });
 

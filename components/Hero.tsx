@@ -65,7 +65,7 @@ export default function Hero() {
             style={{
               padding: "8px 20px", borderRadius: "100px", background: "rgba(255,255,255,0.05)",
               border: "1px solid rgba(255,255,255,0.12)", backdropFilter: "blur(20px)",
-              display: "flex", alignItems: "center", gap: "10px", marginBottom: "40px"
+              display: "flex", alignItems: "center", gap: "10px", marginBottom: "20px"
             }}
           >
             <div className="live-dot" style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#EC4899" }} />
@@ -90,9 +90,9 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            style={{ fontSize: "clamp(1.1rem, 2vw, 1.4rem)", color: "rgba(255,255,255,0.5)", maxWidth: "700px", lineHeight: 1.6, marginBottom: "48px" }}
+            style={{ fontSize: "clamp(1.1rem, 2vw, 1.4rem)", color: "rgba(255,255,255,0.5)", maxWidth: "800px", lineHeight: 1.6, marginBottom: "48px" }}
           >
-            The first premium AI system built to eliminate the tourist experience.<br />
+            The first premium AI system built to eliminate the tourist <span style={{ color: "#EC4899", fontWeight: 700 }}>experience</span>.<br />
             Personalized itineraries. Real-time crowd data. Hidden gems.
           </motion.p>
 
@@ -110,7 +110,7 @@ export default function Hero() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              Get Royal Access <ArrowRight size={20} strokeWidth={3} />
+              Unlock Amritsar Plan<ArrowRight size={20} strokeWidth={3} />
             </motion.a>
           </motion.div>
 

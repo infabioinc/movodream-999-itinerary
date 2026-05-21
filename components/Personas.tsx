@@ -31,7 +31,7 @@ const personas = [
     icon: UsersRound, title: "Friend Squads", subtitle: "Epic Shared Trips",
     desc: "Vibrant food trails, Wagah ceremonies, rooftop parties in heritage havelis, and spiritual dives.",
     tags: ["Group Perks", "Nightlife", "Shared Moments"],
-    accent: "#22C55E", image: "/persona_friends.jpg",
+    accent: "#22C55E", image: "/persona_friends.webp",
     pos: { top: "640px", right: "5%", width: "44%" }
   },
 ];

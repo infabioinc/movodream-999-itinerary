@@ -10,7 +10,7 @@ const personas = [
     icon: Heart, title: "Couples",
     desc: "Morning prayers at Golden Temple, candlelit heritage dinners, and shared moments at hidden gems.",
     tags: ["Sunset Spots", "Private Dining"],
-    accent: "#EC4899", image: "/persona_couple2.jpg",
+    accent: "#EC4899", image: "/persona_couple.jpg",
     pos: { top: "0", left: "0", width: "45%" }
   },
   {

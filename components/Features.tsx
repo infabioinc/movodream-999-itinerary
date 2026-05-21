@@ -52,7 +52,7 @@ const features = [
   },
   {
     icon: Shield, title: "Priority Support", accent: "#F43F5E",
-    desc: "Direct access to our expert team for real-time priority support (call) during your journey.",
+    desc: "Direct access to our expert team for real-time priority support (call) during your journey in case of emergency,we will provide physical human support on ground.",
     tag: "Support", type: "mega",
     bgImage: "https://images.unsplash.com/photo-1528747045269-390fe33c19f2?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },

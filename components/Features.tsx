@@ -388,7 +388,7 @@ export default function Features() {
             }} />
 
             <div style={{ position: "relative", zIndex: 1, fontSize: "18px", fontWeight: 700, color: "white", marginBottom: "16px" }}>
-              And 12+ other pro features built for the modern traveler.
+              Get insights from the local gurus.
             </div>
             <motion.a
               href="#pricing"

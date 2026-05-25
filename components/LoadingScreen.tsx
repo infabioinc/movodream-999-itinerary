@@ -7,18 +7,20 @@ export default function LoadingScreen() {
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(0);
 
-  const timeoutRef = useRef(null);
+  // FIXED TYPE
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setProgress((prev) => {
-        // Prevent values above 100
-        const nextProgress = Math.min(prev + Math.random() * 15, 100);
+        const nextProgress = Math.min(
+          prev + Math.random() * 15,
+          100
+        );
 
         if (nextProgress >= 100) {
           clearInterval(interval);
 
-          // Smooth exit delay
           timeoutRef.current = setTimeout(() => {
             setLoading(false);
           }, 500);

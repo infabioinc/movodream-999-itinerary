@@ -18,8 +18,8 @@ const frustrations = [
   {
     icon: Frown,
     title: "Generic Tourist Trap Routes",
-    desc: "Google Maps sends everyone to the same 5 places. You miss 40+ hidden gems.",
-    stat: "40+", statLabel: "gems missed", color: "#F97316", accent: "rgba(249,115,22,0.12)",
+    desc: "Google Maps sends everyone to the same 5 places. You miss multiple hidden gems.",
+    statLabel: "gems missed", color: "#F97316", accent: "rgba(249,115,22,0.12)",
     bgImage: "https://images.tribuneindia.com/cms/gall_content/2019/5/2019_5$largeimg02_Thursday_2019_080646894.jpg",
   },
   {
@@ -66,11 +66,11 @@ function TiltFrustrationCard({ item, index }: { item: typeof frustrations[0]; in
       viewport={{ once: true, margin: "-60px" }}
       transition={{ delay: index * 0.07, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       style={{
-        background: "white",
+        background: "linear-gradient(135deg, #0C0C14 0%, #141422 100%)",
         borderRadius: "28px",
         padding: "32px",
-        border: "1px solid rgba(0,0,0,0.06)",
-        boxShadow: "0 4px 30px rgba(0,0,0,0.06)",
+        border: "1px solid rgba(255,255,255,0.08)",
+        boxShadow: "0 20px 50px rgba(0,0,0,0.5)",
         position: "relative",
         overflow: "hidden",
         cursor: "pointer",
@@ -84,34 +84,34 @@ function TiltFrustrationCard({ item, index }: { item: typeof frustrations[0]; in
           backgroundImage: `url(${item.bgImage})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
-          opacity: 0.85, // Much more visible
+          opacity: 0.95, // Fully crisp and clear
           pointerEvents: "none",
           zIndex: 0,
         }} />
       )}
 
-      {/* Text protection overlay to keep text readable */}
+      {/* Dark Text protection overlay - Fading to show image clearly at bottom */}
       {item.bgImage && (
         <div style={{
           position: "absolute", inset: 0, borderRadius: "28px",
-          background: "linear-gradient(to bottom, rgba(255,255,255,0.7), rgba(255,255,255,0.98))",
+          background: "linear-gradient(to bottom, rgba(12,12,20,0.92) 0%, rgba(12,12,20,0.72) 50%, rgba(12,12,20,0.2) 100%)",
           pointerEvents: "none",
           zIndex: 0,
         }} />
       )}
 
-      {/* Ambient tint */}
+      {/* Ambient tint - gradient at the bottom rather than an overall film */}
       <div style={{
         position: "absolute", inset: 0, borderRadius: "28px",
-        background: item.accent, pointerEvents: "none", zIndex: 0,
-        opacity: 0.5,
+        background: `linear-gradient(to bottom, transparent, ${item.color}12)`,
+        pointerEvents: "none", zIndex: 0,
       }} />
 
       {/* Floating accent orb */}
       <div style={{
         position: "absolute", top: "-20px", right: "-20px",
         width: "100px", height: "100px", borderRadius: "50%",
-        background: `radial-gradient(circle, ${item.color}20, transparent 70%)`,
+        background: `radial-gradient(circle, ${item.color}25, transparent 70%)`,
         filter: "blur(20px)", pointerEvents: "none", zIndex: 0,
       }} />
 
@@ -120,21 +120,21 @@ function TiltFrustrationCard({ item, index }: { item: typeof frustrations[0]; in
         <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: "20px" }}>
           <div style={{
             width: "52px", height: "52px", borderRadius: "16px",
-            backgroundColor: item.accent, border: `1px solid ${item.color}20`,
+            backgroundColor: `${item.color}15`, border: `1px solid ${item.color}30`,
             display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
           }}>
             <Icon size={22} style={{ color: item.color }} />
           </div>
           <div style={{ textAlign: "right" }}>
             <div style={{ fontSize: "30px", fontWeight: 900, color: item.color, lineHeight: 1 }}>{item.stat}</div>
-            <div style={{ fontSize: "10px", color: "#9CA3AF", marginTop: "2px", fontWeight: 500 }}>{item.statLabel}</div>
+            <div style={{ fontSize: "10px", color: "rgba(255,255,255,0.4)", marginTop: "2px", fontWeight: 500 }}>{item.statLabel}</div>
           </div>
         </div>
 
-        <h3 style={{ fontSize: "17px", fontWeight: 800, color: "#1F1F24", marginBottom: "10px", lineHeight: 1.3, letterSpacing: "-0.01em" }}>
+        <h3 style={{ fontSize: "17px", fontWeight: 800, color: "white", marginBottom: "10px", lineHeight: 1.3, letterSpacing: "-0.01em" }}>
           {item.title}
         </h3>
-        <p style={{ fontSize: "14px", color: "#374151", fontWeight: 500, lineHeight: 1.7 }}>
+        <p style={{ fontSize: "14px", color: "rgba(255,255,255,0.7)", fontWeight: 500, lineHeight: 1.7 }}>
           {item.desc}
         </p>
 
@@ -200,7 +200,7 @@ function HeroStatCard() {
         backgroundImage: "url(https://images.unsplash.com/photo-1514222134-b57cbb8ce073?auto=format&fit=crop&q=80)",
         backgroundSize: "cover",
         backgroundPosition: "center",
-        opacity: 0.8,
+        opacity: 0.95, // Clear and visible
         pointerEvents: "none",
         zIndex: 0,
       }} />
@@ -243,7 +243,7 @@ function HeroStatCard() {
       </div>
 
       <div style={{ display: "flex", gap: "24px", position: "relative", zIndex: 1 }}>
-        {[{ n: "2,400+", l: "Travelers saved" }, { n: "40+", l: "Hidden gems" }, { n: "4.9★", l: "Average rating" }].map(s => (
+        {[{ n: "2,400+", l: "Travelers saved" }].map(s => (
           <div key={s.l}>
             <div style={{ fontSize: "22px", fontWeight: 900, color: "white" }}>{s.n}</div>
             <div style={{ fontSize: "11px", color: "rgba(255,255,255,0.4)", marginTop: "2px" }}>{s.l}</div>
@@ -372,7 +372,7 @@ export default function Problem() {
               backgroundImage: "url(https://images.unsplash.com/photo-1659763344736-7ea8ed3d1f5e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8d2FnYWglMjBib3JkZXJ8ZW58MHwwfDB8fHww)",
               backgroundSize: "cover",
               backgroundPosition: "center",
-              opacity: 0.8,
+              opacity: 0.95, // Clear and visible
               mixBlendMode: "overlay",
               pointerEvents: "none",
               zIndex: 0,

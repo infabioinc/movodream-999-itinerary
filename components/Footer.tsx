@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Globe2, Camera, Mail, Shield, Zap, Info } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useMagneticEffect } from "@/components/MouseGlow";
 
 const footerLinks = [
@@ -25,11 +25,13 @@ export default function Footer() {
             <div style={{ display: "grid", gridTemplateColumns: "1.5fr 1fr 1fr", gap: "60px", marginBottom: "80px" }} className="footer-top">
 
                <div style={{ maxWidth: "400px" }}>
-                  <img
-                     src="/logo.webp"
-                     alt="movodream"
-                     style={{ height: "32px", marginBottom: "24px" }}
-                  />
+                  <a href="#overview" style={{ display: "inline-block" }}>
+                     <img
+                        src="/logo.webp"
+                        alt="movodream"
+                        style={{ height: "32px", marginBottom: "24px", cursor: "pointer" }}
+                     />
+                  </a>
                   <p style={{ fontSize: "15px", color: "rgba(255,255,255,0.4)", lineHeight: 1.8 }}>
                      The definitive intelligence layer for Amritsar travelers. Built by locals,
                      powered by AI, and designed for those who demand a premium, crowd-free journey.
@@ -104,28 +106,10 @@ export default function Footer() {
                      <a key={l.label} href={l.href} style={{ fontSize: "12px", fontWeight: 700, color: "rgba(255,255,255,0.3)", textDecoration: "none" }}>{l.label}</a>
                   ))}
                </div>
-
-               <div style={{ display: "flex", gap: "12px" }}>
-                  {[Globe2, Camera, Mail].map((Icon, i) => (
-                     <motion.a
-                        key={i}
-                        href="#"
-                        style={{ width: "40px", height: "40px", borderRadius: "50%", background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", display: "flex", alignItems: "center", justifyContent: "center", color: "rgba(255,255,255,0.4)" }}
-                        whileHover={{ scale: 1.1, color: "#ffffff", background: "rgba(255,255,255,0.08)" }}
-                     >
-                        <Icon size={16} />
-                     </motion.a>
-                  ))}
-               </div>
-
-               <div style={{ display: "flex", alignItems: "center", gap: "8px", padding: "8px 16px", borderRadius: "100px", background: "rgba(34,197,94,0.05)", border: "1px solid rgba(34,197,94,0.15)" }}>
-                  <div className="live-dot" style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#22C55E" }} />
-                  <span style={{ fontSize: "11px", fontWeight: 800, color: "#22C55E" }}>SYSTEMS ONLINE</span>
-               </div>
             </div>
 
             <div style={{ marginTop: "60px", textAlign: "center", opacity: 0.2 }}>
-               <p style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.05em" }}>© 2025 MOVODREAM · MADE FOR THE MODERN EXPLORER</p>
+               <p style={{ fontSize: "11px", fontWeight: 700, letterSpacing: "0.05em" }}>© 2026 MOVODREAM · MADE FOR THE MODERN EXPLORER</p>
             </div>
          </div>
 
@@ -141,6 +125,6 @@ export default function Footer() {
 const navLinksGroup1 = [
    { label: "Overview", href: "#overview" },
    { label: "Intelligence", href: "#features" },
-   { label: "Case Studies", href: "#personas" },
+   { label: "Personas", href: "#personas" },
    { label: "Pricing", href: "#pricing" },
 ];

@@ -35,7 +35,7 @@ const comparisonData = {
   with: [
     "Perfect timing at every spot — crowd-free",
     "Know exactly where to spend vs save",
-    "Discover 40+ exclusive hidden gems",
+    "Discover multiple exclusive hidden gems",
     "Efficient routes & smart pacing",
     "Legendary food spots perfectly curated",
     "Priority support(call) during the journey",

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useTiltEffect } from "@/components/MouseGlow";
 import { Heart, Users, User, UsersRound, Sparkles, MapPin } from "lucide-react";
 
@@ -11,34 +11,35 @@ const personas = [
     desc: "Morning prayers at Golden Temple, candlelit heritage dinners, and shared moments at hidden gems.",
     tags: ["Sunset Spots", "Private Dining"],
     accent: "#EC4899", image: "/coulple.jpg",
-    pos: { top: "0", left: "0", width: "45%" }
+    pos: { top: "0px", left: "0%", width: "45%" }
   },
   {
     icon: Users, title: "Families", subtitle: "Safe Adventures",
     desc: "Safe, enriching history that kids actually feel — Partition Museum, Gobindgarh Fort, food trails.",
     tags: ["Family-Safe", "Educational", "Food Trails"],
     accent: "#3B82F6", image: "/persona_family.png",
-    pos: { top: "100px", right: "0", width: "48%" }
+    pos: { top: "100px", right: "0%", width: "48%" }
   },
   {
     icon: User, title: "Solo Soul", subtitle: "Cultural Immersion",
     desc: "Explore the walled city's hidden lanes, connect with local artisans, find secret photo spots.",
     tags: ["Solo-Safe", "Local Connections", "Hidden Streets"],
     accent: "#A855F7", image: "/persona_solo.png",
-    pos: { top: "540px", left: "5%", width: "42%" }
+    pos: { top: "600px", left: "5%", width: "42%" }
   },
   {
     icon: UsersRound, title: "Friend Squads", subtitle: "Epic Shared Trips",
     desc: "Vibrant food trails, Wagah ceremonies, rooftop parties in heritage havelis, and spiritual dives.",
     tags: ["Group Perks", "Nightlife", "Shared Moments"],
     accent: "#22C55E", image: "/persona_friends.webp",
-    pos: { top: "640px", right: "5%", width: "44%" }
+    pos: { top: "700px", right: "5%", width: "44%" }
   },
 ];
 
 function PersonaCard({ persona, index }: { persona: typeof personas[0]; index: number }) {
   const tiltRef = useTiltEffect(12);
   const Icon = persona.icon;
+  const [hovered, setHovered] = useState(false);
 
   return (
     <motion.div
@@ -47,6 +48,8 @@ function PersonaCard({ persona, index }: { persona: typeof personas[0]; index: n
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ delay: index * 0.15, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
       className="persona-card-wrapper"
       style={{
         position: "absolute",
@@ -56,8 +59,11 @@ function PersonaCard({ persona, index }: { persona: typeof personas[0]; index: n
         overflow: "hidden",
         cursor: "pointer",
         transformStyle: "preserve-3d",
-        boxShadow: "0 20px 60px rgba(0,0,0,0.2)",
-        zIndex: 5 + index,
+        boxShadow: hovered
+          ? `0 30px 70px ${persona.accent}25, 0 10px 30px rgba(0,0,0,0.3)`
+          : "0 20px 60px rgba(0,0,0,0.2)",
+        zIndex: hovered ? 50 : 5 + index,
+        transition: "box-shadow 0.3s ease, z-index 0.3s ease",
       }}
     >
       {/* Background Image with Hover Zoom */}
@@ -189,7 +195,7 @@ export default function Personas() {
         </div>
 
         {/* Spatial Layered Composition */}
-        <div style={{ position: "relative", height: "1300px" }} className="spatial-persona-container">
+        <div style={{ position: "relative", height: "1350px" }} className="spatial-persona-container">
           {personas.map((p, i) => (
             <PersonaCard key={p.title} persona={p} index={i} />
           ))}

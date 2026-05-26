@@ -2,7 +2,10 @@
 
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
-import { Sparkles, Sliders, Cpu, Compass, LayoutDashboard, Heart, Users, User, UsersRound, MapPin, Check, RefreshCw } from "lucide-react";
+import {
+  Sparkles, Sliders, Compass, LayoutDashboard, Heart, Users,
+  User, UsersRound, MapPin, Check, RefreshCw, Flag, BookOpen, Utensils
+} from "lucide-react";
 import { useTiltEffect } from "@/components/MouseGlow";
 
 const steps = [
@@ -15,10 +18,10 @@ const steps = [
   },
   {
     step: "02",
-    title: "AI Engine Optimization",
-    icon: Cpu,
+    title: "Customise Itinerary",
+    icon: Sparkles,
     color: "#3B82F6",
-    desc: "Our travel intelligence engine instantly computes optimal day schedules, cross-referencing real-time crowd density patterns, live weather, and peak time statistics."
+    desc: "We customise the itinerary based on your interest."
   },
   {
     step: "03",
@@ -34,6 +37,13 @@ const mockPersonas = [
   { id: "family", title: "Families", icon: Users, color: "#3B82F6", desc: "Optimizes for child-safe spots, minimal transit gaps, and interactive historic sites." },
   { id: "solo", title: "Solo Soul", icon: User, color: "#A855F7", desc: "Prioritizes narrow walled-city alleyways, local artisan meetups, and photo-walks." },
   { id: "friends", title: "Friend Squads", icon: UsersRound, color: "#22C55E", desc: "Highlights fast-paced food trails, Wagah ceremonies, and late-night spots." }
+];
+
+const mockInterests = [
+  { id: "religious", title: "Religious", icon: Sparkles, color: "#F59E0B", desc: "Focuses on morning path, serenity at Harmandir Sahib, and historic Gurudwaras." },
+  { id: "patriotic", title: "Patriotic", icon: Flag, color: "#10B981", desc: "Includes Wagah Border ceremony, Jallianwala Bagh, Jallianwala museum." },
+  { id: "food", title: "Food Explorer", icon: Utensils, color: "#EF4444", desc: "Legendary Kulchas, sweet lassis, Jalebis, and old city street-food runs." },
+  { id: "heritage", title: "Heritage Lover", icon: BookOpen, color: "#8B5CF6", desc: "Gobindgarh Fort, historic gates, old town architecture walks." }
 ];
 
 function StepCard({ s, index }: { s: typeof steps[0]; index: number }) {
@@ -114,12 +124,18 @@ export default function HowItWorks() {
   const titleRef = useRef<HTMLDivElement>(null);
   const titleInView = useInView(titleRef, { once: true });
 
-  // Simulator State
+  // Simulator States
   const [simStep, setSimStep] = useState<"setup" | "process" | "dashboard">("setup");
   const [selectedPersona, setSelectedPersona] = useState("couple");
+  const [selectedInterest, setSelectedInterest] = useState("religious");
+  const [arrivalDate, setArrivalDate] = useState("Today");
+  const [startTime, setStartTime] = useState("09:00 AM (Morning)");
+  const [budgetRange, setBudgetRange] = useState("Moderate (₹₹)");
+  const [foodPref, setFoodPref] = useState("Explorer (All)");
   const [isProcessing, setIsProcessing] = useState(false);
 
   const activePersonaObj = mockPersonas.find(p => p.id === selectedPersona) || mockPersonas[0];
+  const activeInterestObj = mockInterests.find(i => i.id === selectedInterest) || mockInterests[0];
 
   const handleRunOptimization = () => {
     setIsProcessing(true);
@@ -127,6 +143,35 @@ export default function HowItWorks() {
       setIsProcessing(false);
       setSimStep("dashboard");
     }, 1800);
+  };
+
+  const getSimulatedStop = (interest: string) => {
+    switch (interest) {
+      case "religious":
+        return { title: "Golden Temple Sunrise", desc: "Optimal window for spiritual serenity." };
+      case "patriotic":
+        return { title: "Wagah Border Parade", desc: "Reserved tricolor gallery seating sync." };
+      case "food":
+        return { title: "Bhai Kulwant Singh Kulcha", desc: "Butter-dripping authentic breakfast stop." };
+      case "heritage":
+        return { title: "Gobindgarh Fort Show", desc: "Laser show & ancient armory history walk." };
+      default:
+        return { title: "Harmandir Sahib Gate", desc: "Local advisor routes." };
+    }
+  };
+
+  const selectStyle: React.CSSProperties = {
+    width: "100%",
+    padding: "10px 12px",
+    borderRadius: "12px",
+    background: "rgba(255,255,255,0.04)",
+    border: "1px solid rgba(255,255,255,0.1)",
+    color: "white",
+    fontSize: "12px",
+    fontWeight: 700,
+    cursor: "pointer",
+    outline: "none",
+    transition: "all 0.3s ease",
   };
 
   return (
@@ -241,14 +286,14 @@ export default function HowItWorks() {
                 Experience Your Setup
               </h3>
               <p style={{ fontSize: "15px", color: "rgba(255,255,255,0.5)", lineHeight: 1.6, marginBottom: "40px" }}>
-                Try our real-time portal generator. Select a persona below, run the optimization algorithm, and preview the live dashboard layout instantly.
+                Try our real-time portal generator. Set up your vibe profile, customize your interests, answer a few logistics questions, and see your layout instantly.
               </p>
 
               {/* Progress Stepper Tabs */}
               <div style={{ display: "flex", gap: "8px", borderBottom: "1px solid rgba(255,255,255,0.08)", paddingBottom: "16px", marginBottom: "32px" }}>
                 {[
                   { id: "setup", label: "1. Vibe Preference" },
-                  { id: "process", label: "2. AI Optimization" },
+                  { id: "process", label: "2. Customisation" },
                   { id: "dashboard", label: "3. Live Dashboard" }
                 ].map(stepper => (
                   <button
@@ -277,46 +322,143 @@ export default function HowItWorks() {
               <div style={{ minHeight: "180px" }}>
                 {simStep === "setup" && (
                   <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                    <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "12px", marginBottom: "20px" }}>
-                      {mockPersonas.map(p => {
-                        const PIcon = p.icon;
-                        const isSelected = selectedPersona === p.id;
-                        return (
-                          <button
-                            key={p.id}
-                            onClick={() => setSelectedPersona(p.id)}
-                            style={{
-                              display: "flex",
-                              alignItems: "center",
-                              gap: "10px",
-                              padding: "16px",
-                              borderRadius: "16px",
-                              border: "1px solid",
-                              borderColor: isSelected ? p.color : "rgba(255,255,255,0.08)",
-                              background: isSelected ? `${p.color}15` : "rgba(255,255,255,0.02)",
-                              color: "white",
-                              cursor: "pointer",
-                              textAlign: "left",
-                              transition: "all 0.3s ease"
-                            }}
-                          >
-                            <div style={{ width: "32px", height: "32px", borderRadius: "8px", background: isSelected ? p.color : "rgba(255,255,255,0.05)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                              <PIcon size={16} color={isSelected ? "white" : p.color} />
-                            </div>
-                            <span style={{ fontSize: "14px", fontWeight: 700 }}>{p.title}</span>
-                          </button>
-                        );
-                      })}
+                    
+                    {/* Select Vibe Row */}
+                    <div style={{ marginBottom: "24px" }}>
+                      <label style={{ display: "block", fontSize: "12px", fontWeight: 800, color: "rgba(255,255,255,0.6)", marginBottom: "8px", textTransform: "uppercase", letterSpacing: "0.05em" }}>1. Traveler Profile</label>
+                      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "8px" }}>
+                        {mockPersonas.map(p => {
+                          const PIcon = p.icon;
+                          const isSelected = selectedPersona === p.id;
+                          return (
+                            <button
+                              key={p.id}
+                              onClick={() => setSelectedPersona(p.id)}
+                              style={{
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                gap: "6px",
+                                padding: "10px 4px",
+                                borderRadius: "12px",
+                                border: "1px solid",
+                                borderColor: isSelected ? p.color : "rgba(255,255,255,0.06)",
+                                background: isSelected ? `${p.color}15` : "rgba(255,255,255,0.02)",
+                                color: "white",
+                                cursor: "pointer",
+                                transition: "all 0.3s ease"
+                              }}
+                            >
+                              <PIcon size={14} color={isSelected ? "white" : p.color} />
+                              <span style={{ fontSize: "10px", fontWeight: 700 }}>{p.title}</span>
+                            </button>
+                          );
+                        })}
+                      </div>
                     </div>
-                    <p style={{ fontSize: "13px", color: "rgba(255,255,255,0.4)", fontStyle: "italic", marginBottom: "24px" }}>
-                      &ldquo;{activePersonaObj.desc}&rdquo;
-                    </p>
+
+                    {/* Select Interest Row */}
+                    <div style={{ marginBottom: "24px" }}>
+                      <label style={{ display: "block", fontSize: "12px", fontWeight: 800, color: "rgba(255,255,255,0.6)", marginBottom: "8px", textTransform: "uppercase", letterSpacing: "0.05em" }}>2. Focus Interest</label>
+                      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "8px" }}>
+                        {mockInterests.map(i => {
+                          const IIcon = i.icon;
+                          const isSelected = selectedInterest === i.id;
+                          return (
+                            <button
+                              key={i.id}
+                              onClick={() => setSelectedInterest(i.id)}
+                              style={{
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                gap: "6px",
+                                padding: "10px 4px",
+                                borderRadius: "12px",
+                                border: "1px solid",
+                                borderColor: isSelected ? i.color : "rgba(255,255,255,0.06)",
+                                background: isSelected ? `${i.color}15` : "rgba(255,255,255,0.02)",
+                                color: "white",
+                                cursor: "pointer",
+                                transition: "all 0.3s ease"
+                              }}
+                            >
+                              <IIcon size={14} color={isSelected ? "white" : i.color} />
+                              <span style={{ fontSize: "10px", fontWeight: 700 }}>{i.title}</span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                      <p style={{ fontSize: "11px", color: "rgba(255,255,255,0.4)", fontStyle: "italic", marginTop: "8px", minHeight: "16px" }}>
+                        &ldquo;{activeInterestObj.desc}&rdquo;
+                      </p>
+                    </div>
+
+                    {/* Logistics Row */}
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginBottom: "32px" }}>
+                      <div>
+                        <label style={{ display: "block", fontSize: "11px", fontWeight: 800, color: "rgba(255,255,255,0.5)", marginBottom: "6px", textTransform: "uppercase" }}>Arrival Date</label>
+                        <select
+                          value={arrivalDate}
+                          onChange={e => setArrivalDate(e.target.value)}
+                          style={selectStyle}
+                        >
+                          <option value="Today" style={{ background: "#141420" }}>Today</option>
+                          <option value="Tomorrow" style={{ background: "#141420" }}>Tomorrow</option>
+                          <option value="In 2 Days" style={{ background: "#141420" }}>In 2 Days</option>
+                          <option value="Next Week" style={{ background: "#141420" }}>Next Week</option>
+                        </select>
+                      </div>
+
+                      <div>
+                        <label style={{ display: "block", fontSize: "11px", fontWeight: 800, color: "rgba(255,255,255,0.5)", marginBottom: "6px", textTransform: "uppercase" }}>Start Time</label>
+                        <select
+                          value={startTime}
+                          onChange={e => setStartTime(e.target.value)}
+                          style={selectStyle}
+                        >
+                          <option value="05:00 AM (Sunrise)" style={{ background: "#141420" }}>05:00 AM (Sunrise)</option>
+                          <option value="09:00 AM (Morning)" style={{ background: "#141420" }}>09:00 AM (Morning)</option>
+                          <option value="02:00 PM (Afternoon)" style={{ background: "#141420" }}>02:00 PM (Afternoon)</option>
+                          <option value="06:00 PM (Evening)" style={{ background: "#141420" }}>06:00 PM (Evening)</option>
+                        </select>
+                      </div>
+
+                      <div>
+                        <label style={{ display: "block", fontSize: "11px", fontWeight: 800, color: "rgba(255,255,255,0.5)", marginBottom: "6px", textTransform: "uppercase" }}>Budget Level</label>
+                        <select
+                          value={budgetRange}
+                          onChange={e => setBudgetRange(e.target.value)}
+                          style={selectStyle}
+                        >
+                          <option value="Budget (₹)" style={{ background: "#141420" }}>Budget (₹)</option>
+                          <option value="Moderate (₹₹)" style={{ background: "#141420" }}>Moderate (₹₹)</option>
+                          <option value="Premium (₹₹₹)" style={{ background: "#141420" }}>Premium (₹₹₹)</option>
+                        </select>
+                      </div>
+
+                      <div>
+                        <label style={{ display: "block", fontSize: "11px", fontWeight: 800, color: "rgba(255,255,255,0.5)", marginBottom: "6px", textTransform: "uppercase" }}>Food Vibe</label>
+                        <select
+                          value={foodPref}
+                          onChange={e => setFoodPref(e.target.value)}
+                          style={selectStyle}
+                        >
+                          <option value="Pure Veg" style={{ background: "#141420" }}>Pure Veg</option>
+                          <option value="Explorer (All)" style={{ background: "#141420" }}>Explorer (All)</option>
+                          <option value="Street Food Trail" style={{ background: "#141420" }}>Street Food Trail</option>
+                        </select>
+                      </div>
+                    </div>
+
                     <button
                       onClick={handleRunOptimization}
                       className="btn-primary"
                       style={{ padding: "14px 28px", fontSize: "14px", fontWeight: 800 }}
                     >
-                      Run AI Optimization
+                      Customise Itinerary
                     </button>
                   </motion.div>
                 )}
@@ -379,8 +521,8 @@ export default function HowItWorks() {
                 <div style={{ position: "absolute", top: "0", left: "50%", transform: "translateX(-50%)", width: "110px", height: "18px", background: "#2A2A38", borderBottomLeftRadius: "10px", borderBottomRightRadius: "10px", zIndex: 10 }} />
 
                 {/* Simulated Content Body */}
-                <div style={{ padding: "30px 16px 16px 16px", flex: 1, display: "flex", flexDirection: "column", gap: "14px", overflowY: "hidden" }}>
-                  
+                <div style={{ padding: "30px 16px 16px 16px", flex: 1, display: "flex", flexDirection: "column", gap: "12px", overflowY: "hidden" }}>
+
                   {/* Status Bar */}
                   <div style={{ display: "flex", justifyContent: "space-between", fontSize: "9px", color: "rgba(255,255,255,0.4)", fontWeight: 700, marginBottom: "4px" }}>
                     <span>09:41</span>
@@ -403,22 +545,45 @@ export default function HowItWorks() {
                           <div style={{ width: "33%", height: "100%", background: "#EC4899" }} />
                         </div>
 
-                        {/* Setup Fields */}
-                        <div style={{ background: "rgba(255,255,255,0.03)", borderRadius: "12px", padding: "12px", border: "1px solid rgba(255,255,255,0.06)" }}>
-                          <div style={{ fontSize: "9px", color: "rgba(255,255,255,0.4)", marginBottom: "4px" }}>SELECTED PERSONA</div>
-                          <div style={{ fontSize: "12px", fontWeight: 800, color: activePersonaObj.color, display: "flex", alignItems: "center", gap: "6px" }}>
-                            {activePersonaObj.title}
+                        {/* Setup Fields Summary */}
+                        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "6px" }}>
+                          <div style={{ background: "rgba(255,255,255,0.03)", borderRadius: "10px", padding: "8px", border: "1px solid rgba(255,255,255,0.06)" }}>
+                            <div style={{ fontSize: "8px", color: "rgba(255,255,255,0.4)", marginBottom: "2px" }}>PROFILE</div>
+                            <div style={{ fontSize: "10px", fontWeight: 800, color: activePersonaObj.color }}>
+                              {activePersonaObj.title}
+                            </div>
+                          </div>
+
+                          <div style={{ background: "rgba(255,255,255,0.03)", borderRadius: "10px", padding: "8px", border: "1px solid rgba(255,255,255,0.06)" }}>
+                            <div style={{ fontSize: "8px", color: "rgba(255,255,255,0.4)", marginBottom: "2px" }}>INTEREST</div>
+                            <div style={{ fontSize: "10px", fontWeight: 800, color: activeInterestObj.color }}>
+                              {activeInterestObj.title}
+                            </div>
                           </div>
                         </div>
 
-                        <div style={{ background: "rgba(255,255,255,0.03)", borderRadius: "12px", padding: "12px", border: "1px solid rgba(255,255,255,0.06)" }}>
-                          <div style={{ fontSize: "9px", color: "rgba(255,255,255,0.4)", marginBottom: "4px" }}>TRIP DURATION</div>
-                          <div style={{ fontSize: "11px", fontWeight: 700, color: "white" }}>3-Day Curated Route</div>
+                        <div style={{ background: "rgba(255,255,255,0.03)", borderRadius: "10px", padding: "8px 10px", border: "1px solid rgba(255,255,255,0.06)", display: "flex", flexDirection: "column", gap: "4px" }}>
+                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                            <span style={{ fontSize: "8px", color: "rgba(255,255,255,0.4)" }}>ARRIVAL</span>
+                            <span style={{ fontSize: "9px", fontWeight: 700, color: "white" }}>{arrivalDate}</span>
+                          </div>
+                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                            <span style={{ fontSize: "8px", color: "rgba(255,255,255,0.4)" }}>START TIME</span>
+                            <span style={{ fontSize: "9px", fontWeight: 700, color: "white" }}>{startTime.split(" ")[0]}</span>
+                          </div>
+                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                            <span style={{ fontSize: "8px", color: "rgba(255,255,255,0.4)" }}>BUDGET</span>
+                            <span style={{ fontSize: "9px", fontWeight: 700, color: "white" }}>{budgetRange.split(" ")[0]}</span>
+                          </div>
+                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                            <span style={{ fontSize: "8px", color: "rgba(255,255,255,0.4)" }}>FOOD VIBE</span>
+                            <span style={{ fontSize: "9px", fontWeight: 700, color: "white" }}>{foodPref}</span>
+                          </div>
                         </div>
 
                         {/* Interactive prompt to action */}
-                        <div style={{ background: "rgba(236,72,153,0.06)", borderRadius: "12px", padding: "12px", border: "1px dashed #EC4899", textAlign: "center", fontSize: "10px", color: "#EC4899", fontWeight: 700, marginTop: "20px" }}>
-                          Click &ldquo;Run AI Optimization&rdquo; on the left to calculate.
+                        <div style={{ background: "rgba(236,72,153,0.06)", borderRadius: "12px", padding: "10px", border: "1px dashed #EC4899", textAlign: "center", fontSize: "9px", color: "#EC4899", fontWeight: 700, marginTop: "10px" }}>
+                          Click &ldquo;Customise Itinerary&rdquo; on the left to calculate.
                         </div>
                       </motion.div>
                     )}
@@ -461,22 +626,29 @@ export default function HowItWorks() {
                           <span style={{ fontSize: "8px", color: "#22C55E", padding: "2px 6px", background: "rgba(34,197,94,0.15)", borderRadius: "40px", fontWeight: 800 }}>LIVE SYNC</span>
                         </div>
 
+                        {/* Profile Setup details pill */}
+                        <div style={{ display: "flex", gap: "4px", flexWrap: "wrap" }}>
+                          <span style={{ fontSize: "7px", color: activePersonaObj.color, background: `${activePersonaObj.color}15`, padding: "2px 6px", borderRadius: "4px", fontWeight: 800 }}>{activePersonaObj.title.toUpperCase()}</span>
+                          <span style={{ fontSize: "7px", color: activeInterestObj.color, background: `${activeInterestObj.color}15`, padding: "2px 6px", borderRadius: "4px", fontWeight: 800 }}>{activeInterestObj.title.toUpperCase()}</span>
+                          <span style={{ fontSize: "7px", color: "#E0E0E0", background: "rgba(255,255,255,0.06)", padding: "2px 6px", borderRadius: "4px", fontWeight: 800 }}>{budgetRange.split(" ")[0].toUpperCase()}</span>
+                        </div>
+
                         {/* Crowd Alert Card */}
                         <div style={{ background: "rgba(255,255,255,0.03)", borderRadius: "14px", padding: "12px", border: "1px solid rgba(255,255,255,0.06)" }}>
-                          <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "6px" }}>
+                          <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "4px" }}>
                             <div style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#22C55E" }} />
                             <span style={{ fontSize: "9px", fontWeight: 800, color: "white" }}>CROWD FORECAST</span>
                           </div>
-                          <div style={{ fontSize: "11px", fontWeight: 800, color: "white", marginBottom: "2px" }}>Golden Temple: LOW wait</div>
-                          <div style={{ fontSize: "9px", color: "rgba(255,255,255,0.4)" }}>Optimal window is open for next 2 hours.</div>
+                          <div style={{ fontSize: "11px", fontWeight: 800, color: "white", marginBottom: "2px" }}>Optimal Hours Synced</div>
+                          <div style={{ fontSize: "9px", color: "rgba(255,255,255,0.4)" }}>We avoided high rush windows for {activePersonaObj.title}.</div>
                         </div>
 
                         {/* Next Stop Card */}
                         <div style={{ background: "linear-gradient(135deg, rgba(59,130,246,0.15) 0%, rgba(168,85,247,0.15) 100%)", borderRadius: "14px", padding: "12px", border: "1px solid rgba(255,255,255,0.1)" }}>
-                          <div style={{ fontSize: "8px", fontWeight: 800, color: "#93C5FD", marginBottom: "4px" }}>UPCOMING INSIDER STOP</div>
-                          <div style={{ fontSize: "12px", fontWeight: 900, color: "white", marginBottom: "2px" }}>Bhai Kulwant Singh</div>
+                          <div style={{ fontSize: "8px", fontWeight: 800, color: "#93C5FD", marginBottom: "4px" }}>CUSTOM INSIDER STOP</div>
+                          <div style={{ fontSize: "12px", fontWeight: 900, color: "white", marginBottom: "2px" }}>{getSimulatedStop(selectedInterest).title}</div>
                           <div style={{ display: "flex", alignItems: "center", gap: "4px", fontSize: "9px", color: "rgba(255,255,255,0.6)", fontWeight: 650 }}>
-                            <MapPin size={10} /> 12 mins away (optimized transit)
+                            <MapPin size={10} /> {getSimulatedStop(selectedInterest).desc}
                           </div>
                         </div>
 

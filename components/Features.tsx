@@ -39,15 +39,9 @@ const features = [
     bgImage: "https://images.unsplash.com/photo-1628272938353-834bc1542aa6?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
-    icon: Radio, title: "Travel Alerts", accent: "#22C55E",
-    desc: "Events, closures, and peak hours — you get real-time notifications so your trip adapts dynamically.",
-    tag: "Alerts", type: "small",
-    bgImage: "https://images.unsplash.com/photo-1583031775632-fe05782a79d5?q=80&w=718&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
     icon: Clock, title: "Timing Intelligence", accent: "#8B5CF6",
     desc: "Perfect timing for landmarks — sunrise at Golden Temple, ceremony at Wagah Border.",
-    tag: "Optimized", type: "small",
+    tag: "Optimized", type: "mega",
     bgImage: "https://images.unsplash.com/photo-1495364141860-b0d03eccd065?q=80&w=1476&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
@@ -58,7 +52,7 @@ const features = [
   },
   {
     icon: BarChart3, title: "Verified Recommendations", accent: "#0EA5E9",
-    desc: "Expert-backed verified recommendations and insights.",
+    desc: "Verified recommendations and insider insights curated by travel experts and trusted Local Guru.",
     tag: "Expert", type: "small",
     bgImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1415&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
@@ -112,17 +106,19 @@ function BentoCard({ feature, index, children }: { feature: typeof features[0]; 
           backgroundImage: `url(${feature.bgImage})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
-          opacity: 0.85, // Much more visible
+          opacity: 0.95, // Fully crisp and visible
           pointerEvents: "none",
           zIndex: 0,
         }} />
       )}
 
-      {/* Text protection overlay */}
+      {/* Text protection overlay - Direction-aware gradient */}
       {feature.bgImage && (
         <div style={{
           position: "absolute", inset: 0,
-          background: "linear-gradient(to bottom, rgba(255,255,255,0.85), rgba(255,255,255,0.98))",
+          background: isFull || isMega
+            ? "linear-gradient(to right, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.82) 45%, rgba(255,255,255,0.15) 100%)"
+            : "linear-gradient(to bottom, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.78) 50%, rgba(255,255,255,0.15) 100%)",
           pointerEvents: "none",
           zIndex: 0,
         }} />
@@ -402,17 +398,16 @@ export default function Features() {
             <RouteMap />
           </BentoCard>
 
-          {/* Row 3: Small Cards */}
-          <BentoCard feature={features[2]} index={2} />
+          {/* Row 3: Timing & Gems */}
           <BentoCard feature={features[5]} index={5} />
-          <BentoCard feature={features[6]} index={6} />
+          <BentoCard feature={features[2]} index={2} />
 
           {/* Row 4: Support & Insights */}
+          <BentoCard feature={features[6]} index={6} />
           <BentoCard feature={features[7]} index={7} />
-          <BentoCard feature={features[8]} index={8} />
 
           {/* Row 5: Hero Products */}
-          <BentoCard feature={features[9]} index={9}>
+          <BentoCard feature={features[8]} index={8}>
             <HeroProductsPreview />
           </BentoCard>
 
@@ -455,7 +450,7 @@ export default function Features() {
             }} />
 
             <div style={{ position: "relative", zIndex: 1, fontSize: "18px", fontWeight: 700, color: "white", marginBottom: "16px" }}>
-              Get insights from the local gurus.
+              Get insights from the Local Guru.
             </div>
             <motion.a
               href="#pricing"

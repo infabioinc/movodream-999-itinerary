@@ -76,7 +76,7 @@ function HolographicDashboard() {
         position: "relative",
       }}>
         <img
-          src="/dashboard_ui.png"
+          src="/dashboard_ui1.png"
           alt="Movodream Dashboard"
           style={{ width: "100%", height: "auto", display: "block" }}
         />

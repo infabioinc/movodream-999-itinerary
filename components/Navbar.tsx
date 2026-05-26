@@ -1,16 +1,16 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { motion, useScroll, useMotionValueEvent } from "framer-motion";
-import { ArrowRight, MoreVertical, X, Zap } from "lucide-react";
+import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
+import { ArrowRight, MoreVertical, X, Compass, AlertCircle, Sparkles, Users, Tag } from "lucide-react";
 import { useMagneticEffect } from "@/components/MouseGlow";
 
 const navLinks = [
-  { label: "Overview", href: "#overview" },
-  { label: "The Problem", href: "#problem" },
-  { label: "Intelligence", href: "#features" },
-  { label: "Personas", href: "#personas" },
-  { label: "Pricing", href: "#pricing" },
+  { label: "Overview", href: "#overview", icon: Compass, sub: "Explore Amritsar's top highlights" },
+  { label: "The Problem", href: "#problem", icon: AlertCircle, sub: "Why traditional travel guides fail" },
+  { label: "Intelligence", href: "#features", icon: Sparkles, sub: "Real-time routing & crowd sync" },
+  { label: "Personas", href: "#personas", icon: Users, sub: "Tailored vibes for every group" },
+  { label: "Pricing", href: "#pricing", icon: Tag, sub: "Claim your 80% launch discount" },
 ];
 
 export default function Navbar() {
@@ -48,6 +48,8 @@ export default function Navbar() {
           border: scrolled ? "1px solid rgba(255, 255, 255, 0.1)" : "1px solid rgba(255, 255, 255, 0.15)",
           boxShadow: scrolled ? "0 20px 40px rgba(0,0,0,0.4)" : "none",
           transition: "background-color 0.4s ease, border-color 0.4s ease",
+          position: "relative",
+          zIndex: 100,
         }}
       >
         {/* Logo */}
@@ -118,39 +120,109 @@ export default function Navbar() {
         </div>
       </motion.nav>
 
-      {/* Mobile Menu */}
-      {mobileOpen && (
-        <motion.div
-          initial={{ opacity: 0, y: -10, scale: 0.95 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          style={{
-            position: "absolute", top: "100px", left: "20px", right: "20px",
-            backgroundColor: "rgba(6, 6, 8, 0.95)", backdropFilter: "blur(30px)",
-            borderRadius: "32px", padding: "24px",
-            boxShadow: "0 40px 100px rgba(0,0,0,0.5)",
-            border: "1px solid rgba(255,255,255,0.1)",
-          }}
-        >
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
+      {/* Mobile Menu & Backdrop Blur */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <>
+            {/* Dark & Blurred Backdrop Overlay */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               onClick={() => setMobileOpen(false)}
               style={{
-                display: "flex", alignItems: "center", gap: "12px",
-                padding: "16px", fontSize: "16px",
-                fontWeight: 700, color: "white", borderRadius: "16px",
-                textDecoration: "none", transition: "background 0.3s",
+                position: "fixed",
+                inset: 0,
+                backgroundColor: "rgba(0, 0, 0, 0.4)",
+                backdropFilter: "blur(12px)",
+                zIndex: 90,
               }}
-              onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,0.05)"}
-              onMouseLeave={e => e.currentTarget.style.background = "transparent"}
+            />
+
+            {/* Floating Dropdown Box */}
+            <motion.div
+              initial={{ opacity: 0, y: -20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -20, scale: 0.95 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              style={{
+                position: "absolute",
+                top: "100px",
+                left: "20px",
+                right: "20px",
+                backgroundColor: "rgba(10, 10, 16, 0.92)",
+                backdropFilter: "blur(30px)",
+                borderRadius: "32px",
+                padding: "24px",
+                boxShadow: "0 40px 100px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.08)",
+                border: "1px solid rgba(255,255,255,0.08)",
+                zIndex: 95,
+                overflow: "hidden",
+              }}
             >
-              <Zap size={14} color="#EC4899" />
-              {link.label}
-            </a>
-          ))}
-        </motion.div>
-      )}
+              {/* Radial gradient reflection */}
+              <div style={{
+                position: "absolute",
+                inset: 0,
+                background: "radial-gradient(circle at 50% 0%, rgba(236,72,153,0.1), transparent 75%)",
+                pointerEvents: "none",
+              }} />
+
+              <div style={{ display: "flex", flexDirection: "column", gap: "8px", position: "relative", zIndex: 1 }}>
+                {navLinks.map((link) => {
+                  const LinkIcon = link.icon;
+                  return (
+                    <motion.a
+                      key={link.href}
+                      href={link.href}
+                      onClick={() => setMobileOpen(false)}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "16px",
+                        padding: "16px",
+                        borderRadius: "20px",
+                        textDecoration: "none",
+                        transition: "all 0.3s ease",
+                        border: "1px solid transparent",
+                        background: "rgba(255,255,255,0.01)",
+                      }}
+                      whileHover={{
+                        background: "rgba(255,255,255,0.04)",
+                        borderColor: "rgba(255,255,255,0.06)",
+                        x: 4,
+                      }}
+                    >
+                      {/* Icon container */}
+                      <div style={{
+                        width: "36px",
+                        height: "36px",
+                        borderRadius: "10px",
+                        background: "rgba(255,255,255,0.04)",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}>
+                        <LinkIcon size={16} color="#EC4899" />
+                      </div>
+                      
+                      {/* Label + Description */}
+                      <div style={{ display: "flex", flexDirection: "column" }}>
+                        <span style={{ fontSize: "14px", fontWeight: 700, color: "white" }}>
+                          {link.label}
+                        </span>
+                        <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.45)", fontWeight: 500 }}>
+                          {link.sub}
+                        </span>
+                      </div>
+                    </motion.a>
+                  );
+                })}
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </motion.header>
   );
 }

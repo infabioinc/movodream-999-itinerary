@@ -113,7 +113,7 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.6 }}
           >
             <motion.a
-              href="#problem"
+              href="#trust"
               className="btn-primary"
               style={{ padding: "22px 54px", fontSize: "18px", fontWeight: 900, borderRadius: "20px" }}
               whileHover={{ scale: 1.05 }}

@@ -9,9 +9,17 @@ import { useTiltEffect } from "@/components/MouseGlow";
 
 function CountUp({ value, duration = 2 }: { value: number | string; duration?: number }) {
   const [displayValue, setDisplayValue] = useState("0");
-  const numValue = typeof value === "string" ? parseFloat(value.replace(/[^0-9.]/g, "")) : value;
-  const suffix = typeof value === "string" ? value.replace(/[0-9.]/g, "") : "";
+  const strValue = value.toString();
+  const numValue = typeof value === "string" ? parseFloat(strValue.replace(/[^0-9.]/g, "")) : value;
   
+  // Extract characters at start as prefix (e.g. ₹)
+  const prefixMatch = strValue.match(/^[^0-9.]+/);
+  const prefix = prefixMatch ? prefixMatch[0] : "";
+  
+  // Extract characters at end as suffix (e.g. +)
+  const suffixMatch = strValue.match(/[^0-9.]+$/);
+  const suffix = suffixMatch ? suffixMatch[0] : "";
+
   const count = useMotionValue(0);
   const rounded = useSpring(count, { stiffness: 50, damping: 20 });
 
@@ -21,10 +29,10 @@ function CountUp({ value, duration = 2 }: { value: number | string; duration?: n
 
   useEffect(() => {
     return rounded.on("change", (latest) => {
-      const val = latest.toFixed(value.toString().includes('.') ? 1 : 0);
-      setDisplayValue(val + suffix);
+      const val = latest.toFixed(strValue.includes('.') ? 1 : 0);
+      setDisplayValue(prefix + val + suffix);
     });
-  }, [rounded, suffix, value]);
+  }, [rounded, prefix, suffix, strValue]);
 
   return <span>{displayValue}</span>;
 }
@@ -79,10 +87,10 @@ function TestimonialCard({ t, index, rotate }: { t: typeof testimonials[0]; inde
         &ldquo;{t.text}&rdquo;
       </p>
       <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-        <img 
-          src={t.avatar} 
+        <img
+          src={t.avatar}
           alt={t.name}
-          style={{ width: "40px", height: "40px", borderRadius: "50%", objectFit: "cover", border: `2px solid ${t.color}` }} 
+          style={{ width: "40px", height: "40px", borderRadius: "50%", objectFit: "cover", border: `2px solid ${t.color}` }}
         />
         <div>
           <div style={{ fontSize: "14px", fontWeight: 700, color: "#1F1F24" }}>{t.name}</div>
@@ -157,11 +165,10 @@ export default function SocialProof() {
 
       {/* Stats row */}
       <div className="container" style={{ position: "relative", zIndex: 10 }}>
-        <div ref={statsRef} style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "20px" }} className="stats-grid">
+        <div ref={statsRef} style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "20px", maxWidth: "900px", margin: "0 auto" }} className="stats-grid">
           {[
             { v: "2400+", l: "Happy Travelers", c: "#EC4899" },
             { v: "4.9", l: "Average Rating", c: "#FBBF24" },
-            { v: "40+", l: "Hidden Gems", c: "#3B82F6" },
             { v: "₹999", l: "Complete Access", c: "#22C55E" },
           ].map((s, i) => (
             <motion.div

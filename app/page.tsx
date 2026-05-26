@@ -6,8 +6,10 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Problem from "@/components/Problem";
 import Introduction from "@/components/Introduction";
+import HowItWorks from "@/components/HowItWorks";
 import Features from "@/components/Features";
 import Personas from "@/components/Personas";
+import TrustSection from "@/components/TrustSection";
 import Value from "@/components/Value";
 import SocialProof from "@/components/SocialProof";
 import FinalCTA from "@/components/FinalCTA";
@@ -24,8 +26,10 @@ export default function Home() {
         <Hero />
         <Problem />
         <Introduction />
+        <HowItWorks />
         <Features />
         <Personas />
+        <TrustSection />
         <Value />
         <SocialProof />
         <FinalCTA />

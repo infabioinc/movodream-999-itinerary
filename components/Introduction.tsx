@@ -9,7 +9,7 @@ const pillars = [
   { icon: Brain, label: "Personalized Intelligence", desc: "Your pace. Your preferences.", color: "#EC4899" },
   { icon: Map, label: "Real-Time Crowd Data", desc: "Know where to be — and when.", color: "#3B82F6" },
   { icon: Layers, label: "Hidden Gem Discovery", desc: "40+ experiences tourists never find.", color: "#A855F7" },
-  { icon: Radio, label: "Live Travel Alerts", desc: "Always one step ahead.", color: "#22C55E" },
+  { icon: Radio, label: "Travel Alerts", desc: "Always one step ahead.", color: "#22C55E" },
   { icon: Zap, label: "Dynamic Routing", desc: "Optimized paths. Zero waste.", color: "#F59E0B" },
   { icon: Cpu, label: "AI Travel Assistant", desc: "Expert guidance in your pocket.", color: "#06B6D4" },
 ];
@@ -76,7 +76,7 @@ function HolographicDashboard() {
         position: "relative",
       }}>
         <img
-          src="/dashboard_ui1.png"
+          src="/dashboard_ui.png"
           alt="Movodream Dashboard"
           style={{ width: "100%", height: "auto", display: "block" }}
         />
@@ -107,7 +107,7 @@ function HolographicDashboard() {
       >
         <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
           <div style={{ width: "8px", height: "8px", borderRadius: "50%", backgroundColor: "#22C55E" }} className="live-dot" />
-          <span style={{ fontSize: "11px", fontWeight: 700, color: "#374151" }}>Live Crowd Intel</span>
+          <span style={{ fontSize: "11px", fontWeight: 700, color: "#374151" }}>Crowd Intel</span>
         </div>
         {[
           { label: "Golden Temple", pct: 90, color: "#22C55E" },
@@ -132,22 +132,6 @@ function HolographicDashboard() {
             </div>
           </div>
         ))}
-      </motion.div>
-
-      {/* Floating badge — top right */}
-      <motion.div
-        animate={{ y: [0, 6, 0], rotate: [2, -1, 2] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-        style={{
-          position: "absolute", top: "-24px", right: "-24px",
-          background: "linear-gradient(135deg, #EC4899, #E11D8A)",
-          borderRadius: "16px", padding: "12px 16px",
-          boxShadow: "0 16px 40px rgba(236,72,153,0.4)",
-          zIndex: 10,
-        }}
-      >
-        <div style={{ fontSize: "11px", fontWeight: 700, color: "rgba(255,255,255,0.7)" }}>AI Score</div>
-        <div style={{ fontSize: "22px", fontWeight: 900, color: "white", lineHeight: 1 }}>9.8/10</div>
       </motion.div>
     </motion.div>
   );

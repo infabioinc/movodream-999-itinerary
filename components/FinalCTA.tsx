@@ -8,10 +8,10 @@ import { useMagneticEffect } from "@/components/MouseGlow";
 const benefits = [
   "Smart Itinerary",
   "Hidden Gems",
-  "Live Crowd Data",
+  "Crowd Data",
   "Route Optimization",
   "Food Guide",
-  "Live Travel Alerts",
+  "Travel Alerts",
   "Priority Support",
   "Authentic and verified recommendations",
 ];
@@ -135,7 +135,7 @@ export default function FinalCTA() {
               <Shield size={14} /> SECURE PAYMENT
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "12px", fontWeight: 700, color: "white" }}>
-              <Clock size={14} /> 24/7 SUPPORT
+              <Shield size={14} /> PRIORITY SUPPORT
             </div>
           </div>
         </div>

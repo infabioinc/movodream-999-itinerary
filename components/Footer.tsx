@@ -60,10 +60,9 @@ export default function Footer() {
                   </motion.a>
                </div>
             </div>
-
             {/* POWERED BY */}
-            <div className="mt-6 flex justify-end">
-               <div className="inline-flex items-center gap-2 rounded-lg border border-white/20 bg-white/5 px-4 py-3 transition-all duration-300 hover:bg-white/10">
+            <div className="mt-5 flex justify-end">
+               <div className="inline-flex items-center gap-2 rounded-lg border border-white/20 bg-white/5 px-3 py-2 transition-all duration-300 hover:bg-white/10">
 
                   <a
                      href="https://fabulousmedia.in/"
@@ -75,11 +74,11 @@ export default function Footer() {
                      <img
                         src="/fabulous-logo.png"
                         alt="FabulousMedia"
-                        className="h-4 w-auto"
+                        className="h-3 w-auto"
                      />
                   </a>
 
-                  <span className="h-4 w-px bg-white/30" />
+                  <span className="h-3 w-px bg-white/30" />
 
                   <a
                      href="https://gocommercially.com/"
@@ -91,13 +90,12 @@ export default function Footer() {
                      <img
                         src="/gocommercially-logo.png"
                         alt="GoCommercially"
-                        className="h-4 w-auto"
+                        className="h-3 w-auto"
                      />
                   </a>
 
                </div>
             </div>
-
             {/* Bottom Bar */}
             <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: "40px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "24px" }}>
 
@@ -113,7 +111,7 @@ export default function Footer() {
                         key={i}
                         href="#"
                         style={{ width: "40px", height: "40px", borderRadius: "50%", background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", display: "flex", alignItems: "center", justifyContent: "center", color: "rgba(255,255,255,0.4)" }}
-                        whileHover={{ scale: 1.1, color: "white", background: "rgba(255,255,255,0.08)" }}
+                        whileHover={{ scale: 1.1, color: "#ffffff", background: "rgba(255,255,255,0.08)" }}
                      >
                         <Icon size={16} />
                      </motion.a>

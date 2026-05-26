@@ -3,7 +3,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { useTiltEffect } from "@/components/MouseGlow";
-import { Route, Sparkles, Users, Zap, Radio, Utensils, Clock, Shield, MapPin, ArrowRight, BarChart3, Activity } from "lucide-react";
+import { Route, Sparkles, Users, Zap, Radio, Utensils, Clock, Shield, MapPin, ArrowRight, BarChart3, Activity, ShoppingBag } from "lucide-react";
 
 // ── Data ──────────────────────────────────────────────────────────────────────
 
@@ -15,14 +15,14 @@ const features = [
     bgImage: "https://images.unsplash.com/photo-1514222134-b57cbb8ce073?auto=format&fit=crop&q=80",
   },
   {
-    icon: Users, title: "Live Crowd Intelligence", accent: "#3B82F6",
+    icon: Users, title: "Crowd Intelligence", accent: "#3B82F6",
     desc: "Real-time crowd density tracking across all major sites. Know exactly when and where to go for peaceful, beautiful experiences.",
     tag: "Real-Time", type: "medium",
     bgImage: "https://images.unsplash.com/photo-1583821017783-4333717df070?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     icon: Sparkles, title: "Hidden Gems", accent: "#A855F7",
-    desc: "40+ off-the-beaten-path spots, cultural dives, and experiences that only locals know about.",
+    desc: "Beyond sightseeing, immersive local culture, hidden gems, and meaningful experiences.",
     tag: "Exclusive", type: "small",
     bgImage: "https://plus.unsplash.com/premium_photo-1697729441943-f1bffee0b432?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
@@ -39,9 +39,9 @@ const features = [
     bgImage: "https://images.unsplash.com/photo-1628272938353-834bc1542aa6?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
-    icon: Radio, title: "Live Travel Alerts", accent: "#22C55E",
+    icon: Radio, title: "Travel Alerts", accent: "#22C55E",
     desc: "Events, closures, and peak hours — you get real-time notifications so your trip adapts dynamically.",
-    tag: "Live", type: "small",
+    tag: "Alerts", type: "small",
     bgImage: "https://images.unsplash.com/photo-1583031775632-fe05782a79d5?q=80&w=718&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
@@ -52,7 +52,7 @@ const features = [
   },
   {
     icon: Shield, title: "Priority Support", accent: "#F43F5E",
-    desc: "Direct access to our expert team for real-time priority support (call) during your journey in case of emergency,we will provide physical human support on ground.",
+    desc: "Our expert team remains just a call away, providing real-time priority support and physical on-ground assistance in case of emergencies.",
     tag: "Support", type: "mega",
     bgImage: "https://images.unsplash.com/photo-1528747045269-390fe33c19f2?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
@@ -62,16 +62,23 @@ const features = [
     tag: "Expert", type: "small",
     bgImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1415&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
+  {
+    icon: ShoppingBag, title: "HERO PRODUCTS", accent: "#F59E0B",
+    desc: "Experience the authentic culinary legends and unique craftsmanship of Amritsar.",
+    tag: "Local Icons", type: "full",
+    bgImage: "https://images.unsplash.com/photo-1606491956689-2ea866880c84?auto=format&fit=crop&q=80",
+  },
 ];
 
 // ── Components ────────────────────────────────────────────────────────────────
 
 function BentoCard({ feature, index, children }: { feature: typeof features[0]; index: number; children?: React.ReactNode }) {
-  const tiltRef = useTiltEffect(feature.type === 'mega' ? 5 : 10);
-  const Icon = feature.icon;
-
   const isMega = feature.type === 'mega';
   const isMedium = feature.type === 'medium';
+  const isFull = feature.type === 'full';
+
+  const tiltRef = useTiltEffect(isFull || isMega ? 5 : 10);
+  const Icon = feature.icon;
 
   return (
     <motion.div
@@ -83,18 +90,18 @@ function BentoCard({ feature, index, children }: { feature: typeof features[0]; 
       style={{
         background: "white",
         borderRadius: "28px",
-        padding: isMega ? "48px" : "32px",
+        padding: isFull || isMega ? "48px" : "32px",
         border: "1px solid rgba(0,0,0,0.06)",
         boxShadow: "0 4px 24px rgba(0,0,0,0.04)",
         position: "relative",
         overflow: "hidden",
         cursor: "pointer",
         transformStyle: "preserve-3d",
-        gridColumn: isMega ? "span 2" : "span 1",
-        gridRow: isMega ? "span 1" : "span 1",
+        gridColumn: isFull ? "span 3" : isMega ? "span 2" : "span 1",
+        gridRow: "span 1",
         display: "flex",
-        flexDirection: isMega ? "row" : "column",
-        gap: isMega ? "40px" : "24px",
+        flexDirection: isFull || isMega ? "row" : "column",
+        gap: isFull || isMega ? "40px" : "24px",
         alignItems: "flex-start",
       }}
     >
@@ -130,7 +137,7 @@ function BentoCard({ feature, index, children }: { feature: typeof features[0]; 
         opacity: 0.8,
       }} />
 
-      <div style={{ flex: isMega ? "1 1 50%" : "none", position: "relative", zIndex: 1 }}>
+      <div style={{ flex: isFull || isMega ? "1 1 50%" : "none", position: "relative", zIndex: 1 }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "20px" }}>
           <div style={{
             width: "52px", height: "52px", borderRadius: "16px",
@@ -148,16 +155,16 @@ function BentoCard({ feature, index, children }: { feature: typeof features[0]; 
           </span>
         </div>
 
-        <h3 style={{ fontSize: isMega ? "28px" : "20px", fontWeight: 900, color: "#1F1F24", marginBottom: "12px", letterSpacing: "-0.02em", lineHeight: 1.2 }}>
+        <h3 style={{ fontSize: isFull || isMega ? "28px" : "20px", fontWeight: 900, color: "#1F1F24", marginBottom: "12px", letterSpacing: "-0.02em", lineHeight: 1.2 }}>
           {feature.title}
         </h3>
-        <p style={{ fontSize: "15px", color: "#374151", fontWeight: 500, lineHeight: 1.7, marginBottom: isMega ? "0" : "0" }}>
+        <p style={{ fontSize: "15px", color: "#374151", fontWeight: 500, lineHeight: 1.7, marginBottom: 0 }}>
           {feature.desc}
         </p>
       </div>
 
       {children && (
-        <div style={{ flex: isMega ? "1 1 50%" : "none", width: isMega ? "auto" : "100%", position: "relative", zIndex: 1 }}>
+        <div style={{ flex: isFull || isMega ? "1 1 50%" : "none", width: isFull || isMega ? "auto" : "100%", position: "relative", zIndex: 1 }}>
           {children}
         </div>
       )}
@@ -243,7 +250,7 @@ function FoodGrid() {
 function RouteMap() {
   return (
     <div style={{ position: "relative", borderRadius: "20px", overflow: "hidden", height: "140px", background: "#F3F4F6", border: "1px solid rgba(0,0,0,0.05)" }}>
-      <img src="/map_static_light.png" alt="Route Map" style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.8 }} />
+      <img src="/map.png" alt="Route Map" style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.8 }} />
       <div style={{ position: "absolute", inset: 0, background: "linear-gradient(rgba(245,158,11,0.1), transparent)" }} />
       <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}>
         <motion.path
@@ -262,6 +269,61 @@ function RouteMap() {
       <div style={{ position: "absolute", bottom: "12px", left: "12px", background: "white", borderRadius: "8px", padding: "4px 10px", border: "1px solid rgba(0,0,0,0.1)", boxShadow: "0 4px 12px rgba(0,0,0,0.1)" }}>
         <span style={{ fontSize: "10px", fontWeight: 800, color: "#1F1F24" }}>SAVING 45 MINS</span>
       </div>
+    </div>
+  );
+}
+
+function HeroProductsPreview() {
+  const products = [
+    { name: "Amritsari Kulcha", type: "Food", desc: "Crispy, clay-baked flatbread stuffed with potatoes & bathed in butter." },
+    { name: "Amritsari Lassi", type: "Beverage", desc: "Creamy, rich yogurt drink served chilled in a traditional earthen pot." },
+    { name: "Papad Wadiyaan", type: "Local Treat", desc: "Authentic spicy sun-dried lentil dumplings and thin crispy wafers." },
+    { name: "Amritsari Jutti", type: "Craft", desc: "Traditional ornate leather shoes hand-stitched with vibrant threads." },
+    { name: "Amritsari Dupatta Phulkari", type: "Heritage Craft", desc: "Flowing stoles embroidered with colorful geometric flower motifs." },
+  ];
+
+  return (
+    <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "10px", width: "100%" }}>
+      {products.map((p, i) => (
+        <motion.div
+          key={i}
+          initial={{ opacity: 0, x: 20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.3 + i * 0.1 }}
+          whileHover={{ scale: 1.02, x: 5 }}
+          style={{
+            background: "rgba(255, 255, 255, 0.75)",
+            backdropFilter: "blur(6px)",
+            borderRadius: "16px",
+            padding: "12px 18px",
+            border: "1px solid rgba(0,0,0,0.06)",
+            boxShadow: "0 4px 12px rgba(0,0,0,0.02)",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            gap: "12px",
+            transition: "all 0.2s ease",
+          }}
+        >
+          <div>
+            <div style={{ fontSize: "14px", fontWeight: 800, color: "#1F1F24" }}>{p.name}</div>
+            <div style={{ fontSize: "11px", color: "#4B5563", marginTop: "2px", fontWeight: 500 }}>{p.desc}</div>
+          </div>
+          <span style={{
+            fontSize: "9px",
+            fontWeight: 800,
+            padding: "4px 10px",
+            borderRadius: "8px",
+            background: p.type === "Food" || p.type === "Beverage" || p.type === "Local Treat" ? "#FEF3C7" : "#F3E8FF",
+            color: p.type === "Food" || p.type === "Beverage" || p.type === "Local Treat" ? "#D97706" : "#7C3AED",
+            textTransform: "uppercase",
+            letterSpacing: "0.05em",
+            whiteSpace: "nowrap"
+          }}>
+            {p.type}
+          </span>
+        </motion.div>
+      ))}
     </div>
   );
 }
@@ -348,6 +410,11 @@ export default function Features() {
           {/* Row 4: Support & Insights */}
           <BentoCard feature={features[7]} index={7} />
           <BentoCard feature={features[8]} index={8} />
+
+          {/* Row 5: Hero Products */}
+          <BentoCard feature={features[9]} index={9}>
+            <HeroProductsPreview />
+          </BentoCard>
 
           {/* Bonus Final Card */}
           <motion.div

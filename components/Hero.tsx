@@ -38,7 +38,16 @@ export default function Hero() {
     >
       {/* Cinematic Background Layer */}
       <motion.div style={{ position: "absolute", inset: 0, zIndex: 0, y, scale, filter: `blur(${blur})` }}>
-        <img src="/hero.avif" alt="Golden Temple Night" style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.6 }} />
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          poster="/hero.avif"
+          style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.5 }}
+        >
+          <source src="/hero.mp4" type="video/mp4" />
+        </video>
         <div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at center, transparent 0%, rgba(6,6,8,0.8) 100%)" }} />
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 60%, #060608 100%)" }} />
       </motion.div>

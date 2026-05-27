@@ -101,6 +101,8 @@ function BentoCard({ feature, index, children }: { feature: typeof features[0]; 
         gap: isRowLayout ? "40px" : "24px",
         alignItems: "stretch",
         minHeight: isFull || isMega ? "280px" : "240px",
+        textAlign: "left",
+        padding: "32px",
       }}
     >
       {/* Background Image Overlay */}
@@ -140,8 +142,8 @@ function BentoCard({ feature, index, children }: { feature: typeof features[0]; 
         opacity: 0.8,
       }} />
 
-      <div style={{ flex: isRowLayout ? "1 1 50%" : "none", width: isRowLayout ? "auto" : "100%", position: "relative", zIndex: 1 }}>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "20px" }}>
+      <div style={{ flex: isRowLayout ? "1 1 50%" : "none", width: isRowLayout ? "auto" : "100%", position: "relative", zIndex: 1, textAlign: "left" }}>
+        <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: "20px" }}>
           <div style={{
             width: "52px", height: "52px", borderRadius: "16px",
             background: `${feature.accent}14`,
@@ -158,10 +160,10 @@ function BentoCard({ feature, index, children }: { feature: typeof features[0]; 
           </span>
         </div>
 
-        <h3 style={{ fontSize: isFull || isMega ? "28px" : "20px", fontWeight: 900, color: "white", marginBottom: "12px", letterSpacing: "-0.02em", lineHeight: 1.2 }}>
+        <h3 style={{ fontSize: isFull || isMega ? "28px" : "20px", fontWeight: 900, color: "white", marginBottom: "12px", letterSpacing: "-0.02em", lineHeight: 1.2, textAlign: "left" }}>
           {feature.title}
         </h3>
-        <p style={{ fontSize: "15px", color: "rgba(255,255,255,0.9)", fontWeight: 700, lineHeight: 1.7, marginBottom: 0 }}>
+        <p style={{ fontSize: "15px", color: "rgba(255,255,255,0.9)", fontWeight: 700, lineHeight: 1.7, marginBottom: 0, textAlign: "left" }}>
           {feature.desc}
         </p>
       </div>
@@ -418,7 +420,6 @@ export default function Features() {
             <HeroProductsPreview />
           </BentoCard>
 
-          {/* Bonus Final Card */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -427,8 +428,8 @@ export default function Features() {
             style={{
               background: "linear-gradient(135deg, #141420, #0F0F1A)",
               borderRadius: "28px", padding: "32px",
-              display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center",
-              textAlign: "center", gridColumn: "span 3",
+              display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "flex-start",
+              textAlign: "left", gridColumn: "span 3",
               border: "1px solid rgba(255,255,255,0.06)",
               boxShadow: "0 20px 80px rgba(0,0,0,0.2)",
               marginTop: "20px",
@@ -456,13 +457,16 @@ export default function Features() {
               zIndex: 0,
             }} />
 
-            <div style={{ position: "relative", zIndex: 1, fontSize: "18px", fontWeight: 700, color: "white", marginBottom: "16px" }}>
-              Get insights from the Local Guru.
+            <div style={{ position: "relative", zIndex: 1 }}>
+              <div style={{ fontSize: "14px", fontWeight: 700, color: "rgba(255,255,255,0.7)", marginBottom: "8px", textTransform: "uppercase", letterSpacing: "0.05em" }}>Local Guru</div>
+              <div style={{ fontSize: "22px", fontWeight: 900, color: "white", lineHeight: 1.2, letterSpacing: "-0.02em" }}>
+                Get insights from the Local Guru.
+              </div>
             </div>
             <motion.a
               href="#pricing"
               className="btn-primary"
-              style={{ padding: "14px 32px", fontSize: "15px", position: "relative", zIndex: 1 }}
+              style={{ padding: "14px 32px", fontSize: "15px", position: "relative", zIndex: 1, marginTop: "24px" }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >

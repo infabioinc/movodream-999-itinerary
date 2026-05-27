@@ -45,7 +45,8 @@ const previewTimeline = [
     location: "Harmandir Sahib",
     tag: "Spiritual",
     desc: "Arrive before dawn when the crowd density is at its lowest (approx. 15%). Experience absolute serene chants reflected on the holy waters as the first rays hit the gilded domes.",
-    intel: "AI Optimization: Saves 1.5 hours of queue wait compared to arriving at 10:00 AM."
+    intel: "AI Optimization: Saves 1.5 hours of queue wait compared to arriving at 10:00 AM.",
+    image: "https://images.unsplash.com/photo-1514222134-b57cbb8ce073?auto=format&fit=crop&q=80"
   },
   {
     time: "08:30 AM",
@@ -53,15 +54,18 @@ const previewTimeline = [
     location: "Bhai Kulchant Singh (Maqbool Road)",
     tag: "Food Gem",
     desc: "A handpicked local spot. Feast on layered, clay-baked flatbreads stuffed with spiced potatoes and cauliflower, baked till golden-crisp and drenched in pure butter.",
-    intel: "Guru Rec: Avoid main-street tourist trap restaurants; get the authentic street recipe here."
+    intel: "Guru Rec: Avoid main-street tourist trap restaurants; get the authentic street recipe here.",
+    image: "https://images.unsplash.com/photo-1606491956689-2ea866880c84?auto=format&fit=crop&q=80"
   },
   {
+    key: 2,
     time: "11:00 AM",
     title: "Partition Museum Tour",
     location: "Town Hall",
     tag: "Heritage",
     desc: "A deeply moving walk through newspapers, letters, and recorded voices detailing the historic 1947 partition of Punjab.",
-    intel: "Weather Alert: Spend mid-day inside this fully air-conditioned colonial building to avoid heat."
+    intel: "Weather Alert: Spend mid-day inside this fully air-conditioned colonial building to avoid heat.",
+    image: "/partition-museum.jpeg"
   },
   {
     time: "03:30 PM",
@@ -69,7 +73,8 @@ const previewTimeline = [
     location: "Attari-Wagah Border",
     tag: "Must-See",
     desc: "Witness the roaring border-lowering ceremony. High-stepping military drills, patriotic cheers, and synchronized flag lowering.",
-    intel: "IRN Layer Hint: Exit exactly 5 mins before the final whistle to bypass the 4,000-person taxi stampede."
+    intel: "IRN Layer Hint: Exit exactly 5 mins before the final whistle to bypass the 4,000-person taxi stampede.",
+    image: "https://images.unsplash.com/photo-1659763344736-7ea8ed3d1f5e?w=800&auto=format&fit=crop&q=80"
   },
   {
     time: "07:30 PM",
@@ -77,7 +82,8 @@ const previewTimeline = [
     location: "Kesar Da Dhaba",
     tag: "Premium Dining",
     desc: "End the day inside the walled city eating legendary slow-simmered Mah-di-Dal (cooked for 12 hours) and warm, thick laccha parathas.",
-    intel: "Booking Tip: Full-pack members get prioritized tables pre-registered through our network."
+    intel: "Booking Tip: Full-pack members get prioritized tables pre-registered through our network.",
+    image: "heritage-walk.jpg"
   }
 ];
 
@@ -95,10 +101,10 @@ export default function TrustSection() {
       return val ? (
         <Check size={18} color="#22C55E" style={{ margin: "0 auto" }} />
       ) : (
-        <X size={18} color="#EF4444" style={{ margin: "0 auto", opacity: 0.3 }} />
+        <X size={18} color="#EF4444" style={{ margin: "0 auto", opacity: 0.6 }} />
       );
     }
-    return <span style={{ fontSize: "13px", fontWeight: 650, color: "#4B5563" }}>{val}</span>;
+    return <span style={{ fontSize: "13px", fontWeight: 800, color: "rgba(255,255,255,0.95)" }}>{val}</span>;
   };
 
   return (
@@ -256,52 +262,83 @@ export default function TrustSection() {
               <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
                 <motion.div
                   key={selectedTimelineIndex}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.4 }}
+                  style={{
+                    position: "relative",
+                    borderRadius: "24px",
+                    padding: "36px",
+                    background: "#0B0B14",
+                    border: "1px solid rgba(255,255,255,0.08)",
+                    boxShadow: "0 15px 45px rgba(0,0,0,0.3)",
+                    overflow: "hidden",
+                    color: "white"
+                  }}
                 >
-                  <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px" }}>
-                    <span style={{
-                      fontSize: "10px", fontWeight: 800, padding: "4px 10px", borderRadius: "6px",
-                      background: "#F3E8FF", color: "#7C3AED", textTransform: "uppercase", letterSpacing: "0.05em"
-                    }}>
-                      {previewTimeline[selectedTimelineIndex].tag}
-                    </span>
-                    <div style={{ display: "flex", alignItems: "center", gap: "4px", fontSize: "12px", color: "#6B7280", fontWeight: 600 }}>
-                      <MapPin size={12} /> {previewTimeline[selectedTimelineIndex].location}
-                    </div>
-                  </div>
-
-                  <h3 style={{ fontSize: "32px", fontWeight: 900, color: "#1F1F24", marginBottom: "20px", letterSpacing: "-0.03em" }}>
-                    {previewTimeline[selectedTimelineIndex].title}
-                  </h3>
-
-                  <p style={{ fontSize: "16px", color: "#4B5563", lineHeight: 1.8, fontWeight: 500, marginBottom: "32px" }}>
-                    {previewTimeline[selectedTimelineIndex].desc}
-                  </p>
-
-                  {/* Smart Intel Overlay */}
+                  {/* Dynamic Background Image */}
                   <div style={{
-                    background: "linear-gradient(135deg, rgba(236,72,153,0.05) 0%, rgba(59,130,246,0.05) 100%)",
-                    border: "1px solid rgba(0,0,0,0.04)",
-                    borderRadius: "20px",
-                    padding: "20px 24px",
-                    display: "flex",
-                    alignItems: "flex-start",
-                    gap: "14px"
-                  }}>
-                    <div style={{
-                      width: "36px", height: "36px", borderRadius: "10px", background: "white",
-                      display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 4px 12px rgba(0,0,0,0.05)"
-                    }}>
-                      <Sparkles size={16} color="#EC4899" />
-                    </div>
-                    <div>
-                      <div style={{ fontSize: "11px", fontWeight: 800, color: "#EC4899", letterSpacing: "0.05em", textTransform: "uppercase", marginBottom: "2px" }}>
-                        Dashboard Intel
+                    position: "absolute", inset: 0,
+                    backgroundImage: `url(${previewTimeline[selectedTimelineIndex].image})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    opacity: 0.75,
+                    pointerEvents: "none",
+                    zIndex: 0
+                  }} />
+
+                  {/* Dark Vignette Overlay */}
+                  <div style={{
+                    position: "absolute", inset: 0,
+                    background: "linear-gradient(to bottom, rgba(11,11,20,0.45) 0%, rgba(11,11,20,0.65) 100%)",
+                    pointerEvents: "none",
+                    zIndex: 0
+                  }} />
+
+                  <div style={{ position: "relative", zIndex: 1 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px" }}>
+                      <span style={{
+                        fontSize: "10px", fontWeight: 900, padding: "4px 10px", borderRadius: "6px",
+                        background: "#EC4899", color: "white", textTransform: "uppercase", letterSpacing: "0.05em"
+                      }}>
+                        {previewTimeline[selectedTimelineIndex].tag}
+                      </span>
+                      <div style={{ display: "flex", alignItems: "center", gap: "4px", fontSize: "12px", color: "rgba(255,255,255,0.8)", fontWeight: 800 }}>
+                        <MapPin size={12} style={{ color: "#EC4899" }} /> {previewTimeline[selectedTimelineIndex].location}
                       </div>
-                      <div style={{ fontSize: "13px", color: "#1F1F24", fontWeight: 700, lineHeight: 1.4 }}>
-                        {previewTimeline[selectedTimelineIndex].intel}
+                    </div>
+
+                    <h3 style={{ fontSize: "30px", fontWeight: 950, color: "white", marginBottom: "20px", letterSpacing: "-0.03em", lineHeight: 1.2 }}>
+                      {previewTimeline[selectedTimelineIndex].title}
+                    </h3>
+
+                    <p style={{ fontSize: "16px", color: "rgba(255,255,255,0.95)", lineHeight: 1.8, fontWeight: 700, marginBottom: "32px" }}>
+                      {previewTimeline[selectedTimelineIndex].desc}
+                    </p>
+
+                    {/* Smart Intel Overlay */}
+                    <div style={{
+                      background: "rgba(255,255,255,0.06)",
+                      border: "1px solid rgba(255,255,255,0.1)",
+                      borderRadius: "20px",
+                      padding: "20px 24px",
+                      display: "flex",
+                      alignItems: "flex-start",
+                      gap: "14px"
+                    }}>
+                      <div style={{
+                        width: "36px", height: "36px", borderRadius: "10px", background: "rgba(255,255,255,0.1)",
+                        display: "flex", alignItems: "center", justifyContent: "center", border: "1px solid rgba(255,255,255,0.1)"
+                      }}>
+                        <Sparkles size={16} color="#EC4899" />
+                      </div>
+                      <div>
+                        <div style={{ fontSize: "11px", fontWeight: 900, color: "#EC4899", letterSpacing: "0.05em", textTransform: "uppercase", marginBottom: "2px" }}>
+                          Dashboard Intel
+                        </div>
+                        <div style={{ fontSize: "13px", color: "white", fontWeight: 850, lineHeight: 1.4 }}>
+                          {previewTimeline[selectedTimelineIndex].intel}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -317,24 +354,44 @@ export default function TrustSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
               style={{
-                background: "white",
+                position: "relative",
+                background: "#0B0B14",
                 borderRadius: "32px",
-                border: "1px solid rgba(0,0,0,0.06)",
-                boxShadow: "0 10px 40px rgba(0,0,0,0.03)",
+                border: "1px solid rgba(255,255,255,0.08)",
+                boxShadow: "0 10px 40px rgba(0,0,0,0.3)",
                 overflow: "hidden"
               }}
             >
+              {/* Table Background Image */}
+              <div style={{
+                position: "absolute", inset: 0,
+                backgroundImage: "url(https://images.unsplash.com/photo-1514222134-b57cbb8ce073?auto=format&fit=crop&q=80)",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                opacity: 0.75,
+                pointerEvents: "none",
+                zIndex: 0
+              }} />
+
+              {/* Dark Overlay for Ultra-Legibility */}
+              <div style={{
+                position: "absolute", inset: 0,
+                background: "linear-gradient(to bottom, rgba(11,11,20,0.45) 0%, rgba(11,11,20,0.65) 100%)",
+                pointerEvents: "none",
+                zIndex: 0
+              }} />
+
               {/* Table Wrapper */}
-              <div style={{ overflowX: "auto" }}>
+              <div style={{ overflowX: "auto", position: "relative", zIndex: 1 }}>
                 <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left" }}>
                   <thead>
-                    <tr style={{ background: "rgba(0,0,0,0.02)", borderBottom: "1px solid rgba(0,0,0,0.06)" }}>
-                      <th style={{ padding: "24px 30px", fontSize: "14px", fontWeight: 800, color: "#1F1F24", width: "40%" }}>Feature / Capability</th>
-                      <th style={{ padding: "24px 20px", fontSize: "14px", fontWeight: 800, color: "#4B5563", textAlign: "center" }}>₹199 Plan</th>
-                      <th style={{ padding: "24px 20px", fontSize: "14px", fontWeight: 800, color: "#4B5563", textAlign: "center" }}>₹499 Plan</th>
+                    <tr style={{ background: "rgba(255,255,255,0.04)", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
+                      <th style={{ padding: "24px 30px", fontSize: "14px", fontWeight: 900, color: "white", width: "40%" }}>Feature / Capability</th>
+                      <th style={{ padding: "24px 20px", fontSize: "14px", fontWeight: 900, color: "white", textAlign: "center" }}>₹199 Plan</th>
+                      <th style={{ padding: "24px 20px", fontSize: "14px", fontWeight: 900, color: "white", textAlign: "center" }}>₹499 Plan</th>
                       <th style={{
-                        padding: "24px 20px", fontSize: "14px", fontWeight: 900,
-                        color: "white", background: "#1F1F24", textAlign: "center",
+                        padding: "24px 20px", fontSize: "14px", fontWeight: 950,
+                        color: "white", background: "rgba(255,255,255,0.08)", textAlign: "center",
                         position: "relative"
                       }}>
                         ₹999 Ultimate
@@ -353,26 +410,26 @@ export default function TrustSection() {
                       <tr
                         key={idx}
                         style={{
-                          borderBottom: "1px solid rgba(0,0,0,0.04)",
-                          background: row.highlighted ? "rgba(251,191,36,0.08)" : "transparent",
+                          borderBottom: "1px solid rgba(255,255,255,0.06)",
+                          background: row.highlighted ? "rgba(251,191,36,0.12)" : "transparent",
                           transition: "background 0.2s ease"
                         }}
                       >
                         <td style={{
                           padding: "18px 30px",
                           fontSize: "14px",
-                          fontWeight: 700,
-                          color: "#1F1F24",
+                          fontWeight: 800,
+                          color: "white",
                           display: "flex",
                           alignItems: "center",
                           gap: "8px"
                         }}>
-                          {row.highlighted && <span style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: "#D97706" }} />}
+                          {row.highlighted && <span style={{ width: "6px", height: "6px", borderRadius: "50%", backgroundColor: "#FBBF24" }} />}
                           {row.name}
                           {row.highlighted && (
                             <span style={{
-                              fontSize: "9px", fontWeight: 800, background: "#FEF3C7",
-                              color: "#D97706", padding: "2px 6px", borderRadius: "4px", textTransform: "uppercase"
+                              fontSize: "9px", fontWeight: 900, background: "rgba(251,191,36,0.2)",
+                              color: "#FBBF24", padding: "2px 6px", borderRadius: "4px", textTransform: "uppercase"
                             }}>
                               Highlighted
                             </span>
@@ -386,9 +443,9 @@ export default function TrustSection() {
                         </td>
                         <td style={{
                           padding: "18px 20px", textAlign: "center",
-                          background: "rgba(31,31,36,0.02)",
-                          fontWeight: 750,
-                          color: "#1F1F24"
+                          background: "rgba(255,255,255,0.04)",
+                          fontWeight: 900,
+                          color: "white"
                         }}>
                           {renderValue(row.t999)}
                         </td>

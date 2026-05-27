@@ -43,12 +43,8 @@ export default function FinalCTA() {
 
       <div className="container" style={{ position: "relative", zIndex: 10, textAlign: "center" }}>
 
-        {/* Floating Icons decoration */}
         <motion.div animate={{ y: [0, -20, 0] }} transition={{ duration: 5, repeat: Infinity }} style={{ position: "absolute", top: "-40px", left: "10%", opacity: 0.2 }}>
           <Sparkles size={60} color="#EC4899" />
-        </motion.div>
-        <motion.div animate={{ y: [0, 20, 0] }} transition={{ duration: 6, repeat: Infinity, delay: 1 }} style={{ position: "absolute", bottom: "-40px", right: "10%", opacity: 0.2 }}>
-          <Star size={80} color="#FBBF24" fill="#FBBF24" />
         </motion.div>
 
         <motion.div

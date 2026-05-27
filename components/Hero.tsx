@@ -26,6 +26,7 @@ export default function Hero() {
     <section
       ref={sectionRef}
       id="overview"
+      className="pt-28 md:pt-0"
       style={{
         position: "relative",
         minHeight: "100vh",
@@ -114,8 +115,8 @@ export default function Hero() {
           >
             <motion.a
               href="#trust"
-              className="btn-primary"
-              style={{ padding: "22px 54px", fontSize: "18px", fontWeight: 900, borderRadius: "20px" }}
+              className="btn-primary btn-cta-hero"
+              style={{ fontWeight: 900, borderRadius: "20px" }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >

@@ -213,6 +213,40 @@ a { text-decoration: none; color: inherit; }
 .btn-primary:hover::before { opacity: 1; }
 .btn-primary:active { transform: translateY(0) scale(0.99); }
 
+/* Premium CTA Button Sizing & Scaling */
+.btn-cta-hero {
+  padding: 14px 32px !important;
+  font-size: 14px !important;
+}
+@media (min-width: 768px) {
+  .btn-cta-hero {
+    padding: 22px 54px !important;
+    font-size: 18px !important;
+  }
+}
+
+.btn-cta-value {
+  padding: 14px 32px !important;
+  font-size: 14px !important;
+}
+@media (min-width: 768px) {
+  .btn-cta-value {
+    padding: 20px 48px !important;
+    font-size: 18px !important;
+  }
+}
+
+.btn-cta-final {
+  padding: 16px 36px !important;
+  font-size: 16px !important;
+}
+@media (min-width: 768px) {
+  .btn-cta-final {
+    padding: 24px 64px !important;
+    font-size: 20px !important;
+  }
+}
+
 .btn-ghost {
   display: inline-flex;
   align-items: center;

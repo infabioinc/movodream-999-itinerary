@@ -70,10 +70,11 @@ function TestimonialCard({ t, index, rotate }: { t: typeof testimonials[0]; inde
   return (
     <motion.div
       ref={tiltRef as React.RefObject<HTMLDivElement>}
+      className="p-6 md:p-8"
       style={{
-        background: "white", borderRadius: "24px", padding: "32px",
+        background: "white", borderRadius: "24px",
         border: "1px solid rgba(0,0,0,0.06)", boxShadow: "0 10px 40px rgba(0,0,0,0.05)",
-        width: "380px", flexShrink: 0, rotate: `${rotate}deg`,
+        width: "min(380px, calc(100vw - 40px))", flexShrink: 0, rotate: `${rotate}deg`,
         position: "relative", overflow: "hidden", transformStyle: "preserve-3d"
       }}
     >

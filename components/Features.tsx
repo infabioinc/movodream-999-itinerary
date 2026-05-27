@@ -74,6 +74,9 @@ function BentoCard({ feature, index, children }: { feature: typeof features[0]; 
   const tiltRef = useTiltEffect(isFull || isMega ? 5 : 10);
   const Icon = feature.icon;
 
+  const hasChildren = !!children;
+  const isRowLayout = (isFull || isMega) && hasChildren;
+
   return (
     <motion.div
       ref={tiltRef as React.RefObject<HTMLDivElement>}
@@ -81,12 +84,12 @@ function BentoCard({ feature, index, children }: { feature: typeof features[0]; 
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ delay: index * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      className={isFull || isMega ? "p-6 md:p-8" : "p-6"}
       style={{
-        background: "white",
+        background: "#0B0B14",
         borderRadius: "28px",
-        padding: isFull || isMega ? "48px" : "32px",
-        border: "1px solid rgba(0,0,0,0.06)",
-        boxShadow: "0 4px 24px rgba(0,0,0,0.04)",
+        border: "1px solid rgba(255,255,255,0.08)",
+        boxShadow: "0 10px 40px rgba(0,0,0,0.25)",
         position: "relative",
         overflow: "hidden",
         cursor: "pointer",
@@ -94,9 +97,10 @@ function BentoCard({ feature, index, children }: { feature: typeof features[0]; 
         gridColumn: isFull ? "span 3" : isMega ? "span 2" : "span 1",
         gridRow: "span 1",
         display: "flex",
-        flexDirection: isFull || isMega ? "row" : "column",
-        gap: isFull || isMega ? "40px" : "24px",
-        alignItems: "flex-start",
+        flexDirection: isRowLayout ? "row" : "column",
+        gap: isRowLayout ? "40px" : "24px",
+        alignItems: "stretch",
+        minHeight: isFull || isMega ? "280px" : "240px",
       }}
     >
       {/* Background Image Overlay */}
@@ -106,22 +110,25 @@ function BentoCard({ feature, index, children }: { feature: typeof features[0]; 
           backgroundImage: `url(${feature.bgImage})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
-          opacity: 0.95, // Fully crisp and visible
+          opacity: 0.65, // Crisp, vibrant background image
           pointerEvents: "none",
           zIndex: 0,
         }} />
       )}
 
-      {/* Text protection overlay - Direction-aware gradient */}
+      {/* Text protection overlay - Direction-aware dark gradient */}
       {feature.bgImage && (
-        <div style={{
-          position: "absolute", inset: 0,
-          background: isFull || isMega
-            ? "linear-gradient(to right, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.82) 45%, rgba(255,255,255,0.15) 100%)"
-            : "linear-gradient(to bottom, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.78) 50%, rgba(255,255,255,0.15) 100%)",
-          pointerEvents: "none",
-          zIndex: 0,
-        }} />
+        <div
+          className="bento-card-gradient"
+          style={{
+            position: "absolute", inset: 0,
+            background: isRowLayout
+              ? "linear-gradient(to right, rgba(11,11,20,0.95) 0%, rgba(11,11,20,0.7) 45%, rgba(11,11,20,0.15) 100%)"
+              : "linear-gradient(to bottom, rgba(11,11,20,0.95) 0%, rgba(11,11,20,0.7) 50%, rgba(11,11,20,0.15) 100%)",
+            pointerEvents: "none",
+            zIndex: 0,
+          }}
+        />
       )}
 
       {/* Background glow accent */}
@@ -133,7 +140,7 @@ function BentoCard({ feature, index, children }: { feature: typeof features[0]; 
         opacity: 0.8,
       }} />
 
-      <div style={{ flex: isFull || isMega ? "1 1 50%" : "none", position: "relative", zIndex: 1 }}>
+      <div style={{ flex: isRowLayout ? "1 1 50%" : "none", width: isRowLayout ? "auto" : "100%", position: "relative", zIndex: 1 }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "20px" }}>
           <div style={{
             width: "52px", height: "52px", borderRadius: "16px",
@@ -144,23 +151,23 @@ function BentoCard({ feature, index, children }: { feature: typeof features[0]; 
           </div>
           <span style={{
             fontSize: "11px", fontWeight: 700, padding: "4px 12px", borderRadius: "100px",
-            background: `${feature.accent}12`, color: feature.accent,
+            background: `${feature.accent}22`, color: feature.accent,
             letterSpacing: "0.05em", textTransform: "uppercase",
           }}>
             {feature.tag}
           </span>
         </div>
 
-        <h3 style={{ fontSize: isFull || isMega ? "28px" : "20px", fontWeight: 900, color: "#1F1F24", marginBottom: "12px", letterSpacing: "-0.02em", lineHeight: 1.2 }}>
+        <h3 style={{ fontSize: isFull || isMega ? "28px" : "20px", fontWeight: 900, color: "white", marginBottom: "12px", letterSpacing: "-0.02em", lineHeight: 1.2 }}>
           {feature.title}
         </h3>
-        <p style={{ fontSize: "15px", color: "#374151", fontWeight: 500, lineHeight: 1.7, marginBottom: 0 }}>
+        <p style={{ fontSize: "15px", color: "rgba(255,255,255,0.9)", fontWeight: 700, lineHeight: 1.7, marginBottom: 0 }}>
           {feature.desc}
         </p>
       </div>
 
       {children && (
-        <div style={{ flex: isFull || isMega ? "1 1 50%" : "none", width: isFull || isMega ? "auto" : "100%", position: "relative", zIndex: 1 }}>
+        <div style={{ flex: isRowLayout ? "1 1 50%" : "none", width: isRowLayout ? "auto" : "100%", position: "relative", zIndex: 1, display: "flex", alignItems: "center" }}>
           {children}
         </div>
       )}
@@ -173,8 +180,8 @@ function BentoCard({ feature, index, children }: { feature: typeof features[0]; 
 function ItineraryPreview() {
   return (
     <div style={{
-      background: "#F9FAFB", borderRadius: "20px", padding: "20px",
-      border: "1px solid rgba(0,0,0,0.05)", display: "flex", flexDirection: "column", gap: "12px"
+      background: "rgba(255, 255, 255, 0.05)", borderRadius: "20px", padding: "20px",
+      border: "1px solid rgba(255, 255, 255, 0.08)", display: "flex", flexDirection: "column", gap: "12px"
     }}>
       {[
         { t: "06:00", d: "Golden Temple Sunrise", c: "#EC4899" },
@@ -188,12 +195,12 @@ function ItineraryPreview() {
           transition={{ delay: 0.5 + i * 0.1 }}
           style={{ display: "flex", alignItems: "center", gap: "12px" }}
         >
-          <span style={{ fontSize: "11px", fontWeight: 700, color: "#9CA3AF", width: "35px" }}>{item.t}</span>
+          <span style={{ fontSize: "11px", fontWeight: 700, color: "rgba(255,255,255,0.5)", width: "35px" }}>{item.t}</span>
           <div style={{ width: "2px", height: "20px", background: `${item.c}30`, borderRadius: "1px" }} />
-          <span style={{ fontSize: "13px", fontWeight: 600, color: "#1F1F24" }}>{item.d}</span>
+          <span style={{ fontSize: "13px", fontWeight: 600, color: "white" }}>{item.d}</span>
         </motion.div>
       ))}
-      <div style={{ borderTop: "1px dashed rgba(0,0,0,0.1)", paddingTop: "12px", marginTop: "4px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+      <div style={{ borderTop: "1px dashed rgba(255,255,255,0.15)", paddingTop: "12px", marginTop: "4px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <span style={{ fontSize: "10px", fontWeight: 700, color: "#EC4899" }}>OPTIMIZED ROUTE READY</span>
         <Activity size={12} color="#EC4899" className="live-dot" />
       </div>
@@ -208,12 +215,12 @@ function CrowdStatus() {
         { l: "Golden Temple", v: 80, c: "#22C55E" },
         { l: "Jallianwala Bagh", v: 60, c: "#EF4444" },
       ].map((s, i) => (
-        <div key={i} style={{ background: "rgba(0,0,0,0.02)", borderRadius: "12px", padding: "12px", border: "1px solid rgba(0,0,0,0.04)" }}>
+        <div key={i} style={{ background: "rgba(255,255,255,0.03)", borderRadius: "12px", padding: "12px", border: "1px solid rgba(255,255,255,0.08)" }}>
           <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "6px" }}>
-            <span style={{ fontSize: "12px", fontWeight: 600, color: "#1F1F24" }}>{s.l}</span>
+            <span style={{ fontSize: "12px", fontWeight: 600, color: "white" }}>{s.l}</span>
             <span style={{ fontSize: "12px", fontWeight: 700, color: s.c }}>{s.v}%</span>
           </div>
-          <div style={{ height: "4px", borderRadius: "2px", background: "rgba(0,0,0,0.05)", overflow: "hidden" }}>
+          <div style={{ height: "4px", borderRadius: "2px", background: "rgba(255,255,255,0.1)", overflow: "hidden" }}>
             <motion.div
               initial={{ width: 0 }}
               whileInView={{ width: `${s.v}%` }}
@@ -229,14 +236,14 @@ function CrowdStatus() {
 
 function FoodGrid() {
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-[10px]" style={{ width: "100%" }}>
       {[
         { n: "Kesar Dhaba", t: "Legendary" },
         { n: "Beera Chicken", t: "Local Secret" },
       ].map((f, i) => (
-        <div key={i} style={{ background: "white", borderRadius: "14px", padding: "12px", border: "1px solid rgba(0,0,0,0.06)", boxShadow: "0 4px 12px rgba(0,0,0,0.03)" }}>
-          <div style={{ fontSize: "12px", fontWeight: 700, color: "#1F1F24", marginBottom: "2px" }}>{f.n}</div>
-          <div style={{ fontSize: "10px", color: "#6B7280" }}>{f.t}</div>
+        <div key={i} style={{ background: "rgba(255,255,255,0.04)", borderRadius: "14px", padding: "12px", border: "1px solid rgba(255,255,255,0.08)", boxShadow: "0 4px 12px rgba(0,0,0,0.15)" }}>
+          <div style={{ fontSize: "12px", fontWeight: 700, color: "white", marginBottom: "2px" }}>{f.n}</div>
+          <div style={{ fontSize: "10px", color: "rgba(255,255,255,0.5)" }}>{f.t}</div>
         </div>
       ))}
     </div>
@@ -245,9 +252,9 @@ function FoodGrid() {
 
 function RouteMap() {
   return (
-    <div style={{ position: "relative", borderRadius: "20px", overflow: "hidden", height: "140px", background: "#F3F4F6", border: "1px solid rgba(0,0,0,0.05)" }}>
-      <img src="/map.png" alt="Route Map" style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.8 }} />
-      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(rgba(245,158,11,0.1), transparent)" }} />
+    <div style={{ position: "relative", borderRadius: "20px", overflow: "hidden", height: "140px", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
+      <img src="/map.png" alt="Route Map" style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.5 }} />
+      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(rgba(245,158,11,0.15), transparent)" }} />
       <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}>
         <motion.path
           d="M 40 100 Q 80 40 160 80 T 260 40"
@@ -262,8 +269,8 @@ function RouteMap() {
         <motion.circle cx="40" cy="100" r="4" fill="#F59E0B" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.2 }} />
         <motion.circle cx="260" cy="40" r="4" fill="#F59E0B" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 2 }} />
       </svg>
-      <div style={{ position: "absolute", bottom: "12px", left: "12px", background: "white", borderRadius: "8px", padding: "4px 10px", border: "1px solid rgba(0,0,0,0.1)", boxShadow: "0 4px 12px rgba(0,0,0,0.1)" }}>
-        <span style={{ fontSize: "10px", fontWeight: 800, color: "#1F1F24" }}>SAVING 45 MINS</span>
+      <div style={{ position: "absolute", bottom: "12px", left: "12px", background: "rgba(11,11,20,0.85)", borderRadius: "8px", padding: "4px 10px", border: "1px solid rgba(255,255,255,0.15)", boxShadow: "0 4px 12px rgba(0,0,0,0.3)" }}>
+        <span style={{ fontSize: "10px", fontWeight: 800, color: "white" }}>SAVING 45 MINS</span>
       </div>
     </div>
   );
@@ -288,12 +295,12 @@ function HeroProductsPreview() {
           transition={{ delay: 0.3 + i * 0.1 }}
           whileHover={{ scale: 1.02, x: 5 }}
           style={{
-            background: "rgba(255, 255, 255, 0.75)",
+            background: "rgba(255, 255, 255, 0.04)",
             backdropFilter: "blur(6px)",
             borderRadius: "16px",
             padding: "12px 18px",
-            border: "1px solid rgba(0,0,0,0.06)",
-            boxShadow: "0 4px 12px rgba(0,0,0,0.02)",
+            border: "1px solid rgba(255, 255, 255, 0.08)",
+            boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
@@ -302,8 +309,8 @@ function HeroProductsPreview() {
           }}
         >
           <div>
-            <div style={{ fontSize: "14px", fontWeight: 800, color: "#1F1F24" }}>{p.name}</div>
-            <div style={{ fontSize: "11px", color: "#4B5563", marginTop: "2px", fontWeight: 500 }}>{p.desc}</div>
+            <div style={{ fontSize: "14px", fontWeight: 800, color: "white" }}>{p.name}</div>
+            <div style={{ fontSize: "11px", color: "rgba(255,255,255,0.7)", marginTop: "2px", fontWeight: 500 }}>{p.desc}</div>
           </div>
           <span style={{
             fontSize: "9px",
@@ -469,6 +476,9 @@ export default function Features() {
         @media (max-width: 900px) {
           .bento-container { grid-template-columns: 1fr !important; }
           .bento-container > * { grid-column: span 1 !important; flex-direction: column !important; }
+          .bento-card-gradient {
+            background: linear-gradient(to bottom, rgba(11,11,20,0.95) 0%, rgba(11,11,20,0.7) 50%, rgba(11,11,20,0.15) 100%) !important;
+          }
         }
       `}</style>
     </section>

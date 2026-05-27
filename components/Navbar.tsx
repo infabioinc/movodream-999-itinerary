@@ -18,22 +18,57 @@ export default function Navbar() {
   const [hidden, setHidden] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { scrollY } = useScroll();
-  
+
   const magneticLogo = useMagneticEffect(0.2);
   const magneticCTA = useMagneticEffect(0.2);
 
+  const lastScrollY = useRef(0);
+
   useMotionValueEvent(scrollY, "change", (latest) => {
-    setHidden(false);
+    const diff = latest - lastScrollY.current;
     setScrolled(latest > 20);
+
+    if (mobileOpen) {
+      setHidden(false);
+    } else if (latest > 100) {
+      if (diff > 0) {
+        setHidden(true);
+      } else if (diff < -10) {
+        setHidden(false);
+      }
+    } else {
+      setHidden(false);
+    }
+    lastScrollY.current = latest;
   });
 
   return (
-    <motion.header
-      style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, display: "flex", justifyContent: "center", padding: "20px" }}
-      initial={{ y: -100 }}
-      animate={{ y: hidden ? -120 : 0 }}
-      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-    >
+    <>
+      {/* Dark & Blurred Backdrop Overlay */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setMobileOpen(false)}
+            style={{
+              position: "fixed",
+              inset: 0,
+              backgroundColor: "rgba(0, 0, 0, 0.4)",
+              backdropFilter: "blur(12px)",
+              zIndex: 90,
+            }}
+          />
+        )}
+      </AnimatePresence>
+
+      <motion.header
+        style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, display: "flex", justifyContent: "center", padding: "20px" }}
+        initial={{ y: -100 }}
+        animate={{ y: hidden ? -120 : 0 }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      >
       <motion.nav
         style={{
           width: "100%",
@@ -65,7 +100,7 @@ export default function Navbar() {
         </div>
 
         {/* Desktop Nav */}
-        <div style={{ display: "flex", alignItems: "center", gap: "4px" }} className="hidden md:flex">
+        <div style={{ alignItems: "center", gap: "4px" }} className="hidden md:flex">
           {navLinks.map((link) => (
             <a
               key={link.href}
@@ -92,7 +127,7 @@ export default function Navbar() {
 
         {/* CTA + Mobile Toggle */}
         <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-          <div ref={magneticCTA as React.RefObject<HTMLDivElement>}>
+          <div ref={magneticCTA as React.RefObject<HTMLDivElement>} className="hidden sm:block">
             <motion.a
               href="#cta"
               className="btn-primary"
@@ -106,123 +141,108 @@ export default function Navbar() {
           </div>
 
           <button
-            className="md:hidden"
+            className="flex"
             onClick={() => setMobileOpen(!mobileOpen)}
             style={{
               width: "40px", height: "40px", borderRadius: "50%",
               background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)",
-              display: "flex", alignItems: "center", justifyContent: "center",
+              alignItems: "center", justifyContent: "center",
               cursor: "pointer",
             }}
           >
             {mobileOpen ? <X size={18} color="white" /> : <MoreVertical size={18} color="white" />}
           </button>
         </div>
-      </motion.nav>
-
-      {/* Mobile Menu & Backdrop Blur */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <>
-            {/* Dark & Blurred Backdrop Overlay */}
+        {/* Mobile Menu & Backdrop Blur */}
+        <AnimatePresence>
+          {mobileOpen && (
+            /* Floating Dropdown Box */
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setMobileOpen(false)}
-              style={{
-                position: "fixed",
-                inset: 0,
-                backgroundColor: "rgba(0, 0, 0, 0.4)",
-                backdropFilter: "blur(12px)",
-                zIndex: 90,
-              }}
-            />
+              initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                style={{
+                  position: "absolute",
+                  top: "calc(100% + 12px)",
+                  right: "0px",
+                  left: "auto",
+                  width: "min(320px, calc(100vw - 40px))",
+                  backgroundColor: "rgba(10, 10, 16, 0.95)",
+                  backdropFilter: "blur(30px)",
+                  borderRadius: "20px",
+                  padding: "12px",
+                  boxShadow: "0 20px 50px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08)",
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  zIndex: 95,
+                  overflow: "hidden",
+                }}
+              >
+                {/* Radial gradient reflection */}
+                <div style={{
+                  position: "absolute",
+                  inset: 0,
+                  background: "radial-gradient(circle at 50% 0%, rgba(236,72,153,0.12), transparent 75%)",
+                  pointerEvents: "none",
+                }} />
 
-            {/* Floating Dropdown Box */}
-            <motion.div
-              initial={{ opacity: 0, y: -20, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -20, scale: 0.95 }}
-              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              style={{
-                position: "absolute",
-                top: "100px",
-                left: "20px",
-                right: "20px",
-                backgroundColor: "rgba(10, 10, 16, 0.92)",
-                backdropFilter: "blur(30px)",
-                borderRadius: "32px",
-                padding: "24px",
-                boxShadow: "0 40px 100px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.08)",
-                border: "1px solid rgba(255,255,255,0.08)",
-                zIndex: 95,
-                overflow: "hidden",
-              }}
-            >
-              {/* Radial gradient reflection */}
-              <div style={{
-                position: "absolute",
-                inset: 0,
-                background: "radial-gradient(circle at 50% 0%, rgba(236,72,153,0.1), transparent 75%)",
-                pointerEvents: "none",
-              }} />
+                <div style={{ display: "flex", flexDirection: "column", gap: "4px", position: "relative", zIndex: 1 }}>
+                  {navLinks.map((link) => {
+                    const LinkIcon = link.icon;
+                    return (
+                      <motion.a
+                        key={link.href}
+                        href={link.href}
+                        onClick={() => setMobileOpen(false)}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "12px",
+                          padding: "8px 12px",
+                          borderRadius: "14px",
+                          textDecoration: "none",
+                          transition: "all 0.3s ease",
+                          border: "1px solid transparent",
+                          background: "rgba(255,255,255,0.01)",
+                        }}
+                        whileHover={{
+                          background: "rgba(255,255,255,0.04)",
+                          borderColor: "rgba(255,255,255,0.06)",
+                          x: 4,
+                        }}
+                      >
+                        {/* Icon container */}
+                        <div style={{
+                          width: "30px",
+                          height: "30px",
+                          borderRadius: "8px",
+                          background: "rgba(255,255,255,0.04)",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          flexShrink: 0,
+                        }}>
+                          <LinkIcon size={14} color="#EC4899" />
+                        </div>
 
-              <div style={{ display: "flex", flexDirection: "column", gap: "8px", position: "relative", zIndex: 1 }}>
-                {navLinks.map((link) => {
-                  const LinkIcon = link.icon;
-                  return (
-                    <motion.a
-                      key={link.href}
-                      href={link.href}
-                      onClick={() => setMobileOpen(false)}
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "16px",
-                        padding: "16px",
-                        borderRadius: "20px",
-                        textDecoration: "none",
-                        transition: "all 0.3s ease",
-                        border: "1px solid transparent",
-                        background: "rgba(255,255,255,0.01)",
-                      }}
-                      whileHover={{
-                        background: "rgba(255,255,255,0.04)",
-                        borderColor: "rgba(255,255,255,0.06)",
-                        x: 4,
-                      }}
-                    >
-                      {/* Icon container */}
-                      <div style={{
-                        width: "36px",
-                        height: "36px",
-                        borderRadius: "10px",
-                        background: "rgba(255,255,255,0.04)",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}>
-                        <LinkIcon size={16} color="#EC4899" />
-                      </div>
-                      
-                      {/* Label + Description */}
-                      <div style={{ display: "flex", flexDirection: "column" }}>
-                        <span style={{ fontSize: "14px", fontWeight: 700, color: "white" }}>
-                          {link.label}
-                        </span>
-                        <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.45)", fontWeight: 500 }}>
-                          {link.sub}
-                        </span>
-                      </div>
-                    </motion.a>
-                  );
-                })}
-              </div>
+                        {/* Label + Description */}
+                        <div style={{ display: "flex", flexDirection: "column" }}>
+                          <span style={{ fontSize: "13px", fontWeight: 700, color: "white" }}>
+                            {link.label}
+                          </span>
+                          <span style={{ fontSize: "10px", color: "rgba(255,255,255,0.4)", fontWeight: 500 }}>
+                            {link.sub}
+                          </span>
+                        </div>
+                      </motion.a>
+                    );
+                  })}
+                </div>
             </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>
+      </motion.nav>
     </motion.header>
+    </>
   );
 }

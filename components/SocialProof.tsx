@@ -45,7 +45,7 @@ const testimonials = [
   },
   {
     name: "Priya & Ankit", origin: "Mumbai", rating: 5, color: "#A855F7",
-    text: "Watching sunrise at Golden Temple with no crowds felt like a movie scene. The itinerary was so thoughtful.",
+    text: "Attending the early morning Darshan at Golden Temple with no crowds was deeply spiritual. The itinerary was so thoughtful.",
     avatar: "https://i.pravatar.cc/150?img=32"
   },
   {
@@ -131,7 +131,7 @@ export default function SocialProof() {
             }}
           >
             <Users size={14} color="#FBBF24" />
-            <span style={{ fontSize: "13px", fontWeight: 700, color: "#1F1F24" }}>2,400+ TRAVELERS</span>
+            <span style={{ fontSize: "13px", fontWeight: 700, color: "#1F1F24" }}>2,487+ TRAVELERS</span>
           </motion.div>
 
           <motion.h2
@@ -168,7 +168,7 @@ export default function SocialProof() {
       <div className="container" style={{ position: "relative", zIndex: 10 }}>
         <div ref={statsRef} style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "20px", maxWidth: "900px", margin: "0 auto" }} className="stats-grid">
           {[
-            { v: "2400+", l: "Happy Travelers", c: "#EC4899" },
+            { v: "2487+", l: "Happy Travelers", c: "#EC4899" },
             { v: "4.9", l: "Average Rating", c: "#FBBF24" },
             { v: "₹999", l: "Complete Access", c: "#22C55E" },
           ].map((s, i) => (

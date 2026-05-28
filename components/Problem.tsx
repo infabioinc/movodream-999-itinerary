@@ -20,7 +20,7 @@ const frustrations = [
     title: "Generic Tourist Trap Routes",
     desc: "Google Maps sends everyone to the same 5 places. You miss multiple hidden gems.",
     statLabel: "gems missed", color: "#F97316", accent: "rgba(249,115,22,0.12)",
-    bgImage: "https://images.tribuneindia.com/cms/gall_content/2019/5/2019_5$largeimg02_Thursday_2019_080646894.jpg",
+    bgImage: "1.webp",
   },
   {
     icon: TrendingDown,
@@ -38,10 +38,10 @@ const frustrations = [
   },
   {
     icon: AlertTriangle,
-    title: "No Live Travel Updates",
-    desc: "Events. Closures. Rush hours. Festival crowds. Zero real-time awareness.",
-    stat: "0", statLabel: "live alerts", color: "#A855F7", accent: "rgba(168,85,247,0.1)",
-    bgImage: "https://images.unsplash.com/photo-1668083929205-980ae0ca2d1e?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    title: "No Travel Updates",
+    desc: "Events. Closures. Rush hours. Festival crowds. Zero awareness.",
+    stat: "0", statLabel: "Personalized alerts", color: "#A855F7", accent: "rgba(168,85,247,0.1)",
+    bgImage: "/partition-museum-townhall.jpg",
   },
   {
     icon: XCircle,
@@ -197,7 +197,7 @@ function HeroStatCard() {
       {/* Background Image Overlay */}
       <div style={{
         position: "absolute", inset: 0,
-        backgroundImage: "url(https://images.unsplash.com/photo-1514222134-b57cbb8ce073?auto=format&fit=crop&q=80)",
+        backgroundImage: "url(/gobindgarh-fort.jpg)",
         backgroundSize: "cover",
         backgroundPosition: "center",
         opacity: 0.95, // Clear and visible
@@ -243,7 +243,7 @@ function HeroStatCard() {
       </div>
 
       <div style={{ display: "flex", gap: "24px", position: "relative", zIndex: 1 }}>
-        {[{ n: "2,400+", l: "Travelers saved" }].map(s => (
+        {[{ n: "2,487+", l: "Travelers saved" }].map(s => (
           <div key={s.l}>
             <div style={{ fontSize: "22px", fontWeight: 900, color: "white" }}>{s.n}</div>
             <div style={{ fontSize: "11px", color: "rgba(255,255,255,0.4)", marginTop: "2px" }}>{s.l}</div>
@@ -319,7 +319,7 @@ export default function Problem() {
             transition={{ delay: 0.2, duration: 0.6 }}
             style={{ fontSize: "17px", color: "#6B7280", maxWidth: "540px", margin: "0 auto", lineHeight: 1.7 }}
           >
-            Thousands visit Amritsar every month — and most return feeling they only scratched the surface.
+            Lakhs of Devotees and tourists visit Amritsar every month — and most return feeling they only scratched the surface.
           </motion.p>
         </div>
 

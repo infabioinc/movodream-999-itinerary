@@ -12,19 +12,19 @@ const features = [
     icon: Route, title: "Personalized Smart Itinerary", accent: "#EC4899",
     desc: "Your itinerary isn't generic. It's built around your group size, interests, pace, and travel dates — with day-by-day plans for every hour of your trip.",
     tag: "AI-Powered", type: "mega",
-    bgImage: "https://images.unsplash.com/photo-1514222134-b57cbb8ce073?auto=format&fit=crop&q=80",
+    bgImage: "/gobindgarh-fort.jpg",
   },
   {
     icon: Users, title: "Crowd Intelligence", accent: "#3B82F6",
-    desc: "Real-time crowd density tracking across all major sites. Know exactly when and where to go for peaceful, beautiful experiences.",
-    tag: "Real-Time", type: "medium",
-    bgImage: "https://images.unsplash.com/photo-1583821017783-4333717df070?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    desc: "crowd density tracking across all major sites. Know exactly when and where to go for peaceful, beautiful experiences.",
+    type: "medium",
+    bgImage: "/sadda-pind.jpg",
   },
   {
     icon: Sparkles, title: "Hidden Gems", accent: "#A855F7",
     desc: "Beyond sightseeing, immersive local culture, hidden gems, and meaningful experiences.",
     tag: "Exclusive", type: "small",
-    bgImage: "https://plus.unsplash.com/premium_photo-1697729441943-f1bffee0b432?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    bgImage: "/virasat-haveli.jpg",
   },
   {
     icon: Utensils, title: "Food Intelligence", accent: "#EF4444",
@@ -36,13 +36,13 @@ const features = [
     icon: Zap, title: "Route Optimization", accent: "#F59E0B",
     desc: "AI-optimized routes that minimize travel time and sequence visits for maximum efficiency.",
     tag: "Smart", type: "mega",
-    bgImage: "https://images.unsplash.com/photo-1628272938353-834bc1542aa6?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    bgImage: "/heritage_street_amritsar1.png",
   },
   {
     icon: Clock, title: "Timing Intelligence", accent: "#8B5CF6",
-    desc: "Perfect timing for landmarks — sunrise at Golden Temple, ceremony at Wagah Border.",
+    desc: "Perfect timing for landmarks — early morning Darshan at Golden Temple, ceremony at Wagah Border.",
     tag: "Optimized", type: "mega",
-    bgImage: "https://images.unsplash.com/photo-1495364141860-b0d03eccd065?q=80&w=1476&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    bgImage: "/partition-museum-townhall.jpg",
   },
   {
     icon: Shield, title: "Priority Support", accent: "#F43F5E",
@@ -52,7 +52,7 @@ const features = [
   },
   {
     icon: BarChart3, title: "Verified Recommendations", accent: "#0EA5E9",
-    desc: "Verified recommendations and insider insights curated by travel experts and trusted Local Guru.",
+    desc: "Skip generic tourist traps. Access handpicked recommendations for authentic culinary spots, local artisans, and heritage sites, vetted directly by Amritsar residents.",
     tag: "Expert", type: "small",
     bgImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1415&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
@@ -60,7 +60,7 @@ const features = [
     icon: ShoppingBag, title: "HERO PRODUCTS", accent: "#F59E0B",
     desc: "Experience the authentic culinary legends and unique craftsmanship of Amritsar.",
     tag: "Local Icons", type: "full",
-    bgImage: "https://images.unsplash.com/photo-1606491956689-2ea866880c84?auto=format&fit=crop&q=80",
+    bgImage: "/phirni.png",
   },
 ];
 
@@ -84,7 +84,7 @@ function BentoCard({ feature, index, children }: { feature: typeof features[0]; 
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ delay: index * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className={isFull || isMega ? "p-6 md:p-8" : "p-6"}
+      className={`bento-card ${feature.type}`}
       style={{
         background: "#0B0B14",
         borderRadius: "28px",
@@ -98,11 +98,8 @@ function BentoCard({ feature, index, children }: { feature: typeof features[0]; 
         gridRow: "span 1",
         display: "flex",
         flexDirection: isRowLayout ? "row" : "column",
-        gap: isRowLayout ? "40px" : "24px",
         alignItems: "stretch",
-        minHeight: isFull || isMega ? "280px" : "240px",
         textAlign: "left",
-        padding: "32px",
       }}
     >
       {/* Background Image Overlay */}
@@ -186,9 +183,9 @@ function ItineraryPreview() {
       border: "1px solid rgba(255, 255, 255, 0.08)", display: "flex", flexDirection: "column", gap: "12px"
     }}>
       {[
-        { t: "06:00", d: "Golden Temple Sunrise", c: "#EC4899" },
+        { t: "06:00", d: "Golden Temple Morning Darshan", c: "#EC4899" },
         { t: "09:30", d: "Kulcha Breakfast Run", c: "#F59E0B" },
-        { t: "12:00", d: "Partition Museum", c: "#3B82F6" },
+        { t: "11:00", d: "Partition Museum", c: "#3B82F6" },
       ].map((item, i) => (
         <motion.div
           key={i}
@@ -217,10 +214,19 @@ function CrowdStatus() {
         { l: "Golden Temple", v: 80, c: "#22C55E" },
         { l: "Jallianwala Bagh", v: 60, c: "#EF4444" },
       ].map((s, i) => (
-        <div key={i} style={{ background: "rgba(255,255,255,0.03)", borderRadius: "12px", padding: "12px", border: "1px solid rgba(255,255,255,0.08)" }}>
+        <div
+          key={i}
+          style={{
+            background: "rgba(6, 6, 8, 0.8)",
+            backdropFilter: "blur(8px)",
+            borderRadius: "12px",
+            padding: "12px",
+            border: "1px solid rgba(255, 255, 255, 0.08)"
+          }}
+        >
           <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "6px" }}>
             <span style={{ fontSize: "12px", fontWeight: 600, color: "white" }}>{s.l}</span>
-            <span style={{ fontSize: "12px", fontWeight: 700, color: s.c }}>{s.v}%</span>
+            <span style={{ fontSize: "12px", fontWeight: 750, color: s.c, textShadow: "0 1px 4px rgba(0,0,0,0.5)" }}>{s.v}%</span>
           </div>
           <div style={{ height: "4px", borderRadius: "2px", background: "rgba(255,255,255,0.1)", overflow: "hidden" }}>
             <motion.div
@@ -384,7 +390,7 @@ export default function Features() {
             transition={{ delay: 0.2, duration: 0.6 }}
             style={{ fontSize: "17px", color: "#6B7280", maxWidth: "560px", margin: "0 auto", lineHeight: 1.7 }}
           >
-            Not just a guide. A real-time intelligence layer that ensures every minute of your trip is perfect.
+            Not just a guide. The personalized intelligence layer that ensures every minute of your trip is perfect.
           </motion.p>
         </div>
 
@@ -425,14 +431,14 @@ export default function Features() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.7, duration: 0.8 }}
+            className="bento-card full cta-card"
             style={{
               background: "linear-gradient(135deg, #141420, #0F0F1A)",
-              borderRadius: "28px", padding: "32px",
+              borderRadius: "28px",
               display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "flex-start",
               textAlign: "left", gridColumn: "span 3",
               border: "1px solid rgba(255,255,255,0.06)",
               boxShadow: "0 20px 80px rgba(0,0,0,0.2)",
-              marginTop: "20px",
               position: "relative",
               overflow: "hidden",
             }}
@@ -440,7 +446,7 @@ export default function Features() {
             {/* Background Image Overlay */}
             <div style={{
               position: "absolute", inset: 0,
-              backgroundImage: "url(https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&q=80)",
+              backgroundImage: "url(/virasat-haveli.jpg)",
               backgroundSize: "cover",
               backgroundPosition: "center",
               opacity: 0.8,
@@ -477,9 +483,35 @@ export default function Features() {
       </div>
 
       <style>{`
+        .bento-card {
+          padding: 32px;
+          gap: 24px;
+          min-height: 240px;
+          transition: all 0.3s ease;
+        }
+        .bento-card.mega, .bento-card.full {
+          padding: 32px;
+          gap: 40px;
+          min-height: 280px;
+        }
+        .bento-card.medium, .bento-card.small {
+          padding: 24px;
+          gap: 20px;
+          min-height: 240px;
+        }
         @media (max-width: 900px) {
           .bento-container { grid-template-columns: 1fr !important; }
           .bento-container > * { grid-column: span 1 !important; flex-direction: column !important; }
+          .bento-card {
+            padding: 24px !important;
+            gap: 24px !important;
+            min-height: auto !important;
+          }
+          .bento-card.mega, .bento-card.full, .bento-card.medium, .bento-card.small {
+            padding: 24px !important;
+            gap: 24px !important;
+            min-height: auto !important;
+          }
           .bento-card-gradient {
             background: linear-gradient(to bottom, rgba(11,11,20,0.95) 0%, rgba(11,11,20,0.7) 50%, rgba(11,11,20,0.15) 100%) !important;
           }

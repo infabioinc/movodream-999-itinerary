@@ -179,9 +179,7 @@ export default function Personas() {
               color: "#1F1F24", letterSpacing: "-0.03em", lineHeight: 1.1, marginBottom: "24px",
             }}
           >
-            Built For <span className="gradient-text">Every Way</span>
-            <br />
-            You <span style={{ color: "#D1D5DB" }}>Travel.</span>
+            Amritsar, Designed <span className="gradient-text">For Your Persona.</span>
           </motion.h2>
 
           <motion.p

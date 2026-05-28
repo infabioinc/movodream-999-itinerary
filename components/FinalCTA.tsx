@@ -71,7 +71,7 @@ export default function FinalCTA() {
             lineHeight: 1, marginBottom: "32px",
           }}
         >
-          Ditch the Crowds.<br />
+          Beat the Rush.<br />
           <span className="gradient-text">Discover the Magic.</span>
         </motion.h2>
 
@@ -81,7 +81,7 @@ export default function FinalCTA() {
           transition={{ delay: 0.2, duration: 0.6 }}
           style={{ fontSize: "20px", color: "rgba(255,255,255,0.4)", maxWidth: "600px", margin: "0 auto 60px", lineHeight: 1.6 }}
         >
-          Join 2,400+ smart travelers who swapped the tourist trap for the royal insider experience.
+          Join 2,487+ smart travelers who swapped the tourist trap for the royal insider experience.
         </motion.p>
 
         {/* Benefits Horizontal */}

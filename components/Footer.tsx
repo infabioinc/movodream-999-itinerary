@@ -34,7 +34,7 @@ export default function Footer() {
                   </a>
                   <p style={{ fontSize: "15px", color: "rgba(255,255,255,0.4)", lineHeight: 1.8 }}>
                      The definitive intelligence layer for Amritsar travelers. Built by locals,
-                     powered by AI, and designed for those who demand a premium, crowd-free journey.
+                     powered by AI, and designed for those who demand a premium, low-crowd journey.
                   </p>
                </div>
 

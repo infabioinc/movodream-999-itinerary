@@ -7,8 +7,8 @@ import { Brain, Cpu, Layers, Zap, Radio, Map, ArrowRight, Sparkles } from "lucid
 
 const pillars = [
   { icon: Brain, label: "Personalized Intelligence", desc: "Your pace. Your preferences.", color: "#EC4899" },
-  { icon: Map, label: "Real-Time Crowd Data", desc: "Know where to be — and when.", color: "#3B82F6" },
-  { icon: Layers, label: "Hidden Gem Discovery", desc: "40+ experiences tourists never find.", color: "#A855F7" },
+  { icon: Map, label: "Crowd Data", desc: "Know where to be — and when.", color: "#3B82F6" },
+  { icon: Layers, label: "Hidden Gem Discovery", desc: "Multiple experiences tourists never find.", color: "#A855F7" },
   { icon: Radio, label: "Travel Alerts", desc: "Always one step ahead.", color: "#22C55E" },
   { icon: Zap, label: "Dynamic Routing", desc: "Optimized paths. Zero waste.", color: "#F59E0B" },
   { icon: Cpu, label: "AI Travel Assistant", desc: "Expert guidance in your pocket.", color: "#06B6D4" },
@@ -76,7 +76,7 @@ function HolographicDashboard() {
         position: "relative",
       }}>
         <img
-          src="/dashboard_ui1.png"
+          src="/dashboard.jpeg"
           alt="Movodream Dashboard"
           style={{ width: "100%", height: "auto", display: "block" }}
         />
@@ -90,49 +90,7 @@ function HolographicDashboard() {
         }} />
       </div>
 
-      {/* Floating mini overlay card */}
-      <motion.div
-        animate={{ y: [0, -8, 0] }}
-        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-        style={{
-          position: "absolute",
-          bottom: "-28px", left: "-32px",
-          background: "rgba(255,255,255,0.92)", backdropFilter: "blur(30px)",
-          borderRadius: "20px", padding: "16px 20px",
-          boxShadow: "0 20px 60px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.9)",
-          border: "1px solid rgba(255,255,255,0.8)",
-          width: "200px",
-          zIndex: 10,
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
-          <div style={{ width: "8px", height: "8px", borderRadius: "50%", backgroundColor: "#22C55E" }} className="live-dot" />
-          <span style={{ fontSize: "11px", fontWeight: 700, color: "#374151" }}>Crowd Intel</span>
-        </div>
-        {[
-          { label: "Golden Temple", pct: 90, color: "#22C55E" },
-          { label: "Wagah Border", pct: 70, color: "#F59E0B" },
-          { label: "Gobindgarh Fort", pct: 50, color: "#EF4444" },
-        ].map(s => (
-          <div key={s.label} style={{ marginBottom: "6px" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "3px" }}>
-              <span style={{ fontSize: "10px", color: "#6B7280" }}>{s.label}</span>
-              <span style={{ fontSize: "10px", fontWeight: 700, color: s.color }}>
-                {s.pct < 40 ? "Low" : s.pct < 75 ? "Med" : "High"}
-              </span>
-            </div>
-            <div style={{ height: "3px", borderRadius: "2px", background: "rgba(0,0,0,0.06)", overflow: "hidden" }}>
-              <motion.div
-                initial={{ width: 0 }}
-                whileInView={{ width: `${s.pct}%` }}
-                viewport={{ once: true }}
-                transition={{ duration: 1.5, delay: 0.5, ease: "easeOut" }}
-                style={{ height: "100%", borderRadius: "2px", backgroundColor: s.color }}
-              />
-            </div>
-          </div>
-        ))}
-      </motion.div>
+
     </motion.div>
   );
 }

@@ -2,7 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { Check, X, Shield, Clock, MapPin, Eye, Sparkles, HelpCircle, FileText, BarChart } from "lucide-react";
+import { Check, X, Shield, Clock, MapPin, Eye, Sparkles, HelpCircle, FileText, BarChart, ChevronDown, ChevronUp } from "lucide-react";
 import { useTiltEffect } from "@/components/MouseGlow";
 
 // ── Types & Data ──────────────────────────────────────────────────────────────
@@ -26,7 +26,7 @@ const comparisonTable: CompareRow[] = [
   { name: "Smart Shopping Guide", t199: false, t499: true, t999: true },
   { name: "Transit + Route Optimization", t199: "Basic", t499: "Smart routes", t999: "Dynamic optimization" },
   { name: "Best Entry/Exit Strategy (IRN Layer)", t199: false, t499: true, t999: true, highlighted: true },
-  { name: "Live Alerts (Closures / Rush / Events)", t199: false, t499: false, t999: true },
+  { name: "Personalized Alerts (Closures / Rush / Events)", t199: false, t499: false, t999: true },
   { name: "Festivals & Celebrations", t199: false, t499: true, t999: true },
   { name: "Safe Travel Companion", t199: "Basic", t499: "Detailed", t999: "Advanced + Alerts" },
   { name: "Time-Slot Optimization", t199: false, t499: true, t999: true },
@@ -40,16 +40,16 @@ const comparisonTable: CompareRow[] = [
 
 const previewTimeline = [
   {
-    time: "05:00 AM",
-    title: "Sunrise at Golden Temple",
+    time: "06:00 AM",
+    title: "Morning Darshan at Golden Temple",
     location: "Harmandir Sahib",
     tag: "Spiritual",
     desc: "Arrive before dawn when the crowd density is at its lowest (approx. 15%). Experience absolute serene chants reflected on the holy waters as the first rays hit the gilded domes.",
     intel: "AI Optimization: Saves 1.5 hours of queue wait compared to arriving at 10:00 AM.",
-    image: "https://images.unsplash.com/photo-1514222134-b57cbb8ce073?auto=format&fit=crop&q=80"
+    image: "itineary-bg.jpg"
   },
   {
-    time: "08:30 AM",
+    time: "09:30 AM",
     title: "Amritsari Kulcha Breakfast",
     location: "Bhai Kulchant Singh (Maqbool Road)",
     tag: "Food Gem",
@@ -92,6 +92,7 @@ const previewTimeline = [
 export default function TrustSection() {
   const [activeTab, setActiveTab] = useState<"itinerary" | "compare">("compare");
   const [selectedTimelineIndex, setSelectedTimelineIndex] = useState(0);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   const titleRef = useRef<HTMLDivElement>(null);
   const titleInView = useInView(titleRef, { once: true });
@@ -365,7 +366,7 @@ export default function TrustSection() {
               {/* Table Background Image */}
               <div style={{
                 position: "absolute", inset: 0,
-                backgroundImage: "url(https://images.unsplash.com/photo-1514222134-b57cbb8ce073?auto=format&fit=crop&q=80)",
+                backgroundImage: "url(/pexels-amanjot-singh-311045324-13545290.jpg)",
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 opacity: 0.75,
@@ -391,22 +392,27 @@ export default function TrustSection() {
                       <th style={{ padding: "24px 20px", fontSize: "14px", fontWeight: 900, color: "white", textAlign: "center" }}>₹499 Plan</th>
                       <th style={{
                         padding: "24px 20px", fontSize: "14px", fontWeight: 950,
-                        color: "white", background: "rgba(255,255,255,0.08)", textAlign: "center",
-                        position: "relative"
+                        color: "white", background: "rgba(139, 92, 246, 0.12)", textAlign: "center",
+                        position: "relative",
+                        borderLeft: "2px solid #8B5CF6",
+                        borderRight: "2px solid #8B5CF6",
+                        borderTop: "2px solid #8B5CF6",
+                        borderRadius: "12px 12px 0 0"
                       }}>
-                        ₹999 Ultimate
-                        <span style={{
-                          position: "absolute", top: "4px", right: "12px",
-                          fontSize: "8px", fontWeight: 900, background: "#22C55E",
-                          color: "white", padding: "1px 6px", borderRadius: "100px", letterSpacing: "0.05em"
-                        }}>
-                          BEST
-                        </span>
+                        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "2px" }}>
+                          <span style={{ fontSize: "14px", color: "#C084FC", fontWeight: 950 }}>₹999 Ultimate</span>
+                          <span style={{
+                            fontSize: "8px", fontWeight: 900, background: "linear-gradient(135deg, #EC4899, #8B5CF6)",
+                            color: "white", padding: "1px 6px", borderRadius: "100px", letterSpacing: "0.05em"
+                          }}>
+                            RECOMMENDED
+                          </span>
+                        </div>
                       </th>
                     </tr>
                   </thead>
                   <tbody>
-                    {comparisonTable.map((row, idx) => (
+                    {(isExpanded ? comparisonTable : comparisonTable.slice(0, 6)).map((row, idx, array) => (
                       <tr
                         key={idx}
                         style={{
@@ -443,7 +449,10 @@ export default function TrustSection() {
                         </td>
                         <td style={{
                           padding: "18px 20px", textAlign: "center",
-                          background: "rgba(255,255,255,0.04)",
+                          background: "rgba(139, 92, 246, 0.06)",
+                          borderLeft: "2px solid #8B5CF6",
+                          borderRight: "2px solid #8B5CF6",
+                          borderBottom: idx === array.length - 1 ? "2px solid #8B5CF6" : "1px solid rgba(255,255,255,0.06)",
                           fontWeight: 900,
                           color: "white"
                         }}>
@@ -453,6 +462,39 @@ export default function TrustSection() {
                     ))}
                   </tbody>
                 </table>
+              </div>
+
+              {/* View More Button */}
+              <div style={{
+                display: "flex",
+                justifyContent: "center",
+                padding: "24px 0",
+                position: "relative",
+                zIndex: 2,
+                borderTop: "1px solid rgba(255,255,255,0.06)",
+                background: "rgba(11,11,20,0.6)"
+              }}>
+                <button
+                  onClick={() => setIsExpanded(!isExpanded)}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                    padding: "12px 28px",
+                    borderRadius: "14px",
+                    border: "1px solid rgba(255,255,255,0.15)",
+                    background: "rgba(255,255,255,0.05)",
+                    color: "white",
+                    fontWeight: 800,
+                    fontSize: "14px",
+                    cursor: "pointer",
+                    transition: "all 0.3s ease",
+                    boxShadow: "0 4px 12px rgba(0,0,0,0.2)"
+                  }}
+                >
+                  {isExpanded ? "Show Less Features" : `View ${comparisonTable.length - 6} More Features`}
+                  {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                </button>
               </div>
             </motion.div>
           )}

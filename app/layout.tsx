@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Royal Amritsar — Smart Travel System | ₹999",
     description:
-      "A premium smart itinerary system with hidden gems, crowd intelligence, optimized routes, live updates — designed for an unforgettable Amritsar experience.",
+      "A premium smart itinerary system with hidden gems, crowd intelligence, optimized routes — designed for an unforgettable Amritsar experience.",
     type: "website",
   },
 };

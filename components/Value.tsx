@@ -33,7 +33,7 @@ const comparisonData = {
     "No idea where to eat — pick badly",
   ],
   with: [
-    "Perfect timing at every spot — crowd-free",
+    "Perfect timing at every spot — better crowd timing",
     "Know exactly where to spend vs save",
     "Discover multiple exclusive hidden gems",
     "Efficient routes & smart pacing",
@@ -96,7 +96,7 @@ export default function Value() {
             transition={{ delay: 0.2 }}
             style={{ fontSize: "18px", color: "rgba(255,255,255,0.5)", maxWidth: "560px", margin: "0 auto", lineHeight: 1.7 }}
           >
-            Bad travel decisions — tourist traps, poor timing, and wasted routes — have a hidden cost. Movodream pays for itself by Day 1.
+            Bad travel decisions — tourist traps, poor timing, and wasted routes — have a hidden cost. Our intelligent routing and local pricing insights help you save on unnecessary travel expenses from day one.
           </motion.p>
         </div>
 

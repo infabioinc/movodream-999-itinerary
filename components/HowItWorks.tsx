@@ -33,7 +33,7 @@ const steps = [
 ];
 
 const mockPersonas = [
-  { id: "couple", title: "Couples", icon: Heart, color: "#EC4899", desc: "Focuses on quiet sunrises, romantic heritage dinners, and relaxed walking speeds." },
+  { id: "couple", title: "Couples", icon: Heart, color: "#EC4899", desc: "Focuses on early morning spirituality, romantic heritage dinners, and relaxed walking speeds." },
   { id: "family", title: "Families", icon: Users, color: "#3B82F6", desc: "Optimizes for child-safe spots, minimal transit gaps, and interactive historic sites." },
   { id: "solo", title: "Solo Soul", icon: User, color: "#A855F7", desc: "Prioritizes narrow walled-city alleyways, local artisan meetups, and photo-walks." },
   { id: "friends", title: "Friend Squads", icon: UsersRound, color: "#22C55E", desc: "Highlights fast-paced food trails, Wagah ceremonies, and late-night spots." }
@@ -148,7 +148,7 @@ export default function HowItWorks() {
   const getSimulatedStop = (interest: string) => {
     switch (interest) {
       case "religious":
-        return { title: "Golden Temple Sunrise", desc: "Optimal window for spiritual serenity." };
+        return { title: "Golden Temple Morning Darshan", desc: "Optimal window for spiritual serenity." };
       case "patriotic":
         return { title: "Wagah Border Parade", desc: "Reserved tricolor gallery seating sync." };
       case "food":
@@ -286,7 +286,7 @@ export default function HowItWorks() {
                 Experience Your Setup
               </h3>
               <p style={{ fontSize: "15px", color: "rgba(255,255,255,0.5)", lineHeight: 1.6, marginBottom: "40px" }}>
-                Try our real-time portal generator. Set up your vibe profile, customize your interests, answer a few logistics questions, and see your layout instantly.
+                Try our personalized portal generator. Set up your vibe profile, customize your interests, answer a few logistics questions, and see your layout instantly.
               </p>
 
               {/* Progress Stepper Tabs */}
@@ -322,7 +322,7 @@ export default function HowItWorks() {
               <div style={{ minHeight: "180px" }}>
                 {simStep === "setup" && (
                   <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                    
+
                     {/* Select Vibe Row */}
                     <div style={{ marginBottom: "24px" }}>
                       <label style={{ display: "block", fontSize: "12px", fontWeight: 800, color: "rgba(255,255,255,0.6)", marginBottom: "8px", textTransform: "uppercase", letterSpacing: "0.05em" }}>1. Traveler Profile</label>
@@ -419,7 +419,7 @@ export default function HowItWorks() {
                           onChange={e => setStartTime(e.target.value)}
                           style={selectStyle}
                         >
-                          <option value="05:00 AM (Sunrise)" style={{ background: "#141420" }}>05:00 AM (Sunrise)</option>
+                          <option value="05:00 AM (Early Morning)" style={{ background: "#141420" }}>05:00 AM (Early Morning)</option>
                           <option value="09:00 AM (Morning)" style={{ background: "#141420" }}>09:00 AM (Morning)</option>
                           <option value="02:00 PM (Afternoon)" style={{ background: "#141420" }}>02:00 PM (Afternoon)</option>
                           <option value="06:00 PM (Evening)" style={{ background: "#141420" }}>06:00 PM (Evening)</option>

@@ -10,4 +10,4 @@ if (!supabaseAnonKey) {
   console.warn("Supabase Anon/Publishable Key is missing from environment variables.");
 }
 
-export const supabase = createClient(supabaseUrl || "", supabaseAnonKey || "");
+export const supabase = createClient(supabaseUrl || "https://placeholder-url.supabase.co", supabaseAnonKey || "placeholder-key");

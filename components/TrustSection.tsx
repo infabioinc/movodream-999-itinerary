@@ -327,7 +327,7 @@ export default function TrustSection() {
                       </div>
                       <div>
                         <div style={{ fontSize: "11px", fontWeight: 900, color: "#EC4899", letterSpacing: "0.05em", textTransform: "uppercase", marginBottom: "2px" }}>
-                          Dashboard Intel
+                          Guru Intel
                         </div>
                         <div style={{ fontSize: "13px", color: "white", fontWeight: 850, lineHeight: 1.4 }}>
                           {previewTimeline[selectedTimelineIndex].intel}

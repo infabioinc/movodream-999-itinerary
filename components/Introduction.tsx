@@ -77,7 +77,7 @@ function HolographicDashboard() {
       }}>
         <img
           src="/dashboard.jpeg"
-          alt="Movodream Dashboard"
+          alt="Movodream PDF Itinerary Guide"
           style={{ width: "100%", height: "auto", display: "block" }}
         />
         <div style={{

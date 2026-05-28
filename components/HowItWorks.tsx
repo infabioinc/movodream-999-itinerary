@@ -3,7 +3,7 @@
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
 import {
-  Sparkles, Sliders, Compass, LayoutDashboard, Heart, Users,
+  Sparkles, Sliders, Compass, FileText, Heart, Users,
   User, UsersRound, MapPin, Check, RefreshCw, Flag, BookOpen, Utensils
 } from "lucide-react";
 import { useTiltEffect } from "@/components/MouseGlow";
@@ -25,10 +25,10 @@ const steps = [
   },
   {
     step: "03",
-    title: "Get Personalized Plans",
-    icon: LayoutDashboard,
+    title: "Get Offline PDF Itinerary",
+    icon: FileText,
     color: "#22C55E",
-    desc: "Unlock your offline-ready interactive portal. Get smart food lists, custom navigation paths, transit optimizations, budget tips, and priority on-ground emergency support."
+    desc: "Download a beautifully formatted, offline-ready PDF itinerary containing curated recommendations, custom routes, time-slot optimization, food guides, and on-ground safety tips."
   }
 ];
 
@@ -325,7 +325,7 @@ const [leadData, setLeadData] = useState({
                 Experience Your Setup
               </h3>
               <p style={{ fontSize: "15px", color: "rgba(255,255,255,0.5)", lineHeight: 1.6, marginBottom: "40px" }}>
-                Try our personalized portal generator. Set up your vibe profile, customize your interests, answer a few logistics questions, and see your layout instantly.
+                Try our personalized itinerary generator. Set up your vibe profile, customize your interests, answer a few logistics questions, and preview your custom plan instantly.
               </p>
 
               {/* Progress Stepper Tabs */}
@@ -333,7 +333,7 @@ const [leadData, setLeadData] = useState({
                 {[
                   { id: "setup", label: "1. Vibe Preference" },
                   { id: "process", label: "2. Customisation" },
-                  { id: "dashboard", label: "3. Live Dashboard" }
+                  { id: "dashboard", label: "3. PDF Itinerary" }
                 ].map(stepper => (
                   <button
                     key={stepper.id}
@@ -514,10 +514,10 @@ const [leadData, setLeadData] = useState({
                       <div style={{ width: "20px", height: "20px", borderRadius: "50%", background: "#22C55E", display: "flex", alignItems: "center", justifyContent: "center" }}>
                         <Check size={12} color="white" />
                       </div>
-                      <span style={{ fontSize: "14px", color: "#22C55E", fontWeight: 700 }}>Portal Optimization Complete!</span>
+                      <span style={{ fontSize: "14px", color: "#22C55E", fontWeight: 700 }}>Itinerary Configuration Complete!</span>
                     </div>
                     <p style={{ fontSize: "14px", color: "rgba(255,255,255,0.6)", marginBottom: "32px", lineHeight: 1.6 }}>
-                      Your customized itinerary dashboard has been configured to target low-crowd hours for your selected group profile.
+                      Your customized offline PDF itinerary has been generated with optimized routes and timing for your selected profile.
                     </p>
                     <button
                       onClick={() => setSimStep("setup")}
@@ -579,7 +579,7 @@ const [leadData, setLeadData] = useState({
                         exit={{ opacity: 0, y: -10 }}
                         style={{ display: "flex", flexDirection: "column", gap: "10px" }}
                       >
-                        <div style={{ fontSize: "14px", fontWeight: 900, color: "white" }}>Configure Portal</div>
+                        <div style={{ fontSize: "14px", fontWeight: 900, color: "white" }}>Configure Itinerary</div>
                         <div style={{ height: "4px", borderRadius: "2px", background: "rgba(255,255,255,0.1)", overflow: "hidden" }}>
                           <div style={{ width: "33%", height: "100%", background: "#EC4899" }} />
                         </div>
@@ -661,8 +661,8 @@ const [leadData, setLeadData] = useState({
                         style={{ display: "flex", flexDirection: "column", gap: "10px" }}
                       >
                         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                          <span style={{ fontSize: "12px", fontWeight: 900, color: "white" }}>Live Dashboard</span>
-                          <span style={{ fontSize: "8px", color: "#22C55E", padding: "2px 6px", background: "rgba(34,197,94,0.15)", borderRadius: "40px", fontWeight: 800 }}>LIVE SYNC</span>
+                          <span style={{ fontSize: "12px", fontWeight: 900, color: "white" }}>PDF Itinerary</span>
+                          <span style={{ fontSize: "8px", color: "#C084FC", padding: "2px 6px", background: "rgba(192,132,252,0.15)", borderRadius: "40px", fontWeight: 800 }}>PDF READY</span>
                         </div>
 
                         {/* Profile Setup details pill */}
@@ -678,8 +678,8 @@ const [leadData, setLeadData] = useState({
                             <div style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#22C55E" }} />
                             <span style={{ fontSize: "9px", fontWeight: 800, color: "white" }}>CROWD FORECAST</span>
                           </div>
-                          <div style={{ fontSize: "11px", fontWeight: 800, color: "white", marginBottom: "2px" }}>Optimal Hours Synced</div>
-                          <div style={{ fontSize: "9px", color: "rgba(255,255,255,0.4)" }}>We avoided high rush windows for {activePersonaObj.title}.</div>
+                          <div style={{ fontSize: "11px", fontWeight: 800, color: "white", marginBottom: "2px" }}>Optimal Hours Configured</div>
+                          <div style={{ fontSize: "9px", color: "rgba(255,255,255,0.4)" }}>We selected best-timing windows for {activePersonaObj.title}.</div>
                         </div>
 
                         {/* Next Stop Card */}

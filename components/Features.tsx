@@ -58,7 +58,7 @@ const features = [
   },
   {
     icon: ShoppingBag, title: "HERO PRODUCTS", accent: "#F59E0B",
-    desc: "Experience the authentic culinary legends and unique craftsmanship of Amritsar.",
+    desc: "Discover the most iconic tastes, crafts, and specialties of Amritsar. Explore authentic Punjabi juttis, phulkari, papad-wadiyan, handcrafted items, kulchas, lassi, sweets, spices, and other locally loved favorites recommended by trusted Local Gurus.",
     tag: "Local Icons", type: "full",
     bgImage: "/phirni.png",
   },
@@ -450,15 +450,16 @@ export default function Features() {
             {/* Text protection overlay for dark final CTA */}
             <div style={{
               position: "absolute", inset: 0,
-              background: "linear-gradient(to bottom, rgba(20,20,32,0.6) 0%, rgba(15,15,26,0.9) 100%)",
+              background: "linear-gradient(to bottom, rgba(244, 4, 140, 0.6) 0%, rgba(15,15,26,0.9) 100%)",
               pointerEvents: "none",
               zIndex: 0,
             }} />
 
             <div style={{ position: "relative", zIndex: 1 }}>
-              <div style={{ fontSize: "14px", fontWeight: 700, color: "rgba(255,255,255,0.7)", marginBottom: "8px", textTransform: "uppercase", letterSpacing: "0.05em" }}>Local Guru</div>
-              <div style={{ fontSize: "22px", fontWeight: 900, color: "white", lineHeight: 1.2, letterSpacing: "-0.02em" }}>
-                Get insights from the Local Guru.
+              <div style={{ fontSize: "18px", fontWeight: 900, color: "rgba(255, 255, 255, 1)", marginBottom: "8px", textTransform: "uppercase", letterSpacing: "0.05em" }}>Local Guru</div>
+              <div style={{ fontSize: "14px", fontWeight: 800, color: "white", lineHeight: 1.2, letterSpacing: "-0.02em" }}>
+                Experience Amritsar through the eyes of locals.<br></br>
+                Unlock exclusive recommendations, hidden gems, authentic food trails, cultural experiences, best timings, parking, hygienic washrooms, photo spots, and smart journey guidance curated by Local Gurus.
               </div>
             </div>
             <motion.a

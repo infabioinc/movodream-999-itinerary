@@ -17,25 +17,17 @@ interface CompareRow {
 
 const comparisonTable: CompareRow[] = [
   { name: "City Attractions", t199: true, t499: true, t999: true },
-  { name: "Personalized Itinerary Builder", t199: false, t499: true, t999: true },
   { name: "Multi-Day Journeys", t199: true, t499: true, t999: true },
+  { name: "Personalized Itinerary Builder", t199: false, t499: true, t999: true },
   { name: "Hidden Gems", t199: false, t499: true, t999: true },
-  { name: "Handpicked Experiences", t199: false, t499: true, t999: true },
-  { name: "Local Guru Recommendations", t199: false, t499: true, t999: true },
-  { name: "Food Recommendations", t199: "Basic", t499: "Curated", t999: "Premium + Niche + Reservations" },
   { name: "Smart Shopping Guide", t199: false, t499: true, t999: true },
-  { name: "Transit + Route Optimization", t199: "Basic", t499: "Smart routes", t999: "Dynamic optimization" },
-  { name: "Best Entry/Exit Strategy (IRN Layer)", t199: false, t499: true, t999: true, highlighted: true },
-  { name: "Personalized Alerts (Closures / Rush / Events)", t199: false, t499: false, t999: true },
-  { name: "Festivals & Celebrations", t199: false, t499: true, t999: true },
-  { name: "Safe Travel Companion", t199: "Basic", t499: "Detailed", t999: "Advanced + Alerts" },
+  { name: "Local Guru Recommendations", t199: false, t499: true, t999: true },
   { name: "Time-Slot Optimization", t199: false, t499: true, t999: true },
-  { name: "Budget Optimization Tips", t199: "Basic", t499: true, t999: true },
-  { name: "Premium Dining Recommendations", t199: false, t499: true, t999: "Yes (with reservations)" },
-  { name: "Nightlife", t199: false, t499: true, t999: true },
-  { name: "Booking Support", t199: false, t499: "Provided on request", t999: "Full integration" },
-  { name: "Offline Access (Downloadable)", t199: true, t499: true, t999: true, highlighted: true },
-  { name: "Priority Support / Chat Assistance", t199: false, t499: "Limited", t999: "Priority support during journey" },
+  { name: "Food Recommendations", t199: "Basic", t499: "Curated", t999: "Premium + reservations if applicable" },
+  { name: "Transit + Route Optimization", t199: "Basic", t499: "Smart routes", t999: "Dynamic optimization" },
+  { name: "Safe Travel Companion", t199: "Basic", t499: "Detailed", t999: "Advanced + alerts" },
+  { name: "Booking Support", t199: false, t499: "can be provided", t999: "Full integration" },
+  { name: "Priority Support / Chat Assistance", t199: false, t499: "limited", t999: "priority support during the journey" },
 ];
 
 const previewTimeline = [
@@ -46,7 +38,7 @@ const previewTimeline = [
     tag: "Spiritual",
     desc: "Arrive before dawn when the crowd density is at its lowest (approx. 15%). Experience absolute serene chants reflected on the holy waters as the first rays hit the gilded domes.",
     intel: "AI Optimization: Saves 1.5 hours of queue wait compared to arriving at 10:00 AM.",
-    image: "itineary-bg.jpg"
+    image: "sunrise.png"
   },
   {
     time: "09:30 AM",

@@ -21,11 +21,11 @@ const steps = [
     title: "Customise Itinerary",
     icon: Sparkles,
     color: "#3B82F6",
-    desc: "We customise the itinerary based on your interest."
+    desc: "Tell us what inspires you. We design personalized, flexible itineraries around your unique preferences so you can skip the generic routes and experience the journey your way."
   },
   {
     step: "03",
-    title: "Access Your Dashboard",
+    title: "Get Personalized Plans",
     icon: LayoutDashboard,
     color: "#22C55E",
     desc: "Unlock your offline-ready interactive portal. Get smart food lists, custom navigation paths, transit optimizations, budget tips, and priority on-ground emergency support."
@@ -134,6 +134,14 @@ export default function HowItWorks() {
   const [foodPref, setFoodPref] = useState("Explorer (All)");
   const [isProcessing, setIsProcessing] = useState(false);
 
+const [showLeadModal, setShowLeadModal] = useState(false);
+
+const [leadData, setLeadData] = useState({
+  name: "",
+  email: "",
+  phone: ""
+});
+
   const activePersonaObj = mockPersonas.find(p => p.id === selectedPersona) || mockPersonas[0];
   const activeInterestObj = mockInterests.find(i => i.id === selectedInterest) || mockInterests[0];
 
@@ -144,6 +152,37 @@ export default function HowItWorks() {
       setSimStep("dashboard");
     }, 1800);
   };
+  const handleLeadSubmit = async () => {
+  const payload = {
+    ...leadData,
+
+    preferences: {
+      selectedPersona,
+      selectedInterest,
+      arrivalDate,
+      startTime,
+      budgetRange,
+      foodPref
+    }
+  };
+
+  try {
+    await fetch("/api/leads", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
+    });
+
+    setShowLeadModal(false);
+
+    handleRunOptimization();
+
+  } catch (error) {
+    console.error(error);
+  }
+};
 
   const getSimulatedStop = (interest: string) => {
     switch (interest) {
@@ -434,8 +473,8 @@ export default function HowItWorks() {
                           style={selectStyle}
                         >
                           <option value="Budget (₹)" style={{ background: "#141420" }}>Budget (₹)</option>
-                          <option value="Moderate (₹₹)" style={{ background: "#141420" }}>Moderate (₹₹)</option>
-                          <option value="Premium (₹₹₹)" style={{ background: "#141420" }}>Premium (₹₹₹)</option>
+                          <option value="Standard (₹₹)" style={{ background: "#141420" }}>Standard (₹₹)</option>
+                          <option value="Luxury (₹₹₹)" style={{ background: "#141420" }}>Luxury (₹₹₹)</option>
                         </select>
                       </div>
 
@@ -454,7 +493,7 @@ export default function HowItWorks() {
                     </div>
 
                     <button
-                      onClick={handleRunOptimization}
+                      onClick={() => setShowLeadModal(true)}
                       className="btn-primary"
                       style={{ padding: "14px 28px", fontSize: "14px", fontWeight: 800 }}
                     >
@@ -675,6 +714,159 @@ export default function HowItWorks() {
           .simulator-container { padding: 30px !important; }
         }
       `}</style>
+      {showLeadModal && (
+  <div
+    style={{
+      position: "fixed",
+      inset: 0,
+      background: "rgba(0,0,0,0.7)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      zIndex: 9999,
+      backdropFilter: "blur(8px)"
+    }}
+  >
+    <div
+      style={{
+        width: "90%",
+        maxWidth: "420px",
+        background: "#141420",
+        borderRadius: "24px",
+        padding: "32px",
+        border: "1px solid rgba(255,255,255,0.08)",
+        boxShadow: "0 30px 80px rgba(0,0,0,0.5)"
+      }}
+    >
+      <h3
+        style={{
+          color: "white",
+          fontSize: "28px",
+          fontWeight: 900,
+          marginBottom: "12px"
+        }}
+      >
+        Unlock Your Itinerary
+      </h3>
+
+      <p
+        style={{
+          color: "rgba(255,255,255,0.6)",
+          fontSize: "14px",
+          lineHeight: 1.6,
+          marginBottom: "24px"
+        }}
+      >
+        Enter your details to generate your personalized travel experience.
+      </p>
+
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "14px"
+        }}
+      >
+        <input
+          type="text"
+          placeholder="Your Name"
+          value={leadData.name}
+          onChange={(e) =>
+            setLeadData({
+              ...leadData,
+              name: e.target.value
+            })
+          }
+          style={{
+            width: "100%",
+            padding: "14px 16px",
+            borderRadius: "14px",
+            border: "1px solid rgba(255,255,255,0.08)",
+            background: "rgba(255,255,255,0.04)",
+            color: "white",
+            fontSize: "14px",
+            outline: "none"
+          }}
+        />
+
+        <input
+          type="email"
+          placeholder="Email Address"
+          value={leadData.email}
+          onChange={(e) =>
+            setLeadData({
+              ...leadData,
+              email: e.target.value
+            })
+          }
+          style={{
+            width: "100%",
+            padding: "14px 16px",
+            borderRadius: "14px",
+            border: "1px solid rgba(255,255,255,0.08)",
+            background: "rgba(255,255,255,0.04)",
+            color: "white",
+            fontSize: "14px",
+            outline: "none"
+          }}
+        />
+
+        <input
+          type="tel"
+          placeholder="WhatsApp Number"
+          value={leadData.phone}
+          onChange={(e) =>
+            setLeadData({
+              ...leadData,
+              phone: e.target.value
+            })
+          }
+          style={{
+            width: "100%",
+            padding: "14px 16px",
+            borderRadius: "14px",
+            border: "1px solid rgba(255,255,255,0.08)",
+            background: "rgba(255,255,255,0.04)",
+            color: "white",
+            fontSize: "14px",
+            outline: "none"
+          }}
+        />
+
+        <button
+          onClick={handleLeadSubmit}
+          style={{
+            marginTop: "10px",
+            background:
+              "linear-gradient(135deg, #EC4899, #8B5CF6)",
+            border: "none",
+            padding: "14px",
+            borderRadius: "14px",
+            color: "white",
+            fontWeight: 800,
+            fontSize: "14px",
+            cursor: "pointer"
+          }}
+        >
+          Generate My Itinerary
+        </button>
+
+        <button
+          onClick={() => setShowLeadModal(false)}
+          style={{
+            background: "transparent",
+            border: "none",
+            color: "rgba(255,255,255,0.4)",
+            fontSize: "13px",
+            cursor: "pointer"
+          }}
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+)}
     </section>
   );
 }

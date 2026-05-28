@@ -3,11 +3,11 @@
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { useTiltEffect } from "@/components/MouseGlow";
-import { Brain, Cpu, Layers, Zap, Radio, Map, ArrowRight, Sparkles } from "lucide-react";
+import { Brain, Cpu, Layers, Zap, Radio, MapPin, ArrowRight, Sparkles } from "lucide-react";
 
 const pillars = [
   { icon: Brain, label: "Personalized Intelligence", desc: "Your pace. Your preferences.", color: "#EC4899" },
-  { icon: Map, label: "Crowd Data", desc: "Know where to be — and when.", color: "#3B82F6" },
+  { icon: MapPin, label: "Local Culture", desc: "Heritage walks, folk music, and authentic clay kitchens.", color: "#3B82F6" },
   { icon: Layers, label: "Hidden Gem Discovery", desc: "Multiple experiences tourists never find.", color: "#A855F7" },
   { icon: Radio, label: "Travel Alerts", desc: "Always one step ahead.", color: "#22C55E" },
   { icon: Zap, label: "Dynamic Routing", desc: "Optimized paths. Zero waste.", color: "#F59E0B" },
@@ -173,7 +173,7 @@ export default function Introduction() {
                 style={{ fontSize: "16px", color: "#6B7280", lineHeight: 1.75, marginBottom: "40px" }}
               >
                 We've spent months studying Amritsar — every hidden street, every legendary
-                dhaba, every cultural experience, every crowd pattern. Built into a single premium
+                dhaba, every cultural experience, every timing nuance. Built into a single premium
                 travel intelligence system designed to give you the insider experience.
               </motion.p>
             </div>

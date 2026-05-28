@@ -26,7 +26,6 @@ export default function Hero() {
     <section
       ref={sectionRef}
       id="overview"
-      className="pt-28 md:pt-0"
       style={{
         position: "relative",
         minHeight: "100vh",
@@ -35,6 +34,8 @@ export default function Hero() {
         justifyContent: "center",
         overflow: "hidden",
         backgroundColor: "#060608",
+        paddingTop: "120px",
+        paddingBottom: "60px",
       }}
     >
       {/* Cinematic Background Layer */}

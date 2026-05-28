@@ -25,7 +25,7 @@ const frustrations = [
   {
     icon: TrendingDown,
     title: "Overpriced & Underwhelming Food",
-    desc: "Tourist-facing restaurants charge 3× prices for half the experience.",
+    desc: "Establishments catering primarily to tourists often charge inflated rates for a substandard experience.",
     stat: "3×", statLabel: "inflated prices", color: "#EAB308", accent: "rgba(234,179,8,0.1)",
     bgImage: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&q=80",
   },
@@ -34,7 +34,7 @@ const frustrations = [
     title: "No Timing Intelligence",
     desc: "Visiting Wagah Border without knowing the ceremony schedule. Missing magic moments.",
     stat: "60%", statLabel: "poorly timed", color: "#3B82F6", accent: "rgba(59,130,246,0.1)",
-    bgImage: "https://images.unsplash.com/photo-1456574808786-d2ba7a6aa654?q=80&w=1044&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    bgImage: "https://images.unsplash.com/photo-1501139083538-0139583c060f?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dGltZXxlbnwwfHwwfHx8MA%3D%3D",
   },
   {
     icon: AlertTriangle,
@@ -134,7 +134,7 @@ function TiltFrustrationCard({ item, index }: { item: typeof frustrations[0]; in
         <h3 style={{ fontSize: "17px", fontWeight: 800, color: "white", marginBottom: "10px", lineHeight: 1.3, letterSpacing: "-0.01em" }}>
           {item.title}
         </h3>
-        <p style={{ fontSize: "14px", color: "rgba(255,255,255,0.7)", fontWeight: 500, lineHeight: 1.7 }}>
+        <p style={{ fontSize: "14px", color: "white", fontWeight: 700, lineHeight: 1.7 }}>
           {item.desc}
         </p>
 
@@ -197,7 +197,7 @@ function HeroStatCard() {
       {/* Background Image Overlay */}
       <div style={{
         position: "absolute", inset: 0,
-        backgroundImage: "url(/gobindgarh-fort.jpg)",
+        backgroundImage: "url(/gobindfort.avif)",
         backgroundSize: "cover",
         backgroundPosition: "center",
         opacity: 0.95, // Clear and visible
@@ -237,7 +237,7 @@ function HeroStatCard() {
           }}>missed the real city.</span>
         </h2>
 
-        <p style={{ fontSize: "15px", color: "rgba(255,255,255,0.5)", lineHeight: 1.7, maxWidth: "400px" }}>
+        <p style={{ fontSize: "15px", color: "white", fontWeight: 700, lineHeight: 1.7, maxWidth: "400px" }}>
           Here's why — and why Movodream exists to change that forever.
         </p>
       </div>
@@ -308,9 +308,7 @@ export default function Problem() {
             }}
           >
             Most Amritsar Trips Are{" "}
-            <span className="gradient-text">Disappointingly</span>
-            <br />
-            <span style={{ color: "#D1D5DB" }}>Ordinary.</span>
+            <span className="gradient-text">Too Generic</span>
           </motion.h2>
 
           <motion.p
@@ -319,7 +317,7 @@ export default function Problem() {
             transition={{ delay: 0.2, duration: 0.6 }}
             style={{ fontSize: "17px", color: "#6B7280", maxWidth: "540px", margin: "0 auto", lineHeight: 1.7 }}
           >
-            Lakhs of Devotees and tourists visit Amritsar every month — and most return feeling they only scratched the surface.
+            Amritsar welcomes an endless stream of travelers monthly, the majority of whom experience only a fraction of its cultural wealth.
           </motion.p>
         </div>
 

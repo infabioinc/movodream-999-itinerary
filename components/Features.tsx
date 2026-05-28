@@ -12,11 +12,11 @@ const features = [
     icon: Route, title: "Personalized Smart Itinerary", accent: "#EC4899",
     desc: "Your itinerary isn't generic. It's built around your group size, interests, pace, and travel dates — with day-by-day plans for every hour of your trip.",
     tag: "AI-Powered", type: "mega",
-    bgImage: "/gobindgarh-fort.jpg",
+    bgImage: "/Kesariya-Darbar.jpg",
   },
   {
-    icon: Users, title: "Crowd Intelligence", accent: "#3B82F6",
-    desc: "crowd density tracking across all major sites. Know exactly when and where to go for peaceful, beautiful experiences.",
+    icon: MapPin, title: "Local Culture Explorer", accent: "#3B82F6",
+    desc: "Deep dive into local traditions. Curated guides for heritage walks, Punjabi folk performances, and authentic clay kitchens.",
     type: "medium",
     bgImage: "/sadda-pind.jpg",
   },
@@ -35,7 +35,7 @@ const features = [
   {
     icon: Zap, title: "Route Optimization", accent: "#F59E0B",
     desc: "AI-optimized routes that minimize travel time and sequence visits for maximum efficiency.",
-    tag: "Smart", type: "mega",
+    type: "mega",
     bgImage: "/heritage_street_amritsar1.png",
   },
   {
@@ -207,12 +207,12 @@ function ItineraryPreview() {
   );
 }
 
-function CrowdStatus() {
+function CultureHighlights() {
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "10px", width: "100%" }}>
       {[
-        { l: "Golden Temple", v: 80, c: "#22C55E" },
-        { l: "Jallianwala Bagh", v: 60, c: "#EF4444" },
+        { l: "Folk Dance & Music", v: "Gidha & Bhangra shows", c: "#3B82F6" },
+        { l: "Clay Kitchens", v: "Authentic wood-fire cooking", c: "#F59E0B" },
       ].map((s, i) => (
         <div
           key={i}
@@ -224,17 +224,9 @@ function CrowdStatus() {
             border: "1px solid rgba(255, 255, 255, 0.08)"
           }}
         >
-          <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "6px" }}>
-            <span style={{ fontSize: "12px", fontWeight: 600, color: "white" }}>{s.l}</span>
-            <span style={{ fontSize: "12px", fontWeight: 750, color: s.c, textShadow: "0 1px 4px rgba(0,0,0,0.5)" }}>{s.v}%</span>
-          </div>
-          <div style={{ height: "4px", borderRadius: "2px", background: "rgba(255,255,255,0.1)", overflow: "hidden" }}>
-            <motion.div
-              initial={{ width: 0 }}
-              whileInView={{ width: `${s.v}%` }}
-              transition={{ duration: 1, delay: 0.6 }}
-              style={{ height: "100%", background: s.c, borderRadius: "2px" }}
-            />
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <span style={{ fontSize: "12px", fontWeight: 700, color: "white", marginBottom: "2px" }}>{s.l}</span>
+            <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.6)" }}>{s.v}</span>
           </div>
         </div>
       ))}
@@ -247,11 +239,11 @@ function FoodGrid() {
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-[10px]" style={{ width: "100%" }}>
       {[
         { n: "Kesar Dhaba", t: "Legendary" },
-        { n: "Beera Chicken", t: "Local Secret" },
+        { n: "Beera Chicken", t: "Non-Veg" },
       ].map((f, i) => (
         <div key={i} style={{ background: "rgba(255,255,255,0.04)", borderRadius: "14px", padding: "12px", border: "1px solid rgba(255,255,255,0.08)", boxShadow: "0 4px 12px rgba(0,0,0,0.15)" }}>
-          <div style={{ fontSize: "12px", fontWeight: 700, color: "white", marginBottom: "2px" }}>{f.n}</div>
-          <div style={{ fontSize: "10px", color: "rgba(255,255,255,0.5)" }}>{f.t}</div>
+          <div style={{ fontSize: "16px", fontWeight: 700, color: "white", marginBottom: "2px" }}>{f.n}</div>
+          <div style={{ fontSize: "15px", color: "rgba(255, 255, 255, 1)" }}>{f.t}</div>
         </div>
       ))}
     </div>
@@ -290,7 +282,7 @@ function HeroProductsPreview() {
     { name: "Amritsari Lassi", type: "Beverage", desc: "Creamy, rich yogurt drink served chilled in a traditional earthen pot." },
     { name: "Papad Wadiyaan", type: "Local Treat", desc: "Authentic spicy sun-dried lentil dumplings and thin crispy wafers." },
     { name: "Amritsari Jutti", type: "Craft", desc: "Traditional ornate leather shoes hand-stitched with vibrant threads." },
-    { name: "Amritsari Dupatta Phulkari", type: "Heritage Craft", desc: "Flowing stoles embroidered with colorful geometric flower motifs." },
+    { name: "Amritsari Phulkari", type: "Heritage Craft", desc: "Flowing stoles embroidered with colorful geometric flower motifs." },
   ];
 
   return (
@@ -397,12 +389,12 @@ export default function Features() {
         {/* Asymmetrical Bento Grid */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "20px" }} className="bento-container">
 
-          {/* Row 1: Mega (Itinerary) + Medium (Crowd) */}
+          {/* Row 1: Mega (Itinerary) + Medium (Culture Highlights) */}
           <BentoCard feature={features[0]} index={0}>
             <ItineraryPreview />
           </BentoCard>
           <BentoCard feature={features[1]} index={1}>
-            <CrowdStatus />
+            <CultureHighlights />
           </BentoCard>
 
           {/* Row 2: Medium (Food) + Mega (Route) */}

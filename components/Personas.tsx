@@ -179,8 +179,8 @@ export default function Personas() {
               color: "#1F1F24", letterSpacing: "-0.03em", lineHeight: 1.1, marginBottom: "24px",
             }}
           >
-            Amritsar, Designed <span className="gradient-text">For Your Persona.</span>
-          </motion.h2>
+            Amritsar,<br></br><span className="gradient-text">Designed For Your Persona.</span>
+          </motion.h2> 
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}

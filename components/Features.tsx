@@ -22,9 +22,9 @@ const features = [
   },
   {
     icon: Sparkles, title: "Hidden Gems", accent: "#A855F7",
-    desc: "Beyond sightseeing, immersive local culture, hidden gems, and meaningful experiences.",
+    desc: "Discover the unexplored side of Amritsar. Unlock secret spots, offbeat experiences, hidden food joints, peaceful corners, local markets, authentic cultural experiences, and lesser-known places recommended by trusted locals.",
     tag: "Exclusive", type: "small",
-    bgImage: "/virasat-haveli.jpg",
+    bgImage: "/pul-kanjari-amritsar-punjab-4-musthead-hero.jpeg",
   },
   {
     icon: Utensils, title: "Food Intelligence", accent: "#EF4444",

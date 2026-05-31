@@ -70,7 +70,7 @@ function TestimonialCard({ t, index, rotate }: { t: typeof testimonials[0]; inde
   return (
     <motion.div
       ref={tiltRef as React.RefObject<HTMLDivElement>}
-      className="p-6 md:p-8"
+      className="testimonial-card"
       style={{
         background: "white", borderRadius: "24px",
         border: "1px solid rgba(0,0,0,0.06)", boxShadow: "0 10px 40px rgba(0,0,0,0.05)",
@@ -196,6 +196,14 @@ export default function SocialProof() {
       </div>
 
       <style>{`
+        .testimonial-card {
+          padding: 24px !important;
+        }
+        @media (min-width: 768px) {
+          .testimonial-card {
+            padding: 32px !important;
+          }
+        }
         @media (max-width: 900px) {
           .stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
         }

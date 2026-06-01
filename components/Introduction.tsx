@@ -76,7 +76,7 @@ function HolographicDashboard() {
         position: "relative",
       }}>
         <img
-          src="/dashboard.jpeg"
+          src="/ChatGPT Image Jun 1, 2026, 04_04_12 PM.png"
           alt="Movodream PDF Itinerary Guide"
           style={{ width: "100%", height: "auto", display: "block" }}
         />

@@ -21,9 +21,11 @@ export const getSupabaseClient = (): SupabaseClient => {
   return _client;
 };
 
-// Convenience alias used by existing code
+// Convenience alias — binds methods to the real client so `this` is never lost.
 export const supabase = new Proxy({} as SupabaseClient, {
   get(_target, prop) {
-    return (getSupabaseClient() as any)[prop];
+    const client = getSupabaseClient();
+    const value = (client as any)[prop];
+    return typeof value === "function" ? value.bind(client) : value;
   },
 });

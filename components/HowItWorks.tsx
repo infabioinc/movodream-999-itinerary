@@ -136,11 +136,9 @@ export default function HowItWorks() {
 
 const [showLeadModal, setShowLeadModal] = useState(false);
 
-const [leadData, setLeadData] = useState({
-  name: "",
-  email: "",
-  phone: ""
-});
+const [leadData, setLeadData] = useState({ name: "", email: "", phone: "" });
+
+  const [leadError, setLeadError] = useState<string | null>(null);
 
   const activePersonaObj = mockPersonas.find(p => p.id === selectedPersona) || mockPersonas[0];
   const activeInterestObj = mockInterests.find(i => i.id === selectedInterest) || mockInterests[0];
@@ -152,10 +150,17 @@ const [leadData, setLeadData] = useState({
       setSimStep("dashboard");
     }, 1800);
   };
+
   const handleLeadSubmit = async () => {
+  setLeadError(null);
+
+  if (!leadData.name.trim() || !leadData.email.trim() || !leadData.phone.trim()) {
+    setLeadError("Please fill in all fields before submitting.");
+    return;
+  }
+
   const payload = {
     ...leadData,
-
     preferences: {
       selectedPersona,
       selectedInterest,
@@ -167,22 +172,29 @@ const [leadData, setLeadData] = useState({
   };
 
   try {
-    await fetch("/api/leads", {
+    const res = await fetch("/api/leads", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload)
     });
 
-    setShowLeadModal(false);
+    const json = await res.json();
 
+    if (!res.ok) {
+      console.error("[handleLeadSubmit] API error:", json);
+      setLeadError(json?.error || "Something went wrong. Please try again.");
+      return;
+    }
+
+    setShowLeadModal(false);
     handleRunOptimization();
 
   } catch (error) {
-    console.error(error);
+    console.error("[handleLeadSubmit] Network error:", error);
+    setLeadError("Network error — please check your connection and try again.");
   }
 };
+
 
   const getSimulatedStop = (interest: string) => {
     switch (interest) {
@@ -851,8 +863,23 @@ const [leadData, setLeadData] = useState({
           Generate My Itinerary
         </button>
 
+        {leadError && (
+          <div style={{
+            padding: "10px 14px",
+            borderRadius: "10px",
+            background: "rgba(239,68,68,0.12)",
+            border: "1px solid rgba(239,68,68,0.3)",
+            color: "#FCA5A5",
+            fontSize: "13px",
+            fontWeight: 600,
+            lineHeight: 1.5,
+          }}>
+            ⚠️ {leadError}
+          </div>
+        )}
+
         <button
-          onClick={() => setShowLeadModal(false)}
+          onClick={() => { setShowLeadModal(false); setLeadError(null); }}
           style={{
             background: "transparent",
             border: "none",

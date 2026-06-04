@@ -1,13 +1,13 @@
 import { createClient } from "@supabase/supabase-js";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 
-if (!supabaseUrl) {
-  console.warn("Supabase URL is missing from environment variables.");
-}
-if (!supabaseAnonKey) {
-  console.warn("Supabase Anon/Publishable Key is missing from environment variables.");
+if (!supabaseUrl || !supabaseKey) {
+  throw new Error(
+    "[Supabase] Missing environment variables: NEXT_PUBLIC_SUPABASE_URL and/or NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY. " +
+    "Add them to Vercel > Project Settings > Environment Variables."
+  );
 }
 
-export const supabase = createClient(supabaseUrl || "https://placeholder-url.supabase.co", supabaseAnonKey || "placeholder-key");
+export const supabase = createClient(supabaseUrl, supabaseKey);

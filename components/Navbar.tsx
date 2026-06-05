@@ -9,7 +9,6 @@ const navLinks = [
   { label: "Overview", href: "#overview", icon: Compass, sub: "Explore Amritsar's top highlights" },
   { label: "The Problem", href: "#problem", icon: AlertCircle, sub: "Why traditional travel guides fail" },
   { label: "Intelligence", href: "#features", icon: Sparkles, sub: "Real-time routing & crowd sync" },
-  { label: "Personas", href: "#personas", icon: Users, sub: "Tailored vibes for every group" },
   { label: "Pricing", href: "#pricing", icon: Tag, sub: "Claim your 80% launch discount" },
 ];
 
@@ -129,7 +128,7 @@ export default function Navbar() {
         <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
           <div ref={magneticCTA as React.RefObject<HTMLDivElement>} className="hidden sm:block">
             <motion.a
-              href="#cta"
+              href="#simulator"
               className="btn-primary"
               style={{ padding: "10px 24px", fontSize: "12px", fontWeight: 800, borderRadius: "100px" }}
               whileHover={{ scale: 1.05 }}

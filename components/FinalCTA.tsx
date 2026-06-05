@@ -13,6 +13,7 @@ const benefits = [
   "Food Guide",
   "Travel Alerts",
   "Priority Support",
+  "Booking Support",
   "Authentic and verified recommendations",
 ];
 
@@ -116,7 +117,7 @@ export default function FinalCTA() {
 
           <motion.div ref={magneticCTA as React.RefObject<HTMLDivElement>}>
             <motion.a
-              href="#"
+              href="#simulator"
               className="btn-primary btn-cta-final"
               style={{ fontWeight: 950, borderRadius: "24px", boxShadow: "0 20px 80px rgba(236,72,153,0.4)" }}
               whileHover={{ scale: 1.05 }}

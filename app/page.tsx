@@ -8,7 +8,6 @@ import Problem from "@/components/Problem";
 import Introduction from "@/components/Introduction";
 import HowItWorks from "@/components/HowItWorks";
 import Features from "@/components/Features";
-import Personas from "@/components/Personas";
 import TrustSection from "@/components/TrustSection";
 import Value from "@/components/Value";
 import SocialProof from "@/components/SocialProof";
@@ -28,7 +27,6 @@ export default function Home() {
         <Introduction />
         <HowItWorks />
         <Features />
-        <Personas />
         <TrustSection />
         <Value />
         <SocialProof />

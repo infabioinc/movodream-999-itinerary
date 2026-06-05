@@ -1,9 +1,9 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useTiltEffect } from "@/components/MouseGlow";
-import { Route, Sparkles, Users, Zap, Radio, Utensils, Clock, Shield, MapPin, ArrowRight, BarChart3, Activity, ShoppingBag } from "lucide-react";
+import { Route, Sparkles, Users, Zap, Radio, Utensils, Clock, Shield, MapPin, ArrowRight, ArrowLeft, BarChart3, Activity, ShoppingBag } from "lucide-react";
 
 // ── Data ──────────────────────────────────────────────────────────────────────
 
@@ -51,12 +51,6 @@ const features = [
     bgImage: "https://images.unsplash.com/photo-1528747045269-390fe33c19f2?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
-    icon: BarChart3, title: "Verified Recommendations", accent: "#0EA5E9",
-    desc: "Skip generic tourist traps. Access handpicked recommendations for authentic culinary spots, local artisans, and heritage sites, vetted directly by Amritsar residents.",
-    tag: "Expert", type: "small",
-    bgImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1415&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
     icon: ShoppingBag, title: "HERO PRODUCTS", accent: "#F59E0B",
     desc: "Discover the most iconic tastes, crafts, and specialties of Amritsar. Explore authentic Punjabi juttis, phulkari, papad-wadiyan, handcrafted items, kulchas, lassi, sweets, spices, and other locally loved favorites recommended by trusted Local Gurus.",
     tag: "Local Icons", type: "full",
@@ -66,16 +60,9 @@ const features = [
 
 // ── Components ────────────────────────────────────────────────────────────────
 
-function BentoCard({ feature, index, children }: { feature: typeof features[0]; index: number; children?: React.ReactNode }) {
-  const isMega = feature.type === 'mega';
-  const isMedium = feature.type === 'medium';
-  const isFull = feature.type === 'full';
-
-  const tiltRef = useTiltEffect(isFull || isMega ? 5 : 10);
+function BentoCard({ feature, index, cardsPerPage, children }: { feature: typeof features[0]; index: number; cardsPerPage: number; children?: React.ReactNode }) {
+  const tiltRef = useTiltEffect(10);
   const Icon = feature.icon;
-
-  const hasChildren = !!children;
-  const isRowLayout = (isFull || isMega) && hasChildren;
 
   return (
     <motion.div
@@ -83,8 +70,8 @@ function BentoCard({ feature, index, children }: { feature: typeof features[0]; 
       initial={{ opacity: 0, y: 40, scale: 0.95 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true, margin: "-100px" }}
-      transition={{ delay: index * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className={`bento-card ${feature.type}`}
+      transition={{ delay: index * 0.05, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      className="bento-card same-size"
       style={{
         background: "#0B0B14",
         borderRadius: "28px",
@@ -94,12 +81,13 @@ function BentoCard({ feature, index, children }: { feature: typeof features[0]; 
         overflow: "hidden",
         cursor: "pointer",
         transformStyle: "preserve-3d",
-        gridColumn: isFull ? "span 3" : isMega ? "span 2" : "span 1",
-        gridRow: "span 1",
         display: "flex",
-        flexDirection: isRowLayout ? "row" : "column",
+        flexDirection: "column",
+        justifyContent: "space-between",
         alignItems: "stretch",
         textAlign: "left",
+        flex: `0 0 calc((100% - (${24 * (cardsPerPage - 1)}px)) / ${cardsPerPage})`,
+        width: `calc((100% - (${24 * (cardsPerPage - 1)}px)) / ${cardsPerPage})`,
       }}
     >
       {/* Background Image Overlay */}
@@ -109,7 +97,7 @@ function BentoCard({ feature, index, children }: { feature: typeof features[0]; 
           backgroundImage: `url(${feature.bgImage})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
-          opacity: 0.65, // Crisp, vibrant background image
+          opacity: 0.5,
           pointerEvents: "none",
           zIndex: 0,
         }} />
@@ -121,9 +109,7 @@ function BentoCard({ feature, index, children }: { feature: typeof features[0]; 
           className="bento-card-gradient"
           style={{
             position: "absolute", inset: 0,
-            background: isRowLayout
-              ? "linear-gradient(to right, rgba(11,11,20,0.95) 0%, rgba(11,11,20,0.7) 45%, rgba(11,11,20,0.15) 100%)"
-              : "linear-gradient(to bottom, rgba(11,11,20,0.95) 0%, rgba(11,11,20,0.7) 50%, rgba(11,11,20,0.15) 100%)",
+            background: "linear-gradient(to bottom, rgba(11,11,20,0.95) 0%, rgba(11,11,20,0.7) 50%, rgba(11,11,20,0.15) 100%)",
             pointerEvents: "none",
             zIndex: 0,
           }}
@@ -139,7 +125,7 @@ function BentoCard({ feature, index, children }: { feature: typeof features[0]; 
         opacity: 0.8,
       }} />
 
-      <div style={{ flex: isRowLayout ? "1 1 50%" : "none", width: isRowLayout ? "auto" : "100%", position: "relative", zIndex: 1, textAlign: "left" }}>
+      <div style={{ position: "relative", zIndex: 1, textAlign: "left", marginBottom: "20px" }}>
         <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: "20px" }}>
           <div style={{
             width: "52px", height: "52px", borderRadius: "16px",
@@ -148,25 +134,27 @@ function BentoCard({ feature, index, children }: { feature: typeof features[0]; 
           }}>
             <Icon size={24} style={{ color: feature.accent }} />
           </div>
-          <span style={{
-            fontSize: "11px", fontWeight: 700, padding: "4px 12px", borderRadius: "100px",
-            background: `${feature.accent}22`, color: feature.accent,
-            letterSpacing: "0.05em", textTransform: "uppercase",
-          }}>
-            {feature.tag}
-          </span>
+          {feature.tag && (
+            <span style={{
+              fontSize: "11px", fontWeight: 700, padding: "4px 12px", borderRadius: "100px",
+              background: `${feature.accent}22`, color: feature.accent,
+              letterSpacing: "0.05em", textTransform: "uppercase",
+            }}>
+              {feature.tag}
+            </span>
+          )}
         </div>
 
-        <h3 style={{ fontSize: isFull || isMega ? "28px" : "20px", fontWeight: 900, color: "white", marginBottom: "12px", letterSpacing: "-0.02em", lineHeight: 1.2, textAlign: "left" }}>
+        <h3 style={{ fontSize: "20px", fontWeight: 900, color: "white", marginBottom: "12px", letterSpacing: "-0.02em", lineHeight: 1.2, textAlign: "left" }}>
           {feature.title}
         </h3>
-        <p style={{ fontSize: "15px", color: "rgba(255,255,255,0.9)", fontWeight: 700, lineHeight: 1.7, marginBottom: 0, textAlign: "left" }}>
+        <p style={{ fontSize: "14px", color: "rgba(255,255,255,0.7)", fontWeight: 500, lineHeight: 1.6, marginBottom: 0, textAlign: "left" }}>
           {feature.desc}
         </p>
       </div>
 
       {children && (
-        <div style={{ flex: isRowLayout ? "1 1 50%" : "none", width: isRowLayout ? "auto" : "100%", position: "relative", zIndex: 1, display: "flex", alignItems: "center" }}>
+        <div style={{ position: "relative", zIndex: 1, marginTop: "auto", display: "flex", flexDirection: "column" }}>
           {children}
         </div>
       )}
@@ -278,50 +266,45 @@ function RouteMap() {
 
 function HeroProductsPreview() {
   const products = [
-    { name: "Amritsari Kulcha", type: "Food", desc: "Crispy, clay-baked flatbread stuffed with potatoes & bathed in butter." },
-    { name: "Amritsari Lassi", type: "Beverage", desc: "Creamy, rich yogurt drink served chilled in a traditional earthen pot." },
-    { name: "Papad Wadiyaan", type: "Local Treat", desc: "Authentic spicy sun-dried lentil dumplings and thin crispy wafers." },
-    { name: "Amritsari Jutti", type: "Craft", desc: "Traditional ornate leather shoes hand-stitched with vibrant threads." },
-    { name: "Amritsari Phulkari", type: "Heritage Craft", desc: "Flowing stoles embroidered with colorful geometric flower motifs." },
+    { name: "Amritsari Kulcha", type: "Food" },
+    { name: "Amritsari Lassi", type: "Beverage" },
+    { name: "Papad Wadiyaan", type: "Local Treat" },
+    { name: "Amritsari Jutti", type: "Craft" },
   ];
 
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "10px", width: "100%" }}>
+    <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "8px", width: "100%" }}>
       {products.map((p, i) => (
         <motion.div
           key={i}
-          initial={{ opacity: 0, x: 20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.3 + i * 0.1 }}
-          whileHover={{ scale: 1.02, x: 5 }}
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.2 + i * 0.05 }}
+          whileHover={{ scale: 1.02 }}
           style={{
             background: "rgba(255, 255, 255, 0.04)",
             backdropFilter: "blur(6px)",
-            borderRadius: "16px",
-            padding: "12px 18px",
+            borderRadius: "12px",
+            padding: "10px 12px",
             border: "1px solid rgba(255, 255, 255, 0.08)",
-            boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
             display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            gap: "12px",
+            flexDirection: "column",
+            justifyContent: "center",
+            gap: "4px",
             transition: "all 0.2s ease",
           }}
         >
-          <div>
-            <div style={{ fontSize: "14px", fontWeight: 800, color: "white" }}>{p.name}</div>
-            <div style={{ fontSize: "11px", color: "rgba(255,255,255,0.7)", marginTop: "2px", fontWeight: 500 }}>{p.desc}</div>
-          </div>
+          <div style={{ fontSize: "12px", fontWeight: 800, color: "white", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{p.name}</div>
           <span style={{
-            fontSize: "9px",
+            fontSize: "8px",
             fontWeight: 800,
-            padding: "4px 10px",
-            borderRadius: "8px",
+            padding: "2px 6px",
+            borderRadius: "4px",
+            alignSelf: "flex-start",
             background: p.type === "Food" || p.type === "Beverage" || p.type === "Local Treat" ? "#FEF3C7" : "#F3E8FF",
             color: p.type === "Food" || p.type === "Beverage" || p.type === "Local Treat" ? "#D97706" : "#7C3AED",
             textTransform: "uppercase",
             letterSpacing: "0.05em",
-            whiteSpace: "nowrap"
           }}>
             {p.type}
           </span>
@@ -337,6 +320,51 @@ export default function Features() {
   const titleRef = useRef<HTMLDivElement>(null);
   const titleInView = useInView(titleRef, { once: true });
 
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [windowWidth, setWindowWidth] = useState(1200);
+  const [isHovered, setIsHovered] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setWindowWidth(window.innerWidth);
+      const handleResize = () => setWindowWidth(window.innerWidth);
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }
+  }, []);
+
+  const isMobile = windowWidth < 640;
+  const isTablet = windowWidth >= 640 && windowWidth < 1024;
+  const cardsPerPage = isMobile ? 1 : isTablet ? 2 : 3;
+
+  const sliderFeatures = [
+    { feature: features[0], child: <ItineraryPreview /> },
+    { feature: features[1], child: <CultureHighlights /> },
+    { feature: features[3], child: <FoodGrid /> },
+    { feature: features[4], child: <RouteMap /> },
+    { feature: features[5], child: null },
+    { feature: features[2], child: null },
+    { feature: features[6], child: null },
+    { feature: features[7], child: <HeroProductsPreview /> },
+  ];
+
+  const maxIndex = sliderFeatures.length - cardsPerPage;
+
+  useEffect(() => {
+    if (isHovered) return;
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
+    }, 4000);
+    return () => clearInterval(timer);
+  }, [maxIndex, isHovered]);
+
+  const nextSlide = () => {
+    setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
+  };
+  const prevSlide = () => {
+    setCurrentIndex((prev) => (prev === 0 ? maxIndex : prev - 1));
+  };
+
   return (
     <section id="features" style={{ backgroundColor: "white", position: "relative", overflow: "hidden" }} className="section-padding">
       {/* Background decoration */}
@@ -346,7 +374,7 @@ export default function Features() {
 
       <div className="container" style={{ position: "relative", zIndex: 10 }}>
         {/* Title */}
-        <div ref={titleRef} style={{ textAlign: "center", marginBottom: "80px" }}>
+        <div ref={titleRef} style={{ textAlign: "center", marginBottom: "60px" }}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={titleInView ? { opacity: 1, y: 0 } : {}}
@@ -386,127 +414,212 @@ export default function Features() {
           </motion.p>
         </div>
 
-        {/* Asymmetrical Bento Grid */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "20px" }} className="bento-container">
+        {/* Slider Controls */}
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "32px" }}>
+          <div style={{ fontSize: "14px", fontWeight: 700, color: "#6B7280" }}>
+            Feature <span style={{ color: "#3B82F6" }}>{currentIndex + 1}</span> of {sliderFeatures.length}
+          </div>
+          <div style={{ display: "flex", gap: "12px" }}>
+            <button
+              onClick={prevSlide}
+              style={{
+                width: "48px", height: "48px", borderRadius: "50%",
+                display: "flex", alignItems: "center", justifyContent: "center",
+                border: "1px solid rgba(0,0,0,0.08)",
+                background: "white",
+                color: "#1F1F24",
+                cursor: "pointer",
+                boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
+                transition: "all 0.2s ease",
+              }}
+            >
+              <ArrowLeft size={20} />
+            </button>
+            <button
+              onClick={nextSlide}
+              style={{
+                width: "48px", height: "48px", borderRadius: "50%",
+                display: "flex", alignItems: "center", justifyContent: "center",
+                border: "1px solid rgba(0,0,0,0.08)",
+                background: "white",
+                color: "#1F1F24",
+                cursor: "pointer",
+                boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
+                transition: "all 0.2s ease",
+              }}
+            >
+              <ArrowRight size={20} />
+            </button>
+          </div>
+        </div>
 
-          {/* Row 1: Mega (Itinerary) + Medium (Culture Highlights) */}
-          <BentoCard feature={features[0]} index={0}>
-            <ItineraryPreview />
-          </BentoCard>
-          <BentoCard feature={features[1]} index={1}>
-            <CultureHighlights />
-          </BentoCard>
-
-          {/* Row 2: Medium (Food) + Mega (Route) */}
-          <BentoCard feature={features[3]} index={3}>
-            <FoodGrid />
-          </BentoCard>
-          <BentoCard feature={features[4]} index={4}>
-            <RouteMap />
-          </BentoCard>
-
-          {/* Row 3: Timing & Gems */}
-          <BentoCard feature={features[5]} index={5} />
-          <BentoCard feature={features[2]} index={2} />
-
-          {/* Row 4: Support & Insights */}
-          <BentoCard feature={features[6]} index={6} />
-          <BentoCard feature={features[7]} index={7} />
-
-          {/* Row 5: Hero Products */}
-          <BentoCard feature={features[8]} index={8}>
-            <HeroProductsPreview />
-          </BentoCard>
-
+        {/* Horizontal Slider Wrapper */}
+        <div 
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          style={{ width: "100%", overflow: "hidden", position: "relative" }}
+        >
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.7, duration: 0.8 }}
-            className="bento-card full cta-card"
+            animate={{ x: `calc(-${currentIndex} * (100% + 24px) / ${cardsPerPage})` }}
+            transition={{ type: "spring", stiffness: 150, damping: 22 }}
             style={{
-              background: "linear-gradient(135deg, #141420, #0F0F1A)",
-              borderRadius: "28px",
-              display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "flex-start",
-              textAlign: "left", gridColumn: "span 3",
-              border: "1px solid rgba(255,255,255,0.06)",
-              boxShadow: "0 20px 80px rgba(0,0,0,0.2)",
-              position: "relative",
-              overflow: "hidden",
+              display: "flex",
+              gap: "24px",
+              alignItems: "stretch",
             }}
           >
-            {/* Background Image Overlay */}
-            <div style={{
-              position: "absolute", inset: 0,
-              backgroundImage: "url(/virasat-haveli.jpg)",
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              opacity: 0.8,
-              mixBlendMode: "overlay",
-              pointerEvents: "none",
-              zIndex: 0,
-            }} />
-
-            {/* Text protection overlay for dark final CTA */}
-            <div style={{
-              position: "absolute", inset: 0,
-              background: "linear-gradient(to bottom, rgba(244, 4, 140, 0.6) 0%, rgba(15,15,26,0.9) 100%)",
-              pointerEvents: "none",
-              zIndex: 0,
-            }} />
-
-            <div style={{ position: "relative", zIndex: 1 }}>
-              <div style={{ fontSize: "18px", fontWeight: 900, color: "rgba(255, 255, 255, 1)", marginBottom: "8px", textTransform: "uppercase", letterSpacing: "0.05em" }}>Local Guru</div>
-              <div style={{ fontSize: "14px", fontWeight: 800, color: "white", lineHeight: 1.2, letterSpacing: "-0.02em" }}>
-                Experience Amritsar through the eyes of locals.<br></br>
-                Unlock exclusive recommendations, hidden gems, authentic food trails, cultural experiences, best timings, parking, hygienic washrooms, photo spots, and smart journey guidance curated by Local Gurus.
-              </div>
-            </div>
-            <motion.a
-              href="#pricing"
-              className="btn-primary"
-              style={{ padding: "14px 32px", fontSize: "15px", position: "relative", zIndex: 1, marginTop: "24px" }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Get Full Access Now <ArrowRight size={16} />
-            </motion.a>
+            {sliderFeatures.map((item, i) => (
+              <BentoCard key={i} feature={item.feature} index={i} cardsPerPage={cardsPerPage}>
+                {item.child}
+              </BentoCard>
+            ))}
           </motion.div>
         </div>
+
+        {/* Pagination Indicator Dots */}
+        <div style={{ display: "flex", justifyContent: "center", gap: "8px", marginTop: "32px" }}>
+          {Array.from({ length: maxIndex + 1 }).map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrentIndex(i)}
+              style={{
+                width: i === currentIndex ? "24px" : "8px",
+                height: "8px",
+                borderRadius: "4px",
+                background: i === currentIndex ? "#3B82F6" : "rgba(0,0,0,0.15)",
+                border: "none",
+                cursor: "pointer",
+                transition: "all 0.3s ease",
+              }}
+            />
+          ))}
+        </div>
+
+        {/* Full-width Call To Action Card below the Slider */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2, duration: 0.8 }}
+          whileHover={{ borderColor: "rgba(245, 158, 11, 0.25)", boxShadow: "0 25px 90px rgba(245, 158, 11, 0.05)" }}
+          className="cta-card"
+          style={{
+            background: "linear-gradient(135deg, #0A0A16 0%, #111126 100%)",
+            borderRadius: "28px",
+            display: "flex",
+            flexDirection: windowWidth >= 768 ? "row" : "column",
+            justifyContent: "space-between",
+            alignItems: windowWidth >= 768 ? "center" : "flex-start",
+            textAlign: "left",
+            width: "100%",
+            marginTop: "60px",
+            border: "1px solid rgba(255,255,255,0.06)",
+            boxShadow: "0 20px 80px rgba(0,0,0,0.25)",
+            position: "relative",
+            overflow: "hidden",
+            padding: windowWidth >= 768 ? "48px" : "32px",
+            gap: "32px",
+            transition: "border-color 0.3s ease, box-shadow 0.3s ease",
+          }}
+        >
+          {/* Background Image Overlay */}
+          <div style={{
+            position: "absolute", inset: 0,
+            backgroundImage: "url(/heritage-walk.jpg)",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            opacity: 0.28,
+            pointerEvents: "none",
+            zIndex: 0,
+          }} />
+
+          {/* Golden/Amber Radial Ambient Glow */}
+          <div style={{
+            position: "absolute",
+            bottom: "-100px",
+            right: "-100px",
+            width: "350px",
+            height: "350px",
+            borderRadius: "50%",
+            background: "radial-gradient(circle, rgba(245, 158, 11, 0.12) 0%, transparent 70%)",
+            filter: "blur(60px)",
+            pointerEvents: "none",
+            zIndex: 0,
+          }} />
+
+          {/* Indigo Radial Ambient Glow */}
+          <div style={{
+            position: "absolute",
+            top: "-100px",
+            left: "-100px",
+            width: "300px",
+            height: "300px",
+            borderRadius: "50%",
+            background: "radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%)",
+            filter: "blur(50px)",
+            pointerEvents: "none",
+            zIndex: 0,
+          }} />
+
+          <div style={{ position: "relative", zIndex: 1, flex: "1 1 auto", maxWidth: "800px" }}>
+            <div style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "6px",
+              padding: "6px 14px",
+              borderRadius: "100px",
+              background: "rgba(245, 158, 11, 0.1)",
+              border: "1px solid rgba(245, 158, 11, 0.3)",
+              color: "#F59E0B",
+              fontSize: "12px",
+              fontWeight: 800,
+              letterSpacing: "0.05em",
+              textTransform: "uppercase",
+              marginBottom: "16px",
+            }}>
+              <Users size={12} /> Local Guru
+            </div>
+            
+            <h3 style={{ fontSize: "22px", fontWeight: 800, color: "white", lineHeight: 1.4, letterSpacing: "-0.01em" }}>
+              Experience Amritsar through the eyes of locals.
+            </h3>
+            <p style={{ fontSize: "14px", color: "rgba(255, 255, 255, 0.65)", fontWeight: 500, lineHeight: 1.6, marginTop: "8px", marginBottom: 0 }}>
+              Unlock exclusive recommendations, hidden gems, authentic food trails, cultural experiences, best timings, parking, hygienic washrooms, photo spots, and smart journey guidance curated by Local Gurus.
+            </p>
+          </div>
+          <motion.a
+            href="#simulator"
+            className="btn-primary"
+            style={{ 
+              padding: "16px 36px", 
+              fontSize: "15px", 
+              position: "relative", 
+              zIndex: 1, 
+              flexShrink: 0,
+              background: "#F59E0B",
+              borderColor: "#F59E0B",
+              color: "#0F0F1A",
+              fontWeight: 800,
+              boxShadow: "0 10px 30px rgba(245, 158, 11, 0.2)",
+            }}
+            whileHover={{ scale: 1.05, boxShadow: "0 15px 35px rgba(245, 158, 11, 0.35)" }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Get Full Access Now <ArrowRight size={16} />
+          </motion.a>
+        </motion.div>
       </div>
 
       <style>{`
         .bento-card {
-          padding: 32px;
-          gap: 24px;
-          min-height: 240px;
+          padding: 24px;
+          min-height: 420px;
           transition: all 0.3s ease;
         }
-        .bento-card.mega, .bento-card.full {
-          padding: 32px;
-          gap: 40px;
-          min-height: 280px;
-        }
-        .bento-card.medium, .bento-card.small {
-          padding: 24px;
-          gap: 20px;
-          min-height: 240px;
-        }
-        @media (max-width: 900px) {
-          .bento-container { grid-template-columns: 1fr !important; }
-          .bento-container > * { grid-column: span 1 !important; flex-direction: column !important; }
+        @media (max-width: 940px) {
           .bento-card {
-            padding: 24px !important;
-            gap: 24px !important;
-            min-height: auto !important;
-          }
-          .bento-card.mega, .bento-card.full, .bento-card.medium, .bento-card.small {
-            padding: 24px !important;
-            gap: 24px !important;
-            min-height: auto !important;
-          }
-          .bento-card-gradient {
-            background: linear-gradient(to bottom, rgba(11,11,20,0.95) 0%, rgba(11,11,20,0.7) 50%, rgba(11,11,20,0.15) 100%) !important;
+            padding: 20px !important;
+            min-height: 380px !important;
           }
         }
       `}</style>

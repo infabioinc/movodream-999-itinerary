@@ -110,7 +110,7 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.6 }}
           >
             <motion.a
-              href="#trust"
+              href="#simulator"
               className="btn-primary btn-cta-hero"
               style={{ fontWeight: 900, borderRadius: "20px" }}
               whileHover={{ scale: 1.05 }}
@@ -142,10 +142,10 @@ export default function Hero() {
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
-          style={{ position: "absolute", bottom: "40px", left: "50%", x: "-50%", display: "flex", flexDirection: "column", alignItems: "center", gap: "8px", opacity: 0.3 }}
+          style={{ position: "absolute", bottom: "40px", left: "50%", x: "-50%", display: "flex", flexDirection: "column", alignItems: "center", gap: "8px", opacity: 0.9 }}
         >
-          <div style={{ width: "1px", height: "60px", background: "linear-gradient(transparent, white)" }} />
-          <span style={{ fontSize: "10px", fontWeight: 800, color: "white", letterSpacing: "0.2em" }}>SCROLL</span>
+          <div style={{ width: "1px", height: "60px", background: "linear-gradient(transparent, rgba(255,255,255,0.7))" }} />
+          <span style={{ fontSize: "11px", fontWeight: 900, color: "#FFFFFF", letterSpacing: "0.2em" }}>SCROLL</span>
         </motion.div>
       </div>
     </section>

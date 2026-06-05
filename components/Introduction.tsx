@@ -184,7 +184,7 @@ export default function Introduction() {
             </div>
 
             <motion.a
-              href="#features"
+              href="#simulator"
               className="btn-primary"
               style={{ padding: "14px 28px", fontSize: "14px", fontWeight: 700, borderRadius: "14px" }}
               initial={{ opacity: 0 }}

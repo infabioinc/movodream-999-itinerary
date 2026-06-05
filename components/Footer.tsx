@@ -5,10 +5,9 @@ import { ArrowRight } from "lucide-react";
 import { useMagneticEffect } from "@/components/MouseGlow";
 
 const footerLinks = [
-   { label: "Privacy Policy", href: "#" },
-   { label: "Terms of Service", href: "#" },
-   { label: "Contact", href: "#" },
-   { label: "Support", href: "#" },
+   { label: "Privacy Policy", href: "https://movodream.com/privacy-policy/" },
+   { label: "Terms of Service", href: "https://movodream.com/terms/" },
+   { label: "Support", href: "https://movodream.com/support/" },
 ];
 
 export default function Footer() {
@@ -52,7 +51,7 @@ export default function Footer() {
                <div ref={magneticCTA as React.RefObject<HTMLDivElement>}>
                   <h4 style={{ fontSize: "14px", fontWeight: 800, color: "white", letterSpacing: "0.1em", marginBottom: "24px" }}>GET STARTED</h4>
                   <motion.a
-                     href="#cta"
+                     href="#simulator"
                      className="btn-primary"
                      style={{ padding: "14px 28px", fontSize: "14px", fontWeight: 900, borderRadius: "14px" }}
                      whileHover={{ scale: 1.05 }}
@@ -125,6 +124,5 @@ export default function Footer() {
 const navLinksGroup1 = [
    { label: "Overview", href: "#overview" },
    { label: "Intelligence", href: "#features" },
-   { label: "Personas", href: "#personas" },
    { label: "Pricing", href: "#pricing" },
 ];

@@ -1,10 +1,10 @@
 "use client";
 
 import { motion, useInView, AnimatePresence } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import {
   Sparkles, Sliders, Compass, FileText, Heart, Users,
-  User, UsersRound, MapPin, Check, RefreshCw, Flag, BookOpen, Utensils
+  User, UsersRound, MapPin, Check, RefreshCw, Flag, BookOpen, Utensils, ShoppingBag
 } from "lucide-react";
 import { useTiltEffect } from "@/components/MouseGlow";
 
@@ -28,7 +28,7 @@ const steps = [
     title: "Get Offline PDF Itinerary",
     icon: FileText,
     color: "#22C55E",
-    desc: "Download a beautifully formatted, offline-ready PDF itinerary containing curated recommendations, custom routes, time-slot optimization, food guides, and on-ground safety tips."
+    desc: "Download a beautifully formatted, offline-ready PDF itinerary containing curated recommendations, custom routes, time-slot optimization, food guides, and on-ground safety tips. On ground optimisation and if you wanna upgrade it on day 2 - it can be upgraded one more time."
   }
 ];
 
@@ -40,10 +40,11 @@ const mockPersonas = [
 ];
 
 const mockInterests = [
-  { id: "religious", title: "Religious", icon: Sparkles, color: "#F59E0B", desc: "Focuses on morning path, serenity at Harmandir Sahib, and historic Gurudwaras." },
-  { id: "patriotic", title: "Patriotic", icon: Flag, color: "#10B981", desc: "Includes Wagah Border ceremony, Jallianwala Bagh, Jallianwala museum." },
-  { id: "food", title: "Food Explorer", icon: Utensils, color: "#EF4444", desc: "Legendary Kulchas, sweet lassis, Jalebis, and old city street-food runs." },
-  { id: "heritage", title: "Heritage Lover", icon: BookOpen, color: "#8B5CF6", desc: "Gobindgarh Fort, historic gates, old town architecture walks." }
+  { id: "spiritual", title: "Spiritual & Heritage", icon: Sparkles, color: "#F59E0B", desc: "Serenity at Golden Temple & historic Gurudwaras." },
+  { id: "cuisine", title: "Fine Local Cuisine", icon: Utensils, color: "#EF4444", desc: "Legendary street food and traditional local dining runs." },
+  { id: "shopping", title: "Shopping & Markets", icon: ShoppingBag, color: "#A855F7", desc: "Phulkari, Juttis, local handicrafts & bustling bazaars." },
+  { id: "gems", title: "Hidden Local Gems", icon: Compass, color: "#10B981", desc: "Offbeat spots and secret corners known only to locals." },
+  { id: "cultural", title: "Cultural Experiences", icon: Flag, color: "#3B82F6", desc: "Wagah border, heritage walks, folk performances." }
 ];
 
 function StepCard({ s, index }: { s: typeof steps[0]; index: number }) {
@@ -84,7 +85,7 @@ function StepCard({ s, index }: { s: typeof steps[0]; index: number }) {
 
       {/* Number Badge */}
       <div style={{
-        fontSize: "64px", fontWeight: 950, color: `${s.color}12`,
+        fontSize: "64px", fontWeight: 950, color: `${s.color}2e`,
         position: "absolute", top: "10px", right: "20px",
         userSelect: "none", fontFamily: "monospace", letterSpacing: "-0.05em",
         zIndex: 0
@@ -123,25 +124,52 @@ function StepCard({ s, index }: { s: typeof steps[0]; index: number }) {
 export default function HowItWorks() {
   const titleRef = useRef<HTMLDivElement>(null);
   const titleInView = useInView(titleRef, { once: true });
-
-  // Simulator States
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   const [simStep, setSimStep] = useState<"setup" | "process" | "dashboard">("setup");
   const [selectedPersona, setSelectedPersona] = useState("couple");
-  const [selectedInterest, setSelectedInterest] = useState("religious");
-  const [arrivalDate, setArrivalDate] = useState("Today");
-  const [startTime, setStartTime] = useState("09:00 AM (Morning)");
+  const [selectedInterests, setSelectedInterests] = useState<string[]>(["spiritual"]);
+  const [arrivalDate, setArrivalDate] = useState(() => {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd}`;
+  });
+  const [startTime, setStartTime] = useState("Morning");
   const [budgetRange, setBudgetRange] = useState("Moderate (₹₹)");
   const [foodPref, setFoodPref] = useState("Explorer (All)");
   const [isProcessing, setIsProcessing] = useState(false);
 
-const [showLeadModal, setShowLeadModal] = useState(false);
+  const [showLeadModal, setShowLeadModal] = useState(false);
 
-const [leadData, setLeadData] = useState({ name: "", email: "", phone: "" });
+  const [leadData, setLeadData] = useState({ name: "", email: "", phone: "+91 " });
 
   const [leadError, setLeadError] = useState<string | null>(null);
 
   const activePersonaObj = mockPersonas.find(p => p.id === selectedPersona) || mockPersonas[0];
-  const activeInterestObj = mockInterests.find(i => i.id === selectedInterest) || mockInterests[0];
+  const activeInterestsObjs = mockInterests.filter(i => selectedInterests.includes(i.id));
+
+  const handleInterestToggle = (id: string) => {
+    setSelectedInterests((prev) => {
+      if (prev.includes(id)) {
+        const next = prev.filter(item => item !== id);
+        return next.length > 0 ? next : prev; // keep at least 1 selected
+      } else {
+        if (prev.length < 3) {
+          return [...prev, id];
+        }
+        return prev;
+      }
+    });
+  };
 
   const handleRunOptimization = () => {
     setIsProcessing(true);
@@ -152,60 +180,78 @@ const [leadData, setLeadData] = useState({ name: "", email: "", phone: "" });
   };
 
   const handleLeadSubmit = async () => {
-  setLeadError(null);
+    setLeadError(null);
 
-  if (!leadData.name.trim() || !leadData.email.trim() || !leadData.phone.trim()) {
-    setLeadError("Please fill in all fields before submitting.");
-    return;
-  }
-
-  const payload = {
-    ...leadData,
-    preferences: {
-      selectedPersona,
-      selectedInterest,
-      arrivalDate,
-      startTime,
-      budgetRange,
-      foodPref
-    }
-  };
-
-  try {
-    const res = await fetch("/api/leads", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    });
-
-    const json = await res.json();
-
-    if (!res.ok) {
-      console.error("[handleLeadSubmit] API error:", json);
-      setLeadError(json?.error || "Something went wrong. Please try again.");
+    if (!leadData.name.trim() || !leadData.email.trim() || !leadData.phone.trim()) {
+      setLeadError("Please fill in all fields before submitting.");
       return;
     }
 
-    setShowLeadModal(false);
-    handleRunOptimization();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(leadData.email.trim())) {
+      setLeadError("Please enter a valid email address.");
+      return;
+    }
 
-  } catch (error) {
-    console.error("[handleLeadSubmit] Network error:", error);
-    setLeadError("Network error — please check your connection and try again.");
-  }
-};
+    // Strip whitespaces/dashes and validate Indian mobile format
+    const rawPhone = leadData.phone.replace(/[\s-]/g, "");
+    const phoneRegex = /^\+91[6-9]\d{9}$/;
+    if (!phoneRegex.test(rawPhone)) {
+      setLeadError("Please enter a valid 10-digit mobile number with +91 prefix.");
+      return;
+    }
+
+    const payload = {
+      ...leadData,
+      preferences: {
+        selectedPersona,
+        selectedInterest: selectedInterests.join(", "),
+        selectedInterests,
+        arrivalDate,
+        startTime,
+        budgetRange,
+        foodPref
+      }
+    };
+
+    try {
+      const res = await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      const json = await res.json();
+
+      if (!res.ok) {
+        console.error("[handleLeadSubmit] API error:", json);
+        setLeadError(json?.error || "Something went wrong. Please try again.");
+        return;
+      }
+
+      setShowLeadModal(false);
+      handleRunOptimization();
+
+    } catch (error) {
+      console.error("[handleLeadSubmit] Network error:", error);
+      setLeadError("Network error — please check your connection and try again.");
+    }
+  };
 
 
-  const getSimulatedStop = (interest: string) => {
-    switch (interest) {
-      case "religious":
+  const getSimulatedStop = (interests: string[]) => {
+    const primary = interests[0] || "spiritual";
+    switch (primary) {
+      case "spiritual":
         return { title: "Golden Temple Morning Darshan", desc: "Optimal window for spiritual serenity." };
-      case "patriotic":
+      case "cultural":
         return { title: "Wagah Border Parade", desc: "Reserved tricolor gallery seating sync." };
-      case "food":
+      case "cuisine":
         return { title: "Bhai Kulwant Singh Kulcha", desc: "Butter-dripping authentic breakfast stop." };
-      case "heritage":
-        return { title: "Gobindgarh Fort Show", desc: "Laser show & ancient armory history walk." };
+      case "shopping":
+        return { title: "Heritage Bazar Walk", desc: "Traditional Phulkari and Jutti craft exploration." };
+      case "gems":
+        return { title: "Pul Kanjari Historic Ruins", desc: "Unexplored peace corner and history site." };
       default:
         return { title: "Harmandir Sahib Gate", desc: "Local advisor routes." };
     }
@@ -318,8 +364,10 @@ const [leadData, setLeadData] = useState({ name: "", email: "", phone: "" });
             boxShadow: "0 40px 100px rgba(0,0,0,0.3)",
             padding: "50px",
             position: "relative",
-            overflow: "hidden"
+            overflow: "hidden",
+            scrollMarginTop: "100px"
           }}
+          id="simulator"
           className="simulator-container"
         >
           <div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at 10% 10%, rgba(236,72,153,0.05), transparent 60%)" }} />
@@ -411,39 +459,44 @@ const [leadData, setLeadData] = useState({ name: "", email: "", phone: "" });
 
                     {/* Select Interest Row */}
                     <div style={{ marginBottom: "24px" }}>
-                      <label style={{ display: "block", fontSize: "12px", fontWeight: 800, color: "rgba(255,255,255,0.6)", marginBottom: "8px", textTransform: "uppercase", letterSpacing: "0.05em" }}>2. Focus Interest</label>
-                      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "8px" }}>
+                      <label style={{ display: "block", fontSize: "12px", fontWeight: 800, color: "rgba(255,255,255,0.6)", marginBottom: "8px", textTransform: "uppercase", letterSpacing: "0.05em" }}>2. Focus Interests (Select up to 3)</label>
+                      <div style={{
+                        display: "grid",
+                        gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(5, 1fr)",
+                        gap: "8px"
+                      }}>
                         {mockInterests.map(i => {
                           const IIcon = i.icon;
-                          const isSelected = selectedInterest === i.id;
+                          const isSelected = selectedInterests.includes(i.id);
                           return (
                             <button
                               key={i.id}
-                              onClick={() => setSelectedInterest(i.id)}
+                              onClick={() => handleInterestToggle(i.id)}
                               style={{
                                 display: "flex",
                                 flexDirection: "column",
                                 alignItems: "center",
                                 justifyContent: "center",
                                 gap: "6px",
-                                padding: "10px 4px",
+                                padding: "10px 8px",
                                 borderRadius: "12px",
                                 border: "1px solid",
                                 borderColor: isSelected ? i.color : "rgba(255,255,255,0.06)",
                                 background: isSelected ? `${i.color}15` : "rgba(255,255,255,0.02)",
                                 color: "white",
                                 cursor: "pointer",
-                                transition: "all 0.3s ease"
+                                transition: "all 0.3s ease",
+                                gridColumn: isMobile && i.id === "cultural" ? "span 2" : "auto"
                               }}
                             >
                               <IIcon size={14} color={isSelected ? "white" : i.color} />
-                              <span style={{ fontSize: "10px", fontWeight: 700 }}>{i.title}</span>
+                              <span style={{ fontSize: "10px", fontWeight: 700, textAlign: "center" }}>{i.title}</span>
                             </button>
                           );
                         })}
                       </div>
                       <p style={{ fontSize: "11px", color: "rgba(255,255,255,0.4)", fontStyle: "italic", marginTop: "8px", minHeight: "16px" }}>
-                        &ldquo;{activeInterestObj.desc}&rdquo;
+                        &ldquo;{selectedInterests.map(id => mockInterests.find(i => i.id === id)?.desc).filter(Boolean).join(" • ")}&rdquo;
                       </p>
                     </div>
 
@@ -451,29 +504,29 @@ const [leadData, setLeadData] = useState({ name: "", email: "", phone: "" });
                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginBottom: "32px" }}>
                       <div>
                         <label style={{ display: "block", fontSize: "11px", fontWeight: 800, color: "rgba(255,255,255,0.5)", marginBottom: "6px", textTransform: "uppercase" }}>Arrival Date</label>
-                        <select
+                        <input
+                          type="date"
                           value={arrivalDate}
                           onChange={e => setArrivalDate(e.target.value)}
-                          style={selectStyle}
-                        >
-                          <option value="Today" style={{ background: "#141420" }}>Today</option>
-                          <option value="Tomorrow" style={{ background: "#141420" }}>Tomorrow</option>
-                          <option value="In 2 Days" style={{ background: "#141420" }}>In 2 Days</option>
-                          <option value="Next Week" style={{ background: "#141420" }}>Next Week</option>
-                        </select>
+                          style={{
+                            ...selectStyle,
+                            colorScheme: "dark",
+                            fontFamily: "inherit",
+                          }}
+                        />
                       </div>
 
                       <div>
-                        <label style={{ display: "block", fontSize: "11px", fontWeight: 800, color: "rgba(255,255,255,0.5)", marginBottom: "6px", textTransform: "uppercase" }}>Start Time</label>
+                        <label style={{ display: "block", fontSize: "11px", fontWeight: 800, color: "rgba(255,255,255,0.5)", marginBottom: "6px", textTransform: "uppercase" }}>Arrival Time</label>
                         <select
                           value={startTime}
                           onChange={e => setStartTime(e.target.value)}
                           style={selectStyle}
                         >
-                          <option value="05:00 AM (Early Morning)" style={{ background: "#141420" }}>05:00 AM (Early Morning)</option>
-                          <option value="09:00 AM (Morning)" style={{ background: "#141420" }}>09:00 AM (Morning)</option>
-                          <option value="02:00 PM (Afternoon)" style={{ background: "#141420" }}>02:00 PM (Afternoon)</option>
-                          <option value="06:00 PM (Evening)" style={{ background: "#141420" }}>06:00 PM (Evening)</option>
+                          <option value="Morning" style={{ background: "#141420" }}>Morning</option>
+                          <option value="Afternoon" style={{ background: "#141420" }}>Afternoon</option>
+                          <option value="Evening" style={{ background: "#141420" }}>Evening</option>
+                          <option value="Night" style={{ background: "#141420" }}>Night</option>
                         </select>
                       </div>
 
@@ -526,7 +579,7 @@ const [leadData, setLeadData] = useState({ name: "", email: "", phone: "" });
                       <div style={{ width: "20px", height: "20px", borderRadius: "50%", background: "#22C55E", display: "flex", alignItems: "center", justifyContent: "center" }}>
                         <Check size={12} color="white" />
                       </div>
-                      <span style={{ fontSize: "14px", color: "#22C55E", fontWeight: 700 }}>Itinerary Configuration Complete!</span>
+                      <span style={{ fontSize: "14px", color: "#22C55E", fontWeight: 700 }}>we have saved your details , our team will contact you shortly</span>
                     </div>
                     <p style={{ fontSize: "14px", color: "rgba(255,255,255,0.6)", marginBottom: "32px", lineHeight: 1.6 }}>
                       Your customized offline PDF itinerary has been generated with optimized routes and timing for your selected profile.
@@ -605,10 +658,10 @@ const [leadData, setLeadData] = useState({ name: "", email: "", phone: "" });
                             </div>
                           </div>
 
-                          <div style={{ background: "rgba(255,255,255,0.03)", borderRadius: "10px", padding: "8px", border: "1px solid rgba(255,255,255,0.06)" }}>
-                            <div style={{ fontSize: "8px", color: "rgba(255,255,255,0.4)", marginBottom: "2px" }}>INTEREST</div>
-                            <div style={{ fontSize: "10px", fontWeight: 800, color: activeInterestObj.color }}>
-                              {activeInterestObj.title}
+                          <div style={{ background: "rgba(255,255,255,0.03)", borderRadius: "10px", padding: "8px", border: "1px solid rgba(255,255,255,0.06)", overflow: "hidden" }}>
+                            <div style={{ fontSize: "8px", color: "rgba(255,255,255,0.4)", marginBottom: "2px" }}>INTERESTS</div>
+                            <div style={{ fontSize: "9px", fontWeight: 800, color: activeInterestsObjs[0]?.color || "#F59E0B", whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden" }}>
+                              {activeInterestsObjs.map(i => i.title.split(" ")[0]).join(", ")}
                             </div>
                           </div>
                         </div>
@@ -616,11 +669,13 @@ const [leadData, setLeadData] = useState({ name: "", email: "", phone: "" });
                         <div style={{ background: "rgba(255,255,255,0.03)", borderRadius: "10px", padding: "8px 10px", border: "1px solid rgba(255,255,255,0.06)", display: "flex", flexDirection: "column", gap: "4px" }}>
                           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                             <span style={{ fontSize: "8px", color: "rgba(255,255,255,0.4)" }}>ARRIVAL</span>
-                            <span style={{ fontSize: "9px", fontWeight: 700, color: "white" }}>{arrivalDate}</span>
+                            <span style={{ fontSize: "9px", fontWeight: 700, color: "white" }}>
+                              {isNaN(Date.parse(arrivalDate)) ? arrivalDate : new Date(arrivalDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                            </span>
                           </div>
                           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                            <span style={{ fontSize: "8px", color: "rgba(255,255,255,0.4)" }}>START TIME</span>
-                            <span style={{ fontSize: "9px", fontWeight: 700, color: "white" }}>{startTime.split(" ")[0]}</span>
+                            <span style={{ fontSize: "8px", color: "rgba(255,255,255,0.4)" }}>ARRIVAL TIME</span>
+                            <span style={{ fontSize: "9px", fontWeight: 700, color: "white" }}>{startTime}</span>
                           </div>
                           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                             <span style={{ fontSize: "8px", color: "rgba(255,255,255,0.4)" }}>BUDGET</span>
@@ -680,7 +735,9 @@ const [leadData, setLeadData] = useState({ name: "", email: "", phone: "" });
                         {/* Profile Setup details pill */}
                         <div style={{ display: "flex", gap: "4px", flexWrap: "wrap" }}>
                           <span style={{ fontSize: "7px", color: activePersonaObj.color, background: `${activePersonaObj.color}15`, padding: "2px 6px", borderRadius: "4px", fontWeight: 800 }}>{activePersonaObj.title.toUpperCase()}</span>
-                          <span style={{ fontSize: "7px", color: activeInterestObj.color, background: `${activeInterestObj.color}15`, padding: "2px 6px", borderRadius: "4px", fontWeight: 800 }}>{activeInterestObj.title.toUpperCase()}</span>
+                          {activeInterestsObjs.map(i => (
+                            <span key={i.id} style={{ fontSize: "7px", color: i.color, background: `${i.color}15`, padding: "2px 6px", borderRadius: "4px", fontWeight: 800 }}>{i.title.toUpperCase()}</span>
+                          ))}
                           <span style={{ fontSize: "7px", color: "#E0E0E0", background: "rgba(255,255,255,0.06)", padding: "2px 6px", borderRadius: "4px", fontWeight: 800 }}>{budgetRange.split(" ")[0].toUpperCase()}</span>
                         </div>
 
@@ -697,9 +754,9 @@ const [leadData, setLeadData] = useState({ name: "", email: "", phone: "" });
                         {/* Next Stop Card */}
                         <div style={{ background: "linear-gradient(135deg, rgba(59,130,246,0.15) 0%, rgba(168,85,247,0.15) 100%)", borderRadius: "14px", padding: "12px", border: "1px solid rgba(255,255,255,0.1)" }}>
                           <div style={{ fontSize: "8px", fontWeight: 800, color: "#93C5FD", marginBottom: "4px" }}>CUSTOM INSIDER STOP</div>
-                          <div style={{ fontSize: "12px", fontWeight: 900, color: "white", marginBottom: "2px" }}>{getSimulatedStop(selectedInterest).title}</div>
+                          <div style={{ fontSize: "12px", fontWeight: 900, color: "white", marginBottom: "2px" }}>{getSimulatedStop(selectedInterests).title}</div>
                           <div style={{ display: "flex", alignItems: "center", gap: "4px", fontSize: "9px", color: "rgba(255,255,255,0.6)", fontWeight: 650 }}>
-                            <MapPin size={10} /> {getSimulatedStop(selectedInterest).desc}
+                            <MapPin size={10} /> {getSimulatedStop(selectedInterests).desc}
                           </div>
                         </div>
 
@@ -827,12 +884,22 @@ const [leadData, setLeadData] = useState({ name: "", email: "", phone: "" });
           type="tel"
           placeholder="WhatsApp Number"
           value={leadData.phone}
-          onChange={(e) =>
+          onChange={(e) => {
+            let val = e.target.value;
+            // Always ensure value starts with "+91"
+            if (!val.startsWith("+91")) {
+              const digits = val.replace(/\D/g, "");
+              if (digits.startsWith("91")) {
+                val = "+91 " + digits.slice(2);
+              } else {
+                val = "+91 " + digits;
+              }
+            }
             setLeadData({
               ...leadData,
-              phone: e.target.value
-            })
-          }
+              phone: val
+            });
+          }}
           style={{
             width: "100%",
             padding: "14px 16px",

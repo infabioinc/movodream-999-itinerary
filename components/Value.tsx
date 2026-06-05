@@ -205,7 +205,7 @@ export default function Value() {
 
             <div style={{ display: "flex", justifyContent: "center", gap: "20px", flexWrap: "wrap" }}>
               <motion.a
-                href="#cta"
+                href="#simulator"
                 className="btn-primary btn-cta-value"
                 style={{ fontWeight: 900 }}
                 whileHover={{ scale: 1.05 }}

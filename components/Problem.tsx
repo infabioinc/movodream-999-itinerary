@@ -19,7 +19,7 @@ const frustrations = [
     icon: Frown,
     title: "Generic Tourist Trap Routes",
     desc: "Google Maps sends everyone to the same 5 places. You miss multiple hidden gems.",
-    statLabel: "gems missed", color: "#F97316", accent: "rgba(249,115,22,0.12)",
+    stat: "5+", statLabel: "gems missed", color: "#F97316", accent: "rgba(249,115,22,0.12)",
     bgImage: "1.webp",
   },
   {
@@ -127,7 +127,7 @@ function TiltFrustrationCard({ item, index }: { item: typeof frustrations[0]; in
           </div>
           <div style={{ textAlign: "right" }}>
             <div style={{ fontSize: "30px", fontWeight: 900, color: item.color, lineHeight: 1 }}>{item.stat}</div>
-            <div style={{ fontSize: "10px", color: "rgba(255,255,255,0.4)", marginTop: "2px", fontWeight: 500 }}>{item.statLabel}</div>
+            <div style={{ fontSize: "10px", color: "white", marginTop: "2px", fontWeight: 700 }}>{item.statLabel}</div>
           </div>
         </div>
 
@@ -246,7 +246,7 @@ function HeroStatCard() {
         {[{ n: "2,487+", l: "Travelers saved" }].map(s => (
           <div key={s.l}>
             <div style={{ fontSize: "22px", fontWeight: 900, color: "white" }}>{s.n}</div>
-            <div style={{ fontSize: "11px", color: "rgba(255,255,255,0.4)", marginTop: "2px" }}>{s.l}</div>
+            <div style={{ fontSize: "11px", color: "white", marginTop: "2px", fontWeight: 700 }}>{s.l}</div>
           </div>
         ))}
       </div>
@@ -390,7 +390,7 @@ export default function Problem() {
                 Movodream changes all of this.
               </div>
             </div>
-            <a href="#introduction" style={{
+             <a href="#simulator" style={{
               display: "inline-flex", alignItems: "center", gap: "8px",
               background: "rgba(255,255,255,0.15)", backdropFilter: "blur(10px)",
               border: "1px solid rgba(255,255,255,0.25)", borderRadius: "100px",

@@ -59,7 +59,7 @@ export default function FinalCTA() {
           }}
         >
           <Zap size={14} color="#EC4899" className="live-dot" />
-          <span style={{ fontSize: "13px", fontWeight: 800, color: "white", letterSpacing: "0.1em" }}>LIMITED SLOTS FOR MAY</span>
+          <span style={{ fontSize: "13px", fontWeight: 800, color: "white", letterSpacing: "0.1em" }}>LIMITED TIME OFFER</span>
         </motion.div>
 
         <motion.h2

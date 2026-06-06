@@ -4,7 +4,7 @@ import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import {
   Sparkles, Sliders, Compass, FileText, Heart, Users,
-  User, UsersRound, MapPin, Check, RefreshCw, Flag, BookOpen, Utensils, ShoppingBag
+  User, UsersRound, MapPin, Check, RefreshCw, Flag, BookOpen, Utensils, ShoppingBag, Landmark
 } from "lucide-react";
 import { useTiltEffect } from "@/components/MouseGlow";
 
@@ -40,7 +40,8 @@ const mockPersonas = [
 ];
 
 const mockInterests = [
-  { id: "spiritual", title: "Spiritual & Heritage", icon: Sparkles, color: "#F59E0B", desc: "Serenity at Golden Temple & historic Gurudwaras." },
+  { id: "spiritual", title: "Spiritual", icon: Sparkles, color: "#F59E0B", desc: "Serenity at Golden Temple & historic Gurudwaras." },
+  { id: "heritage", title: "Heritage", icon: Landmark, color: "#EC4899", desc: "Explore forts, palaces, and historic monuments." },
   { id: "cuisine", title: "Fine Local Cuisine", icon: Utensils, color: "#EF4444", desc: "Legendary street food and traditional local dining runs." },
   { id: "shopping", title: "Shopping & Markets", icon: ShoppingBag, color: "#A855F7", desc: "Phulkari, Juttis, local handicrafts & bustling bazaars." },
   { id: "gems", title: "Hidden Local Gems", icon: Compass, color: "#10B981", desc: "Offbeat spots and secret corners known only to locals." },
@@ -244,6 +245,8 @@ export default function HowItWorks() {
     switch (primary) {
       case "spiritual":
         return { title: "Golden Temple Morning Darshan", desc: "Optimal window for spiritual serenity." };
+      case "heritage":
+        return { title: "Gobindgarh Fort Exploration", desc: "Sound & light show on Sikh empire history." };
       case "cultural":
         return { title: "Wagah Border Parade", desc: "Reserved tricolor gallery seating sync." };
       case "cuisine":
@@ -462,7 +465,7 @@ export default function HowItWorks() {
                       <label style={{ display: "block", fontSize: "12px", fontWeight: 800, color: "rgba(255,255,255,0.6)", marginBottom: "8px", textTransform: "uppercase", letterSpacing: "0.05em" }}>2. Focus Interests (Select up to 3)</label>
                       <div style={{
                         display: "grid",
-                        gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(5, 1fr)",
+                        gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(6, 1fr)",
                         gap: "8px"
                       }}>
                         {mockInterests.map(i => {
@@ -486,7 +489,7 @@ export default function HowItWorks() {
                                 color: "white",
                                 cursor: "pointer",
                                 transition: "all 0.3s ease",
-                                gridColumn: isMobile && i.id === "cultural" ? "span 2" : "auto"
+                                gridColumn: "auto"
                               }}
                             >
                               <IIcon size={14} color={isSelected ? "white" : i.color} />

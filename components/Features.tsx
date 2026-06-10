@@ -454,7 +454,7 @@ export default function Features() {
         </div>
 
         {/* Horizontal Slider Wrapper */}
-        <div 
+        <div
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
           style={{ width: "100%", overflow: "hidden", position: "relative" }}
@@ -579,7 +579,7 @@ export default function Features() {
             }}>
               <Users size={12} /> Local Guru
             </div>
-            
+
             <h3 style={{ fontSize: "22px", fontWeight: 800, color: "white", lineHeight: 1.4, letterSpacing: "-0.01em" }}>
               Experience Amritsar through the eyes of locals.
             </h3>
@@ -590,11 +590,11 @@ export default function Features() {
           <motion.a
             href="#simulator"
             className="btn-primary"
-            style={{ 
-              padding: "16px 36px", 
-              fontSize: "15px", 
-              position: "relative", 
-              zIndex: 1, 
+            style={{
+              padding: "16px 36px",
+              fontSize: "15px",
+              position: "relative",
+              zIndex: 1,
               flexShrink: 0,
               background: "#F59E0B",
               borderColor: "#F59E0B",
